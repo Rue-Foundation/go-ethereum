@@ -36,8 +36,52 @@ import (
 
 // Ethash proof-of-work protocol constants.
 var (
-	FrontierBlockReward    *big.Int = big.NewInt(5e+18) // Block reward in wei for successfully mining a block
-	ByzantiumBlockReward   *big.Int = big.NewInt(3e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	FrontierBlockReward    *big.Int = big.NewInt(250e+18) // Block reward in wei for successfully mining a block
+	HorizonBlockReward     *big.Int = big.NewInt(750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	HopeBlockReward        *big.Int = big.NewInt(2500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	SettlementBlockReward  *big.Int = big.NewInt(7500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	ByzantiumBlockReward   *big.Int = big.NewInt(28000e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	DunedinBlockReward     *big.Int = big.NewInt(22500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	BerlinBlockReward      *big.Int = big.NewInt(16750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	PekingBlockReward      *big.Int = big.NewInt(4500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	RennisanceBlockReward  *big.Int = big.NewInt(19500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	EdinburghBlockReward   *big.Int = big.NewInt(17850e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	KitchenerBlockReward   *big.Int = big.NewInt(14000e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	WaterlooBlockReward    *big.Int = big.NewInt(7500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	KyotoBlockReward       *big.Int = big.NewInt(3500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	InstanbulBlockReward   *big.Int = big.NewInt(2750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	NovaBlockReward        *big.Int = big.NewInt(1975e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	SolBlockReward         *big.Int = big.NewInt(19500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	ChenXingBlockReward    *big.Int = big.NewInt(13500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	TaihakuseiBlockReward  *big.Int = big.NewInt(6500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	SaoHaoBlockReward      *big.Int = big.NewInt(3750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	JupiterBlockReward     *big.Int = big.NewInt(2500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	PlutoBlockReward       *big.Int = big.NewInt(1250e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	MilkyWayBlockReward    *big.Int = big.NewInt(13500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	AndromedaBlockReward   *big.Int = big.NewInt(6750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	BodesBlockReward       *big.Int = big.NewInt(4000e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	HoagsBlockReward       *big.Int = big.NewInt(2750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	MayallsBlockReward     *big.Int = big.NewInt(1750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	ThalesBlockReward      *big.Int = big.NewInt(8500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	PythagorasBlockReward  *big.Int = big.NewInt(6750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	ParmenidesBlockReward  *big.Int = big.NewInt(3500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	ZenoBlockReward        *big.Int = big.NewInt(2500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	SocratesBlockReward    *big.Int = big.NewInt(1750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	PlatoBlockReward       *big.Int = big.NewInt(1500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	CiceroBlockReward      *big.Int = big.NewInt(1250e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	AquinasBlockReward     *big.Int = big.NewInt(750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	DescartesBlockReward   *big.Int = big.NewInt(500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	HobbesBlockReward      *big.Int = big.NewInt(7267e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	SpinozaBlockReward     *big.Int = big.NewInt(6000e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	LockeBlockReward       *big.Int = big.NewInt(4000e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	NewtonBlockReward      *big.Int = big.NewInt(3750e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	LeibnizBlockReward     *big.Int = big.NewInt(3250e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	VoltaireBlockReward    *big.Int = big.NewInt(2100e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	HumeBlockReward        *big.Int = big.NewInt(1500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	RousseauBlockReward    *big.Int = big.NewInt(1125e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	SmithBlockReward       *big.Int = big.NewInt(975e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	KantBlockReward        *big.Int = big.NewInt(775e+18) // Block reward in wei for successfully mining a block upward from Byzantium
+	ButerinBlockReward     *big.Int = big.NewInt(500e+18) // Block reward in wei for successfully mining a block upward from Byzantium
 	maxUncles                       = 2                 // Maximum number of uncles allowed in a single block
 	allowedFutureBlockTime          = 15 * time.Second  // Max time from current time allowed for blocks, before they're considered future blocks
 )
@@ -381,10 +425,10 @@ func calcDifficultyByzantium(time uint64, parent *types.Header) *big.Int {
 // the difficulty that a new block should have when created at time given the
 // parent block's time and difficulty. The calculation uses the Homestead rules.
 func calcDifficultyHomestead(time uint64, parent *types.Header) *big.Int {
-	// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2.mediawiki
+	// https://github.com/ethereum/EIPs/issues/100.
 	// algorithm:
 	// diff = (parent_diff +
-	//         (parent_diff / 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99))
+	//         (parent_diff / 2048 * max((2 if len(parent.uncles) else 1) - ((timestamp - parent.timestamp) // 9), -99))
 	//        ) + 2^(periodCount - 2)
 
 	bigTime := new(big.Int).SetUint64(time)
@@ -394,12 +438,15 @@ func calcDifficultyHomestead(time uint64, parent *types.Header) *big.Int {
 	x := new(big.Int)
 	y := new(big.Int)
 
-	// 1 - (block_timestamp - parent_timestamp) // 10
+	// (2 if len(parent_uncles) else 1) - (block_timestamp - parent_timestamp) // 9
 	x.Sub(bigTime, bigParentTime)
-	x.Div(x, big10)
-	x.Sub(big1, x)
-
-	// max(1 - (block_timestamp - parent_timestamp) // 10, -99)
+	x.Div(x, big9)
+	if parent.UncleHash == types.EmptyUncleHash {
+		x.Sub(big1, x)
+	} else {
+		x.Sub(big2, x)
+	}
+	// max((2 if len(parent_uncles) else 1) - (block_timestamp - parent_timestamp) // 9, -99)
 	if x.Cmp(bigMinus99) < 0 {
 		x.Set(bigMinus99)
 	}
@@ -412,8 +459,15 @@ func calcDifficultyHomestead(time uint64, parent *types.Header) *big.Int {
 	if x.Cmp(params.MinimumDifficulty) < 0 {
 		x.Set(params.MinimumDifficulty)
 	}
+	// calculate a fake block numer for the ice-age delay:
+	//   https://github.com/ethereum/EIPs/pull/669
+	//   fake_block_number = min(0, block.number - 3_000_000
+	fakeBlockNumber := new(big.Int)
+	if parent.Number.Cmp(big2999999) >= 0 {
+		fakeBlockNumber = fakeBlockNumber.Sub(parent.Number, big2999999) // Note, parent is 1 less than the actual block number
+	}
 	// for the exponential factor
-	periodCount := new(big.Int).Add(parent.Number, big1)
+	periodCount := fakeBlockNumber
 	periodCount.Div(periodCount, expDiffPeriod)
 
 	// the exponential factor, commonly referred to as "the bomb"
@@ -430,33 +484,59 @@ func calcDifficultyHomestead(time uint64, parent *types.Header) *big.Int {
 // difficulty that a new block should have when created at time given the parent
 // block's time and difficulty. The calculation uses the Frontier rules.
 func calcDifficultyFrontier(time uint64, parent *types.Header) *big.Int {
-	diff := new(big.Int)
-	adjust := new(big.Int).Div(parent.Difficulty, params.DifficultyBoundDivisor)
-	bigTime := new(big.Int)
-	bigParentTime := new(big.Int)
+// https://github.com/ethereum/EIPs/issues/100.
+	// algorithm:
+	// diff = (parent_diff +
+	//         (parent_diff / 2048 * max((2 if len(parent.uncles) else 1) - ((timestamp - parent.timestamp) // 9), -99))
+	//        ) + 2^(periodCount - 2)
 
-	bigTime.SetUint64(time)
-	bigParentTime.Set(parent.Time)
+	bigTime := new(big.Int).SetUint64(time)
+	bigParentTime := new(big.Int).Set(parent.Time)
 
-	if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
-		diff.Add(parent.Difficulty, adjust)
+	// holds intermediate values to make the algo easier to read & audit
+	x := new(big.Int)
+	y := new(big.Int)
+
+	// (2 if len(parent_uncles) else 1) - (block_timestamp - parent_timestamp) // 9
+	x.Sub(bigTime, bigParentTime)
+	x.Div(x, big9)
+	if parent.UncleHash == types.EmptyUncleHash {
+		x.Sub(big1, x)
 	} else {
-		diff.Sub(parent.Difficulty, adjust)
+		x.Sub(big2, x)
 	}
-	if diff.Cmp(params.MinimumDifficulty) < 0 {
-		diff.Set(params.MinimumDifficulty)
+	// max((2 if len(parent_uncles) else 1) - (block_timestamp - parent_timestamp) // 9, -99)
+	if x.Cmp(bigMinus99) < 0 {
+		x.Set(bigMinus99)
 	}
+	// (parent_diff + parent_diff // 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99))
+	y.Div(parent.Difficulty, params.DifficultyBoundDivisor)
+	x.Mul(y, x)
+	x.Add(parent.Difficulty, x)
 
-	periodCount := new(big.Int).Add(parent.Number, big1)
-	periodCount.Div(periodCount, expDiffPeriod)
-	if periodCount.Cmp(big1) > 0 {
-		// diff = diff + 2^(periodCount - 2)
-		expDiff := periodCount.Sub(periodCount, big2)
-		expDiff.Exp(big2, expDiff, nil)
-		diff.Add(diff, expDiff)
-		diff = math.BigMax(diff, params.MinimumDifficulty)
+	// minimum difficulty can ever be (before exponential factor)
+	if x.Cmp(params.MinimumDifficulty) < 0 {
+		x.Set(params.MinimumDifficulty)
 	}
-	return diff
+	// calculate a fake block numer for the ice-age delay:
+	//   https://github.com/ethereum/EIPs/pull/669
+	//   fake_block_number = min(0, block.number - 3_000_000
+	fakeBlockNumber := new(big.Int)
+	if parent.Number.Cmp(big2999999) >= 0 {
+		fakeBlockNumber = fakeBlockNumber.Sub(parent.Number, big2999999) // Note, parent is 1 less than the actual block number
+	}
+	// for the exponential factor
+	periodCount := fakeBlockNumber
+	periodCount.Div(periodCount, expDiffPeriod)
+
+	// the exponential factor, commonly referred to as "the bomb"
+	// diff = diff + 2^(periodCount - 2)
+	if periodCount.Cmp(big1) > 0 {
+		y.Sub(periodCount, big2)
+		y.Exp(big2, y, nil)
+		x.Add(x, y)
+	}
+	return x
 }
 
 // VerifySeal implements consensus.Engine, checking whether the given block satisfies
@@ -536,8 +616,138 @@ var (
 func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header *types.Header, uncles []*types.Header) {
 	// Select the correct block reward based on chain progression
 	blockReward := FrontierBlockReward
+	if config.IsHorizon(header.Number) {
+		blockReward = HorizonBlockReward
+	}
+	if config.IsHope(header.Number) {
+		blockReward = HopeBlockReward
+	}
+	if config.IsSettlement(header.Number) {
+		blockReward = SettlementBlockReward
+	}
 	if config.IsByzantium(header.Number) {
 		blockReward = ByzantiumBlockReward
+	}
+	if config.IsDunedin(header.Number) {
+		blockReward = DunedinBlockReward
+	}
+	if config.IsBerlin(header.Number) {
+		blockReward = BerlinBlockReward
+	}
+	if config.IsPeking(header.Number) {
+		blockReward = PekingBlockReward
+	}
+	if config.IsRennisanceheader.Number) {
+		blockReward = RennisanceBlockReward
+	}
+	if config.IsEdinburgh(header.Number) {
+		blockReward = EdinburghBlockReward
+	}
+	if config.IsKitchener(header.Number) {
+		blockReward = KitchenerBlockReward
+	}
+	if config.IsWaterloo(header.Number) {
+		blockReward = WaterlooBlockReward
+	}
+	if config.IsKyoto(header.Number) {
+		blockReward = KyotoBlockReward
+	}
+	if config.IsInstanbul(header.Number) {
+		blockReward = InstanbulBlockReward
+	}
+	if config.IsNova(header.Number) {
+		blockReward = NovaBlockReward
+	}
+	if config.IsSol(header.Number) {
+		blockReward = SolBlockReward
+	}
+	if config.IsChenXing(header.Number) {
+		blockReward = ChenXingBlockReward
+	}
+	if config.IsTaihakusei(header.Number) {
+		blockReward = TaihakuseiBlockReward
+	}
+	if config.IsSaoHao(header.Number) {
+		blockReward = SaoHaoBlockReward
+	}
+	if config.IsJupiter(header.Number) {
+		blockReward = JupiterBlockReward
+	}
+	if config.IsPluto(header.Number) {
+		blockReward = PlutoBlockReward
+	}
+	if config.IsMilkyWay(header.Number) {
+		blockReward = MilkyWayBlockReward
+	}
+	if config.IsAndromeda(header.Number) {
+		blockReward = AndromedaBlockReward
+	}
+	if config.IsBodes(header.Number) {
+		blockReward = BodesBlockReward
+	}
+	if config.IsHoags(header.Number) {
+		blockReward = HoagsBlockReward
+	}
+	if config.IsMayalls(header.Number) {
+		blockReward = MayallsBlockReward
+	}
+	if config.IsThales(header.Number) {
+		blockReward = ThalesBlockReward
+	}
+	if config.IsPythagoras(header.Number) {
+		blockReward = PythagorasBlockReward
+	}
+	if config.IsParmenides(header.Number) {
+		blockReward = ParmenidesBlockReward
+	}
+	if config.IsZeno(header.Number) {
+		blockReward = ZenoBlockReward
+	}
+	if config.IsSocrates(header.Number) {
+		blockReward = SocratesBlockReward
+	}
+	if config.IsPlato(header.Number) {
+		blockReward = PlatoBlockReward
+	}
+	if config.IsCicero(header.Number) {
+		blockReward = CiceroBlockReward
+	}
+	if config.IsAquinas(header.Number) {
+		blockReward = AquinasBlockReward
+	}
+	//Is Descartes? He thinks he is!
+	if config.IsDescartes(header.Number) {
+		blockReward = DescartesBlockReward
+	}
+	if config.IsHobbes(header.Number) {
+		blockReward = HobbesBlockReward
+	}
+	if config.IsLocke(header.Number) {
+		blockReward = LockeBlockReward
+	}
+	if config.IsNewton(header.Number) {
+		blockReward = NewtonBlockReward
+	}
+	if config.IsLeibniz(header.Number) {
+		blockReward = LeibnizBlockReward
+	}
+	if config.IsVoltaire(header.Number) {
+		blockReward = VoltaireBlockReward
+	}
+	if config.IsHume(header.Number) {
+		blockReward = HumeBlockReward
+	}
+	if config.IsRousseau(header.Number) {
+		blockReward = RousseauBlockReward
+	}
+	if config.IsSmith(header.Number) {
+		blockReward = SmithBlockReward
+	}
+	if config.IsKant(header.Number) {
+		blockReward = KantBlockReward
+	}
+	if config.IsButerin(header.Number) {
+		blockReward = ButerinBlockReward
 	}
 	// Accumulate the rewards for the miner and any included uncles
 	reward := new(big.Int).Set(blockReward)
