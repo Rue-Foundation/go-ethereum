@@ -29,9 +29,9 @@
 # - sign installer
 CRCCheck on
 
-!define GROUPNAME "Ethereum"
-!define APPNAME "Geth"
-!define DESCRIPTION "Official Go implementation of the Ethereum protocol"
+!define GROUPNAME "Rue"
+!define APPNAME "Grue"
+!define DESCRIPTION "Official Go implementation of the Rue protocol"
 !addplugindir .\
 
 # Require admin rights on NT6+ (When UAC is turned on)
