@@ -24,7 +24,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/Rue-Foundation/go-rue/common"
 )
 
 func TestPack(t *testing.T) {
