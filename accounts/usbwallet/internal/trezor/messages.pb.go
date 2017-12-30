@@ -70,17 +70,17 @@ const (
 	MessageType_MessageType_SignIdentity             MessageType = 53
 	MessageType_MessageType_SignedIdentity           MessageType = 54
 	MessageType_MessageType_GetFeatures              MessageType = 55
-	MessageType_MessageType_EthereumGetAddress       MessageType = 56
-	MessageType_MessageType_EthereumAddress          MessageType = 57
-	MessageType_MessageType_EthereumSignTx           MessageType = 58
-	MessageType_MessageType_EthereumTxRequest        MessageType = 59
-	MessageType_MessageType_EthereumTxAck            MessageType = 60
+	MessageType_MessageType_RueGetAddress       MessageType = 56
+	MessageType_MessageType_RueAddress          MessageType = 57
+	MessageType_MessageType_RueSignTx           MessageType = 58
+	MessageType_MessageType_RueTxRequest        MessageType = 59
+	MessageType_MessageType_RueTxAck            MessageType = 60
 	MessageType_MessageType_GetECDHSessionKey        MessageType = 61
 	MessageType_MessageType_ECDHSessionKey           MessageType = 62
 	MessageType_MessageType_SetU2FCounter            MessageType = 63
-	MessageType_MessageType_EthereumSignMessage      MessageType = 64
-	MessageType_MessageType_EthereumVerifyMessage    MessageType = 65
-	MessageType_MessageType_EthereumMessageSignature MessageType = 66
+	MessageType_MessageType_RueSignMessage      MessageType = 64
+	MessageType_MessageType_RueVerifyMessage    MessageType = 65
+	MessageType_MessageType_RueMessageSignature MessageType = 66
 	MessageType_MessageType_DebugLinkDecision        MessageType = 100
 	MessageType_MessageType_DebugLinkGetState        MessageType = 101
 	MessageType_MessageType_DebugLinkState           MessageType = 102
@@ -146,17 +146,17 @@ var MessageType_name = map[int32]string{
 	53:  "MessageType_SignIdentity",
 	54:  "MessageType_SignedIdentity",
 	55:  "MessageType_GetFeatures",
-	56:  "MessageType_EthereumGetAddress",
-	57:  "MessageType_EthereumAddress",
-	58:  "MessageType_EthereumSignTx",
-	59:  "MessageType_EthereumTxRequest",
-	60:  "MessageType_EthereumTxAck",
+	56:  "MessageType_RueGetAddress",
+	57:  "MessageType_RueAddress",
+	58:  "MessageType_RueSignTx",
+	59:  "MessageType_RueTxRequest",
+	60:  "MessageType_RueTxAck",
 	61:  "MessageType_GetECDHSessionKey",
 	62:  "MessageType_ECDHSessionKey",
 	63:  "MessageType_SetU2FCounter",
-	64:  "MessageType_EthereumSignMessage",
-	65:  "MessageType_EthereumVerifyMessage",
-	66:  "MessageType_EthereumMessageSignature",
+	64:  "MessageType_RueSignMessage",
+	65:  "MessageType_RueVerifyMessage",
+	66:  "MessageType_RueMessageSignature",
 	100: "MessageType_DebugLinkDecision",
 	101: "MessageType_DebugLinkGetState",
 	102: "MessageType_DebugLinkState",
@@ -221,17 +221,17 @@ var MessageType_value = map[string]int32{
 	"MessageType_SignIdentity":             53,
 	"MessageType_SignedIdentity":           54,
 	"MessageType_GetFeatures":              55,
-	"MessageType_EthereumGetAddress":       56,
-	"MessageType_EthereumAddress":          57,
-	"MessageType_EthereumSignTx":           58,
-	"MessageType_EthereumTxRequest":        59,
-	"MessageType_EthereumTxAck":            60,
+	"MessageType_RueGetAddress":       56,
+	"MessageType_RueAddress":          57,
+	"MessageType_RueSignTx":           58,
+	"MessageType_RueTxRequest":        59,
+	"MessageType_RueTxAck":            60,
 	"MessageType_GetECDHSessionKey":        61,
 	"MessageType_ECDHSessionKey":           62,
 	"MessageType_SetU2FCounter":            63,
-	"MessageType_EthereumSignMessage":      64,
-	"MessageType_EthereumVerifyMessage":    65,
-	"MessageType_EthereumMessageSignature": 66,
+	"MessageType_RueSignMessage":      64,
+	"MessageType_RueVerifyMessage":    65,
+	"MessageType_RueMessageSignature": 66,
 	"MessageType_DebugLinkDecision":        100,
 	"MessageType_DebugLinkGetState":        101,
 	"MessageType_DebugLinkState":           102,
@@ -954,29 +954,29 @@ func (m *GetAddress) GetScriptType() InputScriptType {
 }
 
 // *
-// Request: Ask device for Ethereum address corresponding to address_n path
+// Request: Ask device for Rue address corresponding to address_n path
 // @next PassphraseRequest
-// @next EthereumAddress
+// @next RueAddress
 // @next Failure
-type EthereumGetAddress struct {
+type RueGetAddress struct {
 	AddressN         []uint32 `protobuf:"varint,1,rep,name=address_n,json=addressN" json:"address_n,omitempty"`
 	ShowDisplay      *bool    `protobuf:"varint,2,opt,name=show_display,json=showDisplay" json:"show_display,omitempty"`
 	XXX_unrecognized []byte   `json:"-"`
 }
 
-func (m *EthereumGetAddress) Reset()                    { *m = EthereumGetAddress{} }
-func (m *EthereumGetAddress) String() string            { return proto.CompactTextString(m) }
-func (*EthereumGetAddress) ProtoMessage()               {}
-func (*EthereumGetAddress) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{22} }
+func (m *RueGetAddress) Reset()                    { *m = RueGetAddress{} }
+func (m *RueGetAddress) String() string            { return proto.CompactTextString(m) }
+func (*RueGetAddress) ProtoMessage()               {}
+func (*RueGetAddress) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{22} }
 
-func (m *EthereumGetAddress) GetAddressN() []uint32 {
+func (m *RueGetAddress) GetAddressN() []uint32 {
 	if m != nil {
 		return m.AddressN
 	}
 	return nil
 }
 
-func (m *EthereumGetAddress) GetShowDisplay() bool {
+func (m *RueGetAddress) GetShowDisplay() bool {
 	if m != nil && m.ShowDisplay != nil {
 		return *m.ShowDisplay
 	}
@@ -1004,19 +1004,19 @@ func (m *Address) GetAddress() string {
 }
 
 // *
-// Response: Contains an Ethereum address derived from device private seed
-// @prev EthereumGetAddress
-type EthereumAddress struct {
+// Response: Contains an Rue address derived from device private seed
+// @prev RueGetAddress
+type RueAddress struct {
 	Address          []byte `protobuf:"bytes,1,req,name=address" json:"address,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
 }
 
-func (m *EthereumAddress) Reset()                    { *m = EthereumAddress{} }
-func (m *EthereumAddress) String() string            { return proto.CompactTextString(m) }
-func (*EthereumAddress) ProtoMessage()               {}
-func (*EthereumAddress) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{24} }
+func (m *RueAddress) Reset()                    { *m = RueAddress{} }
+func (m *RueAddress) String() string            { return proto.CompactTextString(m) }
+func (*RueAddress) ProtoMessage()               {}
+func (*RueAddress) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{24} }
 
-func (m *EthereumAddress) GetAddress() []byte {
+func (m *RueAddress) GetAddress() []byte {
 	if m != nil {
 		return m.Address
 	}
@@ -2006,9 +2006,9 @@ func (m *TxAck) GetTx() *TransactionType {
 // Note: the first at most 1024 bytes of data MUST be transmitted as part of this message.
 // @next PassphraseRequest
 // @next PinMatrixRequest
-// @next EthereumTxRequest
+// @next RueTxRequest
 // @next Failure
-type EthereumSignTx struct {
+type RueSignTx struct {
 	AddressN         []uint32 `protobuf:"varint,1,rep,name=address_n,json=addressN" json:"address_n,omitempty"`
 	Nonce            []byte   `protobuf:"bytes,2,opt,name=nonce" json:"nonce,omitempty"`
 	GasPrice         []byte   `protobuf:"bytes,3,opt,name=gas_price,json=gasPrice" json:"gas_price,omitempty"`
@@ -2021,68 +2021,68 @@ type EthereumSignTx struct {
 	XXX_unrecognized []byte   `json:"-"`
 }
 
-func (m *EthereumSignTx) Reset()                    { *m = EthereumSignTx{} }
-func (m *EthereumSignTx) String() string            { return proto.CompactTextString(m) }
-func (*EthereumSignTx) ProtoMessage()               {}
-func (*EthereumSignTx) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{49} }
+func (m *RueSignTx) Reset()                    { *m = RueSignTx{} }
+func (m *RueSignTx) String() string            { return proto.CompactTextString(m) }
+func (*RueSignTx) ProtoMessage()               {}
+func (*RueSignTx) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{49} }
 
-func (m *EthereumSignTx) GetAddressN() []uint32 {
+func (m *RueSignTx) GetAddressN() []uint32 {
 	if m != nil {
 		return m.AddressN
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetNonce() []byte {
+func (m *RueSignTx) GetNonce() []byte {
 	if m != nil {
 		return m.Nonce
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetGasPrice() []byte {
+func (m *RueSignTx) GetGasPrice() []byte {
 	if m != nil {
 		return m.GasPrice
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetGasLimit() []byte {
+func (m *RueSignTx) GetGasLimit() []byte {
 	if m != nil {
 		return m.GasLimit
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetTo() []byte {
+func (m *RueSignTx) GetTo() []byte {
 	if m != nil {
 		return m.To
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetValue() []byte {
+func (m *RueSignTx) GetValue() []byte {
 	if m != nil {
 		return m.Value
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetDataInitialChunk() []byte {
+func (m *RueSignTx) GetDataInitialChunk() []byte {
 	if m != nil {
 		return m.DataInitialChunk
 	}
 	return nil
 }
 
-func (m *EthereumSignTx) GetDataLength() uint32 {
+func (m *RueSignTx) GetDataLength() uint32 {
 	if m != nil && m.DataLength != nil {
 		return *m.DataLength
 	}
 	return 0
 }
 
-func (m *EthereumSignTx) GetChainId() uint32 {
+func (m *RueSignTx) GetChainId() uint32 {
 	if m != nil && m.ChainId != nil {
 		return *m.ChainId
 	}
@@ -2093,9 +2093,9 @@ func (m *EthereumSignTx) GetChainId() uint32 {
 // Response: Device asks for more data from transaction payload, or returns the signature.
 // If data_length is set, device awaits that many more bytes of payload.
 // Otherwise, the signature_* fields contain the computed transaction signature. All three fields will be present.
-// @prev EthereumSignTx
-// @next EthereumTxAck
-type EthereumTxRequest struct {
+// @prev RueSignTx
+// @next RueTxAck
+type RueTxRequest struct {
 	DataLength       *uint32 `protobuf:"varint,1,opt,name=data_length,json=dataLength" json:"data_length,omitempty"`
 	SignatureV       *uint32 `protobuf:"varint,2,opt,name=signature_v,json=signatureV" json:"signature_v,omitempty"`
 	SignatureR       []byte  `protobuf:"bytes,3,opt,name=signature_r,json=signatureR" json:"signature_r,omitempty"`
@@ -2103,33 +2103,33 @@ type EthereumTxRequest struct {
 	XXX_unrecognized []byte  `json:"-"`
 }
 
-func (m *EthereumTxRequest) Reset()                    { *m = EthereumTxRequest{} }
-func (m *EthereumTxRequest) String() string            { return proto.CompactTextString(m) }
-func (*EthereumTxRequest) ProtoMessage()               {}
-func (*EthereumTxRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{50} }
+func (m *RueTxRequest) Reset()                    { *m = RueTxRequest{} }
+func (m *RueTxRequest) String() string            { return proto.CompactTextString(m) }
+func (*RueTxRequest) ProtoMessage()               {}
+func (*RueTxRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{50} }
 
-func (m *EthereumTxRequest) GetDataLength() uint32 {
+func (m *RueTxRequest) GetDataLength() uint32 {
 	if m != nil && m.DataLength != nil {
 		return *m.DataLength
 	}
 	return 0
 }
 
-func (m *EthereumTxRequest) GetSignatureV() uint32 {
+func (m *RueTxRequest) GetSignatureV() uint32 {
 	if m != nil && m.SignatureV != nil {
 		return *m.SignatureV
 	}
 	return 0
 }
 
-func (m *EthereumTxRequest) GetSignatureR() []byte {
+func (m *RueTxRequest) GetSignatureR() []byte {
 	if m != nil {
 		return m.SignatureR
 	}
 	return nil
 }
 
-func (m *EthereumTxRequest) GetSignatureS() []byte {
+func (m *RueTxRequest) GetSignatureS() []byte {
 	if m != nil {
 		return m.SignatureS
 	}
@@ -2138,19 +2138,19 @@ func (m *EthereumTxRequest) GetSignatureS() []byte {
 
 // *
 // Request: Transaction payload data.
-// @prev EthereumTxRequest
-// @next EthereumTxRequest
-type EthereumTxAck struct {
+// @prev RueTxRequest
+// @next RueTxRequest
+type RueTxAck struct {
 	DataChunk        []byte `protobuf:"bytes,1,opt,name=data_chunk,json=dataChunk" json:"data_chunk,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
 }
 
-func (m *EthereumTxAck) Reset()                    { *m = EthereumTxAck{} }
-func (m *EthereumTxAck) String() string            { return proto.CompactTextString(m) }
-func (*EthereumTxAck) ProtoMessage()               {}
-func (*EthereumTxAck) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{51} }
+func (m *RueTxAck) Reset()                    { *m = RueTxAck{} }
+func (m *RueTxAck) String() string            { return proto.CompactTextString(m) }
+func (*RueTxAck) ProtoMessage()               {}
+func (*RueTxAck) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{51} }
 
-func (m *EthereumTxAck) GetDataChunk() []byte {
+func (m *RueTxAck) GetDataChunk() []byte {
 	if m != nil {
 		return m.DataChunk
 	}
@@ -2159,27 +2159,27 @@ func (m *EthereumTxAck) GetDataChunk() []byte {
 
 // *
 // Request: Ask device to sign message
-// @next EthereumMessageSignature
+// @next RueMessageSignature
 // @next Failure
-type EthereumSignMessage struct {
+type RueSignMessage struct {
 	AddressN         []uint32 `protobuf:"varint,1,rep,name=address_n,json=addressN" json:"address_n,omitempty"`
 	Message          []byte   `protobuf:"bytes,2,req,name=message" json:"message,omitempty"`
 	XXX_unrecognized []byte   `json:"-"`
 }
 
-func (m *EthereumSignMessage) Reset()                    { *m = EthereumSignMessage{} }
-func (m *EthereumSignMessage) String() string            { return proto.CompactTextString(m) }
-func (*EthereumSignMessage) ProtoMessage()               {}
-func (*EthereumSignMessage) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{52} }
+func (m *RueSignMessage) Reset()                    { *m = RueSignMessage{} }
+func (m *RueSignMessage) String() string            { return proto.CompactTextString(m) }
+func (*RueSignMessage) ProtoMessage()               {}
+func (*RueSignMessage) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{52} }
 
-func (m *EthereumSignMessage) GetAddressN() []uint32 {
+func (m *RueSignMessage) GetAddressN() []uint32 {
 	if m != nil {
 		return m.AddressN
 	}
 	return nil
 }
 
-func (m *EthereumSignMessage) GetMessage() []byte {
+func (m *RueSignMessage) GetMessage() []byte {
 	if m != nil {
 		return m.Message
 	}
@@ -2190,33 +2190,33 @@ func (m *EthereumSignMessage) GetMessage() []byte {
 // Request: Ask device to verify message
 // @next Success
 // @next Failure
-type EthereumVerifyMessage struct {
+type RueVerifyMessage struct {
 	Address          []byte `protobuf:"bytes,1,opt,name=address" json:"address,omitempty"`
 	Signature        []byte `protobuf:"bytes,2,opt,name=signature" json:"signature,omitempty"`
 	Message          []byte `protobuf:"bytes,3,opt,name=message" json:"message,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
 }
 
-func (m *EthereumVerifyMessage) Reset()                    { *m = EthereumVerifyMessage{} }
-func (m *EthereumVerifyMessage) String() string            { return proto.CompactTextString(m) }
-func (*EthereumVerifyMessage) ProtoMessage()               {}
-func (*EthereumVerifyMessage) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{53} }
+func (m *RueVerifyMessage) Reset()                    { *m = RueVerifyMessage{} }
+func (m *RueVerifyMessage) String() string            { return proto.CompactTextString(m) }
+func (*RueVerifyMessage) ProtoMessage()               {}
+func (*RueVerifyMessage) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{53} }
 
-func (m *EthereumVerifyMessage) GetAddress() []byte {
+func (m *RueVerifyMessage) GetAddress() []byte {
 	if m != nil {
 		return m.Address
 	}
 	return nil
 }
 
-func (m *EthereumVerifyMessage) GetSignature() []byte {
+func (m *RueVerifyMessage) GetSignature() []byte {
 	if m != nil {
 		return m.Signature
 	}
 	return nil
 }
 
-func (m *EthereumVerifyMessage) GetMessage() []byte {
+func (m *RueVerifyMessage) GetMessage() []byte {
 	if m != nil {
 		return m.Message
 	}
@@ -2225,26 +2225,26 @@ func (m *EthereumVerifyMessage) GetMessage() []byte {
 
 // *
 // Response: Signed message
-// @prev EthereumSignMessage
-type EthereumMessageSignature struct {
+// @prev RueSignMessage
+type RueMessageSignature struct {
 	Address          []byte `protobuf:"bytes,1,opt,name=address" json:"address,omitempty"`
 	Signature        []byte `protobuf:"bytes,2,opt,name=signature" json:"signature,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
 }
 
-func (m *EthereumMessageSignature) Reset()                    { *m = EthereumMessageSignature{} }
-func (m *EthereumMessageSignature) String() string            { return proto.CompactTextString(m) }
-func (*EthereumMessageSignature) ProtoMessage()               {}
-func (*EthereumMessageSignature) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{54} }
+func (m *RueMessageSignature) Reset()                    { *m = RueMessageSignature{} }
+func (m *RueMessageSignature) String() string            { return proto.CompactTextString(m) }
+func (*RueMessageSignature) ProtoMessage()               {}
+func (*RueMessageSignature) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{54} }
 
-func (m *EthereumMessageSignature) GetAddress() []byte {
+func (m *RueMessageSignature) GetAddress() []byte {
 	if m != nil {
 		return m.Address
 	}
 	return nil
 }
 
-func (m *EthereumMessageSignature) GetSignature() []byte {
+func (m *RueMessageSignature) GetSignature() []byte {
 	if m != nil {
 		return m.Signature
 	}
@@ -2806,9 +2806,9 @@ func init() {
 	proto.RegisterType((*GetPublicKey)(nil), "GetPublicKey")
 	proto.RegisterType((*PublicKey)(nil), "PublicKey")
 	proto.RegisterType((*GetAddress)(nil), "GetAddress")
-	proto.RegisterType((*EthereumGetAddress)(nil), "EthereumGetAddress")
+	proto.RegisterType((*RueGetAddress)(nil), "RueGetAddress")
 	proto.RegisterType((*Address)(nil), "Address")
-	proto.RegisterType((*EthereumAddress)(nil), "EthereumAddress")
+	proto.RegisterType((*RueAddress)(nil), "RueAddress")
 	proto.RegisterType((*WipeDevice)(nil), "WipeDevice")
 	proto.RegisterType((*LoadDevice)(nil), "LoadDevice")
 	proto.RegisterType((*ResetDevice)(nil), "ResetDevice")
@@ -2833,12 +2833,12 @@ func init() {
 	proto.RegisterType((*SimpleSignTx)(nil), "SimpleSignTx")
 	proto.RegisterType((*TxRequest)(nil), "TxRequest")
 	proto.RegisterType((*TxAck)(nil), "TxAck")
-	proto.RegisterType((*EthereumSignTx)(nil), "EthereumSignTx")
-	proto.RegisterType((*EthereumTxRequest)(nil), "EthereumTxRequest")
-	proto.RegisterType((*EthereumTxAck)(nil), "EthereumTxAck")
-	proto.RegisterType((*EthereumSignMessage)(nil), "EthereumSignMessage")
-	proto.RegisterType((*EthereumVerifyMessage)(nil), "EthereumVerifyMessage")
-	proto.RegisterType((*EthereumMessageSignature)(nil), "EthereumMessageSignature")
+	proto.RegisterType((*RueSignTx)(nil), "RueSignTx")
+	proto.RegisterType((*RueTxRequest)(nil), "RueTxRequest")
+	proto.RegisterType((*RueTxAck)(nil), "RueTxAck")
+	proto.RegisterType((*RueSignMessage)(nil), "RueSignMessage")
+	proto.RegisterType((*RueVerifyMessage)(nil), "RueVerifyMessage")
+	proto.RegisterType((*RueMessageSignature)(nil), "RueMessageSignature")
 	proto.RegisterType((*SignIdentity)(nil), "SignIdentity")
 	proto.RegisterType((*SignedIdentity)(nil), "SignedIdentity")
 	proto.RegisterType((*GetECDHSessionKey)(nil), "GetECDHSessionKey")
