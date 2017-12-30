@@ -25,56 +25,66 @@ import (
 
 var (
 	MainnetGenesisHash = common.HexToHash("0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3") // Mainnet genesis hash to enforce below configs on
-	TestnetGenesisHash = common.HexToHash("0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d") // Testnet genesis hash to enforce below configs on
 )
 
 var (
 	// MainnetChainConfig is the chain parameters to run a node on the main network.
 	MainnetChainConfig = &ChainConfig{
 		ChainId:        big.NewInt(1),
-		HomesteadBlock: big.NewInt(1150000),
-		DAOForkBlock:   big.NewInt(1920000),
-		DAOForkSupport: true,
-		EIP150Block:    big.NewInt(2463000),
-		EIP150Hash:     common.HexToHash("0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0"),
-		EIP155Block:    big.NewInt(2675000),
-		EIP158Block:    big.NewInt(2675000),
-		ByzantiumBlock: big.NewInt(4370000),
-
-		Ethash: new(EthashConfig),
-	}
-
-	// TestnetChainConfig contains the chain parameters to run a node on the Ropsten test network.
-	TestnetChainConfig = &ChainConfig{
-		ChainId:        big.NewInt(3),
-		HomesteadBlock: big.NewInt(0),
-		DAOForkBlock:   nil,
-		DAOForkSupport: true,
+		FrontierBlock: big.NewInt(1),
+		HorizonBlock: big.NewInt(876600),
+		HopeBlock: big.NewInt(1534050),
+		SettlementBlock: big.NewInt(1972350),
+		ByzantiumBlock: big.NewInt(2848950),
+		DunedinBlock: big.NewInt(3506400),
+		BerlinBlock: big.NewInt(4383000),
+		PekingBlock: big.NewInt(5259600),
+		RennisanceBlock: big.NewInt(6355350),
+		EdinburghBlock: big.NewInt(6574500),
+		KitchenerBlock: big.NewInt(7012800),
+		WaterlooBlock: big.NewInt(7670250),
+		KyotoBlock: big.NewInt(8546850),
+		InstanbulBlock: big.NewInt(9642600),
+		NovaBlock: big.NewInt(10957500),
+		SolBlock: big.NewInt(13149000),
+		ChenXingBlock: big.NewInt(13368150),
+		TaihakuseiBlock: big.NewInt(13806450),
+		SaoHaoBlock: big.NewInt(14463900),
+		JupiterBlock: big.NewInt(15350500),
+		PlutoBlock: big.NewInt(16655400),
+		MilkyWayBlock: big.NewInt(21915000),
+		AndromedaBlock: big.NewInt(22134150),
+		BodesBlock: big.NewInt(22572450),
+		HoagsBlock: big.NewInt(23229900),
+		MayallsBlock: big.NewInt(24106500),
+		ThalesBlock: big.NewInt(26517150),
+		PythagorasBlock: big.NewInt(26955450),
+		ParmenidesBlock: big.NewInt(27832050),
+		ZenoBlock: big.NewInt(29146950),
+		SocratesBlock: big.NewInt(30900150),
+		PlatoBlock: big.NewInt(33091650),
+		CiceroBlock: big.NewInt(35721450),
+		AquinasBlock: big.NewInt(38351250),
+		DescartesBlock: big.NewInt(41200200),
+		HobbesBlock: big.NewInt(43830000),
+		SpinozaBlock: big.NewInt(44049150),
+		LockeBlock: big.NewInt(45144900),
+		NewtonBlock: big.NewInt(46021500),
+		LeibnizBlock: big.NewInt(46240650),
+		VoltaireBlock: big.NewInt(47117250),
+		HumeBlock: big.NewInt(47774700),
+		RousseauBlock: big.NewInt(49308750),
+		SmithBlock: big.NewInt(50185350),
+		KantBlock: big.NewInt(51061950),
+		ButerinBlock: big.NewInt(51938550),
+		DAOForkBlock:   big.NewInt(0),
+		DAOForkSupport: false,
 		EIP150Block:    big.NewInt(0),
-		EIP150Hash:     common.HexToHash("0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d"),
-		EIP155Block:    big.NewInt(10),
-		EIP158Block:    big.NewInt(10),
-		ByzantiumBlock: big.NewInt(1700000),
+		EIP150Hash:     common.HexToHash("0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0"),
+		EIP155Block:    big.NewInt(0),
+		EIP158Block:    big.NewInt(0),
 
 		Ethash: new(EthashConfig),
-	}
-
-	// RinkebyChainConfig contains the chain parameters to run a node on the Rinkeby test network.
-	RinkebyChainConfig = &ChainConfig{
-		ChainId:        big.NewInt(4),
-		HomesteadBlock: big.NewInt(1),
-		DAOForkBlock:   nil,
-		DAOForkSupport: true,
-		EIP150Block:    big.NewInt(2),
-		EIP150Hash:     common.HexToHash("0x9b095b36c15eaf13044373aef8ee0bd3a382a5abb92e402afa44b8249c3a90e9"),
-		EIP155Block:    big.NewInt(3),
-		EIP158Block:    big.NewInt(3),
-		ByzantiumBlock: big.NewInt(1035301),
-
-		Clique: &CliqueConfig{
-			Period: 15,
-			Epoch:  30000,
-		},
 	}
 
 	// AllEthashProtocolChanges contains every protocol change (EIPs) introduced
@@ -152,22 +162,200 @@ func (c *ChainConfig) String() string {
 	default:
 		engine = "unknown"
 	}
-	return fmt.Sprintf("{ChainID: %v Homestead: %v DAO: %v DAOSupport: %v EIP150: %v EIP155: %v EIP158: %v Byzantium: %v Engine: %v}",
+	return fmt.Sprintf("{ChainID: %v Frontier: %v Horizon: %v Hope: %v Settlement: %v Byzantium: %v Dunedin: %v Berlin: %v Peking: %v Rennisance: %v Edinburgh: %v Kitchener: %v Waterloo: %v Kyoto: %v Instanbul: %v Nova: %v Sol: %v ChenXing: %v Taihakusei: %v SaoHao: %v Jupiter: %v Pluto: %v MilkyWay: %v Andromeda: %v Bodes: %v Hoags: %v Mayalls: %v Thales: %v Pythagoras: %v Parmenides: %v Zeno: %v Socrates: %v Plato: %v Cicero: %v Aquinas: %v Descartes: %v Hobbes: %v Spinoza: %v Locke: %v Newton: %v Voltaire: %v Hume: %v Rousseau: %v Smith: %v Kant: %v Buterin: %v DAO: %v DAOSupport: %v EIP150: %v EIP155: %v EIP158: %v Engine: %v}",
 		c.ChainId,
-		c.HomesteadBlock,
+		c.FrontierBlock,	   
+		c.HorizonBlock,
+		c.HopeBlock,
+		c.SettlementBlock,
+		c.ByzantiumBlock,
+		c.DunedinBlock,
+		c.BerlinBlock,
+		c.PekingBlock,
+		c.RennisanceBlock,
+		c.EdinburghBlock,
+		c.KitchenerBlock,
+		c.WaterlooBlock,
+		c.KyotoBlock,
+		c.InstanbulBlock,
+		c.NovaBlock,
+		c.SolBlock,
+		c.ChenXingBlock,
+		c.TaihakuseiBlock,
+		c.SaoHaoBlock,
+		c.JupiterBlock,
+		c.PlutoBlock,
+		c.MilkyWayBlock,
+		c.AndromedaBlock,
+		c.BodesBlock,
+		c.HoagsBlock,
+		c.MayallsBlock,
+		c.ThalesBlock,
+		c.PythagorasBlock,
+		c.ParmenidesBlock,
+		c.ZenoBlock,
+		c.SocratesBlock,
+		c.PlatoBlock,
+		c.CiceroBlock,
+		c.AquinasBlock,
+		c.DescartesBlock,
+		c.SpinozaBlock,
+		c.LockeBlock,
+		c.NewtonBlock,
+		c.LeibnizBlock,
+		c.VoltaireBlock,
+		c.HumeBlock,
+		c.RousseauBlock,
+		c.SmithBlock,
+		c.KantBlock,
+		c.ButerinBlock,
 		c.DAOForkBlock,
 		c.DAOForkSupport,
 		c.EIP150Block,
 		c.EIP155Block,
 		c.EIP158Block,
-		c.ByzantiumBlock,
 		engine,
 	)
 }
 
 // IsHomestead returns whether num is either equal to the homestead block or greater.
-func (c *ChainConfig) IsHomestead(num *big.Int) bool {
-	return isForked(c.HomesteadBlock, num)
+func (c *ChainConfig) IsFrontier(num *big.Int) bool {
+	return isForked(c.FrontierBlock, num)
+}
+func (c *ChainConfig) IsHorizon(num *big.Int) bool {
+	return isForked(c.HorizonBlock, num)
+}
+func (c *ChainConfig) IsHope(num *big.Int) bool {
+	return isForked(c.HopeBlock, num)
+}
+func (c *ChainConfig) IsSettlement(num *big.Int) bool {
+	return isForked(c.SettlementBlock, num)
+}
+func (c *ChainConfig) IsByzantium(num *big.Int) bool {
+	return isForked(c.ByzantiumBlock, num)
+}
+func (c *ChainConfig) IsDunedin(num *big.Int) bool {
+	return isForked(c.DunedinBlock, num)
+}
+func (c *ChainConfig) IsBerlin(num *big.Int) bool {
+	return isForked(c.BerlinBlock, num)
+}
+func (c *ChainConfig) IsPeking(num *big.Int) bool {
+	return isForked(c.PekingBlock, num)
+}
+func (c *ChainConfig) IsRennisance(num *big.Int) bool {
+	return isForked(c.RennisanceBlock, num)
+}
+func (c *ChainConfig) IsEdinburgh(num *big.Int) bool {
+	return isForked(c.EdinburghBlock, num)
+}
+func (c *ChainConfig) IsKitchener(num *big.Int) bool {
+	return isForked(c.KitchenerBlock, num)
+}
+func (c *ChainConfig) IsWaterloo(num *big.Int) bool {
+	return isForked(c.WaterlooBlock, num)
+}
+func (c *ChainConfig) IsKyoto(num *big.Int) bool {
+	return isForked(c.KyotoBlock, num)
+}
+func (c *ChainConfig) IsInstanbul(num *big.Int) bool {
+	return isForked(c.InstanbulBlock, num)
+}
+func (c *ChainConfig) IsNova(num *big.Int) bool {
+	return isForked(c.NovaBlock, num)
+}
+func (c *ChainConfig) IsSol(num *big.Int) bool {
+	return isForked(c.SolBlock, num)
+}
+func (c *ChainConfig) IsChenXing(num *big.Int) bool {
+	return isForked(c.ChenXingBlock, num)
+}
+func (c *ChainConfig) IsTaihakusei(num *big.Int) bool {
+	return isForked(c.TaihakuseiBlock, num)
+}
+func (c *ChainConfig) IsSaoHao(num *big.Int) bool {
+	return isForked(c.FrontierBlock, num)
+}
+func (c *ChainConfig) IsJupiter(num *big.Int) bool {
+	return isForked(c.JupiterBlock, num)
+}
+func (c *ChainConfig) IsPluto(num *big.Int) bool {
+	return isForked(c.PlutoBlock, num)
+}
+func (c *ChainConfig) IsMilkyWay(num *big.Int) bool {
+	return isForked(c.MilkyWayBlock, num)
+}
+func (c *ChainConfig) IsAndromeda(num *big.Int) bool {
+	return isForked(c.AndromedaBlock, num)
+}
+func (c *ChainConfig) IsFrontier(num *big.Int) bool {
+	return isForked(c.FrontierBlock, num)
+}
+func (c *ChainConfig) IsHoags(num *big.Int) bool {
+	return isForked(c.HoagsBlock, num)
+}
+func (c *ChainConfig) IsMayalls(num *big.Int) bool {
+	return isForked(c.MayallsBlock, num)
+}
+func (c *ChainConfig) IsThales(num *big.Int) bool {
+	return isForked(c.ThalesBlock, num)
+}
+func (c *ChainConfig) IsPythagoras(num *big.Int) bool {
+	return isForked(c.PythagorasBlock, num)
+}
+func (c *ChainConfig) IsParmenides(num *big.Int) bool {
+	return isForked(c.ParmenidesBlock, num)
+}
+func (c *ChainConfig) IsZeno(num *big.Int) bool {
+	return isForked(c.ZenoBlock, num)
+}
+func (c *ChainConfig) IsSocrates(num *big.Int) bool {
+	return isForked(c.SocratesBlock, num)
+}
+func (c *ChainConfig) IsPlato(num *big.Int) bool {
+	return isForked(c.PlatoBlock, num)
+}
+func (c *ChainConfig) IsCicero(num *big.Int) bool {
+	return isForked(c.CiceroBlock, num)
+}
+func (c *ChainConfig) IsAquinas(num *big.Int) bool {
+	return isForked(c.AquinasBlock, num)
+}
+func (c *ChainConfig) IsDescartes(num *big.Int) bool {
+	return isForked(c.DescartesBlock, num)
+}
+func (c *ChainConfig) IsHobbes(num *big.Int) bool {
+	return isForked(c.HobbesBlock, num)
+}
+func (c *ChainConfig) IsSpinoza(num *big.Int) bool {
+	return isForked(c.SpinozaBlock, num)
+}
+func (c *ChainConfig) IsLocke(num *big.Int) bool {
+	return isForked(c.LockeBlock, num)
+}
+func (c *ChainConfig) IsNewton(num *big.Int) bool {
+	return isForked(c.NewtonBlock, num)
+}
+func (c *ChainConfig) IsLeibniz(num *big.Int) bool {
+	return isForked(c.LeibnizBlock, num)
+}
+func (c *ChainConfig) IsVoltaire(num *big.Int) bool {
+	return isForked(c.VoltaireBlock, num)
+}
+func (c *ChainConfig) IsHume(num *big.Int) bool {
+	return isForked(c.HumeBlock, num)
+}
+func (c *ChainConfig) IsRousseau(num *big.Int) bool {
+	return isForked(c.RousseauBlock, num)
+}
+func (c *ChainConfig) IsSmith(num *big.Int) bool {
+	return isForked(c.SmithBlock, num)
+}
+func (c *ChainConfig) IsKant(num *big.Int) bool {
+	return isForked(c.KantBlock, num)
+}
+func (c *ChainConfig) IsButerin(num *big.Int) bool {
+	return isForked(c.ButerinBlock, num)
 }
 
 // IsDAO returns whether num is either equal to the DAO fork block or greater.
@@ -187,9 +375,6 @@ func (c *ChainConfig) IsEIP158(num *big.Int) bool {
 	return isForked(c.EIP158Block, num)
 }
 
-func (c *ChainConfig) IsByzantium(num *big.Int) bool {
-	return isForked(c.ByzantiumBlock, num)
-}
 
 // GasTable returns the gas table corresponding to the current phase (homestead or homestead reprice).
 //
