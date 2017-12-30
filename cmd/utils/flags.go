@@ -28,33 +28,33 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/clique"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/dashboard"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/ethstats"
-	"github.com/ethereum/go-ethereum/les"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/p2p/discv5"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/p2p/netutil"
-	"github.com/ethereum/go-ethereum/params"
-	whisper "github.com/ethereum/go-ethereum/whisper/whisperv5"
+	"github.com/Rue-Foundation/go-rue/accounts"
+	"github.com/Rue-Foundation/go-rue/accounts/keystore"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/consensus"
+	"github.com/Rue-Foundation/go-rue/consensus/clique"
+	"github.com/Rue-Foundation/go-rue/consensus/ethash"
+	"github.com/Rue-Foundation/go-rue/core"
+	"github.com/Rue-Foundation/go-rue/core/state"
+	"github.com/Rue-Foundation/go-ruem/core/vm"
+	"github.com/Rue-Foundation/go-rue/crypto"
+	"github.com/Rue-Foundation/go-rue/dashboard"
+	"github.com/Rue-Foundation/go-rue/eth"
+	"github.com/Rue-Foundation/go-rue/eth/downloader"
+	"github.com/Rue-Foundation/go-rue/eth/gasprice"
+	"github.com/Rue-Foundation/go-rue/ethdb"
+	"github.com/Rue-Foundation/go-rue/ethstats"
+	"github.com/Rue-Foundation/go-rue/les"
+	"github.com/Rue-Foundation/go-rue/log"
+	"github.com/Rue-Foundation/go-rue/metrics"
+	"github.com/Rue-Foundation/go-rue/node"
+	"github.com/Rue-Foundation/go-rue/p2p"
+	"github.com/Rue-Foundation/go-rue/p2p/discover"
+	"github.com/Rue-Foundation/go-rue/p2p/discv5"
+	"github.com/Rue-Foundation/go-rue/p2p/nat"
+	"github.com/Rue-Foundation/go-rue/p2p/netutil"
+	"github.com/Rue-Foundation/go-rue/params"
+	whisper "github.com/Rue-Foundation/go-rue/whisper/whisperv5"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -127,7 +127,7 @@ var (
 	}
 	NetworkIdFlag = cli.Uint64Flag{
 		Name:  "networkid",
-		Usage: "Network identifier (integer, 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby)",
+		Usage: "Network identifier (1=maintnet)",
 		Value: eth.DefaultConfig.NetworkId,
 	}
 	TestnetFlag = cli.BoolFlag{
@@ -346,8 +346,8 @@ var (
 		Usage: "Record information useful for VM and contract debugging",
 	}
 	// Logging and debug settings
-	EthStatsURLFlag = cli.StringFlag{
-		Name:  "ethstats",
+	RueStatsURLFlag = cli.StringFlag{
+		Name:  "ruestats",
 		Usage: "Reporting URL of a ethstats service (nodename:secret@host:port)",
 	}
 	MetricsEnabledFlag = cli.BoolFlag{
