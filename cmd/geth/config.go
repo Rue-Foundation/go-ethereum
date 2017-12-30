@@ -28,13 +28,13 @@ import (
 
 	cli "gopkg.in/urfave/cli.v1"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/contracts/release"
-	"github.com/ethereum/go-ethereum/dashboard"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/params"
-	whisper "github.com/ethereum/go-ethereum/whisper/whisperv5"
+	"github.com/Rue-Foundation/go-rue/cmd/utils"
+	"github.com/Rue-Foundation/go-rue/contracts/release"
+	"github.com/Rue-Foundation/go-rue/dashboard"
+	"github.com/Rue-Foundation/go-rue/eth"
+	"github.com/Rue-Foundation/go-rue/node"
+	"github.com/Rue-Foundation/go-rue/params"
+	whisper "github.com/Rue-Foundation/go-rue/whisper/whisperv5"
 	"github.com/naoina/toml"
 )
 
@@ -190,7 +190,7 @@ func makeFullNode(ctx *cli.Context) *node.Node {
 		copy(config.Commit[:], commit)
 		return release.NewReleaseService(ctx, config)
 	}); err != nil {
-		utils.Fatalf("Failed to register the Geth release oracle service: %v", err)
+		utils.Fatalf("Failed to register the grue release oracle service: %v", err)
 	}
 	return stack
 }
