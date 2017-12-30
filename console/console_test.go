@@ -26,12 +26,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/internal/jsre"
-	"github.com/ethereum/go-ethereum/node"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/consensus/ethash"
+	"github.com/Rue-Foundation/go-rue/core"
+	"github.com/Rue-Foundation/go-rue/eth"
+	"github.com/Rue-Foundation/go-rue/internal/jsre"
+	"github.com/Rue-Foundation/go-rue/node"
 )
 
 const (
@@ -106,7 +106,7 @@ func newTester(t *testing.T, confOverride func(*eth.Config)) *tester {
 		confOverride(ethConf)
 	}
 	if err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) { return eth.New(ctx, ethConf) }); err != nil {
-		t.Fatalf("failed to register Ethereum protocol: %v", err)
+		t.Fatalf("failed to register Rue protocol: %v", err)
 	}
 	// Start the node and assemble the JavaScript console around it
 	if err = stack.Start(); err != nil {
