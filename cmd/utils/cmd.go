@@ -26,12 +26,12 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/Rue-Foundation/go-rue/core"
+	"github.com/Rue-Foundation/go-rue/core/types"
+	"github.com/Rue-Foundation/go-rue/internal/debug"
+	"github.com/Rue-Foundation/go-rue/log"
+	"github.com/Rue-Foundation/go-rue/node"
+	"github.com/Rue-Foundation/go-rue/rlp"
 )
 
 const (
