@@ -25,7 +25,7 @@ int   evmjit_run(void* _jit, void* _data, void* _env);
 void  evmjit_destroy(void* _jit);
 
 // Shared library evmjit (e.g. libevmjit.so) is expected to be installed in /usr/local/lib
-// More: https://github.com/ethereum/evmjit
+// More: https://github.com/Rue-Foundation/evmjit
 #cgo LDFLAGS: -levmjit
 */
 import "C"
@@ -38,9 +38,9 @@ import (
 	"math/big"
 	"unsafe"
 
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/Rue-Foundation/go-rue/state"
+	"github.com/Rue-Foundation/go-rue/crypto"
+	"github.com/Rue-Foundation/go-rue/params"
 )
 
 type JitVm struct {
