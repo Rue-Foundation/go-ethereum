@@ -22,10 +22,10 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/internal/ethapi"
+	"github.com/Rue-Foundation/go-rue/params"
+	"github.com/Rue-Foundation/go-rue/rpc"
 )
 
 var maxPrice = big.NewInt(500 * params.Shannon)
