@@ -16,14 +16,14 @@
 
 // Contains all the wrappers from the params package.
 
-package geth
+package grue
 
 import (
 	"encoding/json"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/p2p/discv5"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/Rue-Foundation/go-rue/core"
+	"github.com/Rue-Foundation/go-rue/p2p/discv5"
+	"github.com/Rue-Foundation/go-rue/params"
 )
 
 // MainnetGenesis returns the JSON spec to use for the main Ethereum network. It
