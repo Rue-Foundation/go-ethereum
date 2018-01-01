@@ -6,7 +6,7 @@ RUN \
   (cd go-rue && make grue) && \
   cp go-rue/build/bin/grue /grue && \
   apk del go git make gcc musl-dev linux-headers && \
-  rm -rf /go-ethereum && rm -rf /var/cache/apk/*
+  rm -rf /go-rue && rm -rf /var/cache/apk/*
 
 EXPOSE 8545
 EXPOSE 30303
