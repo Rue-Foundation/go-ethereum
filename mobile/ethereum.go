@@ -22,8 +22,8 @@ import (
 	"errors"
 	"math/big"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
+	rue "github.com/Rue-Foundation/go-rue"
+	"github.com/Rue-Foundation/go-rue/common"
 )
 
 // Subscription represents an event subscription where events are
