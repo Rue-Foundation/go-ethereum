@@ -27,9 +27,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/Rue-Foundation/go-rue/event"
+	"github.com/Rue-Foundation/go-rue/p2p/discover"
+	"github.com/Rue-Foundation/go-rue/rlp"
 )
 
 // Msg defines the structure of a p2p message.
