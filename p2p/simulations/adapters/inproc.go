@@ -23,12 +23,12 @@ import (
 	"net"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/Rue-Foundation/go-rue/event"
+	"github.com/Rue-Foundation/go-rue/log"
+	"github.com/Rue-Foundation/go-rue/node"
+	"github.com/Rue-Foundation/go-rue/p2p"
+	"github.com/Rue-Foundation/go-rue/p2p/discover"
+	"github.com/Rue-Foundation/go-rue/rpc"
 )
 
 // SimAdapter is a NodeAdapter which creates in-memory simulation nodes and
