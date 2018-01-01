@@ -16,16 +16,16 @@
 
 // Contains all the wrappers from the core/types package.
 
-package geth
+package grue
 
 import (
 	"encoding/json"
 	"errors"
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/core/types"
+	"github.com/Rue-Foundation/go-rue/rlp"
 )
 
 // A Nonce is a 64-bit hash which proves (combined with the mix-hash) that
