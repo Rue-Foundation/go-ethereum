@@ -17,24 +17,24 @@
 // Contains all the wrappers from the node package to support client side node
 // management on mobile platforms.
 
-package geth
+package grue
 
 import (
 	"encoding/json"
 	"fmt"
 	"path/filepath"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/ethstats"
-	"github.com/ethereum/go-ethereum/les"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/params"
-	whisper "github.com/ethereum/go-ethereum/whisper/whisperv5"
+	"github.com/Rue-Foundation/go-rue/core"
+	"github.com/Rue-Foundation/go-rue/eth"
+	"github.com/Rue-Foundation/go-rue/eth/downloader"
+	"github.com/Rue-Foundation/go-rue/ethclient"
+	"github.com/Rue-Foundation/go-rue/ethstats"
+	"github.com/Rue-Foundation/go-rue/les"
+	"github.com/Rue-Foundation/go-rue/node"
+	"github.com/Rue-Foundation/go-rue/p2p"
+	"github.com/Rue-Foundation/go-rue/p2p/nat"
+	"github.com/Rue-Foundation/go-rue/params"
+	whisper "github.com/Rue-Foundation/go-rue/whisper/whisperv5"
 )
 
 // NodeConfig represents the collection of configuration values to fine tune the Geth
