@@ -32,9 +32,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/crypto"
+	"github.com/Rue-Foundation/go-rue/log"
 )
 
 const (
