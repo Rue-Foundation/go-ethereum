@@ -1,18 +1,18 @@
-// Copyright 2014 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2014 The go-rue Authors
+// This file is part of the go-rue library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-rue library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-rue library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
 
 package vm
 
@@ -49,7 +49,7 @@ type Config struct {
 	JumpTable [256]operation
 }
 
-// Interpreter is used to run Ethereum based contracts and will utilise the
+// Interpreter is used to run Rue based contracts and will utilise the
 // passed evmironment to query external sources for state information.
 // The Interpreter will run the byte code VM or JIT VM based on the passed
 // configuration.
@@ -59,7 +59,7 @@ type Interpreter struct {
 	gasTable params.GasTable
 	intPool  *intPool
 
-	readOnly   bool   // Whether to throw on stateful modifications
+	readOnly   bool   // Whrue to throw on stateful modifications
 	returnData []byte // Last CALL's return data for subsequent reuse
 }
 
@@ -72,8 +72,6 @@ func NewInterpreter(evm *EVM, cfg Config) *Interpreter {
 		switch {
 		case evm.ChainConfig().IsByzantium(evm.BlockNumber):
 			cfg.JumpTable = byzantiumInstructionSet
-		case evm.ChainConfig().IsHomestead(evm.BlockNumber):
-			cfg.JumpTable = homesteadInstructionSet
 		default:
 			cfg.JumpTable = frontierInstructionSet
 		}

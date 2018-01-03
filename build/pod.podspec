@@ -14,9 +14,9 @@ Pod::Spec.new do |spec|
 	spec.ios.vendored_frameworks = 'Frameworks/Grue.framework'
 
 	spec.prepare_command = <<-CMD
-    curl https://gethstore.blob.core.windows.net/builds/{{.Archive}}.tar.gz | tar -xvz
+    curl https://gruestore.blob.core.windows.net/builds/{{.Archive}}.tar.gz | tar -xvz
     mkdir Frameworks
-    mv {{.Archive}}/Geth.framework Frameworks
+    mv {{.Archive}}/Grue.framework Frameworks
     rm -rf {{.Archive}}
   CMD
 end

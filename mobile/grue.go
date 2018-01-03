@@ -1,18 +1,18 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2016 The go-rue Authors
+// This file is part of the go-rue library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-rue library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-rue library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
 
 // Contains all the wrappers from the node package to support client side node
 // management on mobile platforms.
@@ -25,10 +25,10 @@ import (
 	"path/filepath"
 
 	"github.com/Rue-Foundation/go-rue/core"
-	"github.com/Rue-Foundation/go-rue/eth"
-	"github.com/Rue-Foundation/go-rue/eth/downloader"
-	"github.com/Rue-Foundation/go-rue/ethclient"
-	"github.com/Rue-Foundation/go-rue/ethstats"
+	"github.com/Rue-Foundation/go-rue/rue"
+	"github.com/Rue-Foundation/go-rue/rue/downloader"
+	"github.com/Rue-Foundation/go-rue/rueclient"
+	"github.com/Rue-Foundation/go-rue/ruestats"
 	"github.com/Rue-Foundation/go-rue/les"
 	"github.com/Rue-Foundation/go-rue/node"
 	"github.com/Rue-Foundation/go-rue/p2p"
@@ -37,9 +37,9 @@ import (
 	whisper "github.com/Rue-Foundation/go-rue/whisper/whisperv5"
 )
 
-// NodeConfig represents the collection of configuration values to fine tune the Geth
+// NodeConfig represents the collection of configuration values to fine tune the Grue
 // node embedded into a mobile process. The available values are a subset of the
-// entire API provided by go-ethereum to reduce the maintenance surface and dev
+// entire API provided by go-rue to reduce the maintenance surface and dev
 // complexity.
 type NodeConfig struct {
 	// Bootstrap nodes used to establish connectivity with the rest of the network.
@@ -49,26 +49,26 @@ type NodeConfig struct {
 	// set to zero, then only the configured static and trusted peers can connect.
 	MaxPeers int
 
-	// EthereumEnabled specifies whether the node should run the Ethereum protocol.
-	EthereumEnabled bool
+	// RueEnabled specifies whether the node should run the Rue protocol.
+	RueEnabled bool
 
-	// EthereumNetworkID is the network identifier used by the Ethereum protocol to
+	// RueNetworkID is the network identifier used by the Rue protocol to
 	// decide if remote peers should be accepted or not.
-	EthereumNetworkID int64 // uint64 in truth, but Java can't handle that...
+	RueNetworkID int64 // uint64 in truth, but Java can't handle that...
 
-	// EthereumGenesis is the genesis JSON to use to seed the blockchain with. An
+	// RueGenesis is the genesis JSON to use to seed the blockchain with. An
 	// empty genesis state is equivalent to using the mainnet's state.
-	EthereumGenesis string
+	RueGenesis string
 
-	// EthereumDatabaseCache is the system memory in MB to allocate for database caching.
+	// RueDatabaseCache is the system memory in MB to allocate for database caching.
 	// A minimum of 16MB is always reserved.
-	EthereumDatabaseCache int
+	RueDatabaseCache int
 
-	// EthereumNetStats is a netstats connection string to use to report various
+	// RueNetStats is a netstats connection string to use to report various
 	// chain, transaction and node stats to a monitoring server.
 	//
 	// It has the form "nodename:secret@host:port"
-	EthereumNetStats string
+	RueNetStats string
 
 	// WhisperEnabled specifies whether the node should run the Whisper protocol.
 	WhisperEnabled bool
@@ -79,9 +79,9 @@ type NodeConfig struct {
 var defaultNodeConfig = &NodeConfig{
 	BootstrapNodes:        FoundationBootnodes(),
 	MaxPeers:              25,
-	EthereumEnabled:       true,
-	EthereumNetworkID:     1,
-	EthereumDatabaseCache: 16,
+	RueEnabled:       true,
+	RueNetworkID:     1,
+	RueDatabaseCache: 16,
 }
 
 // NewNodeConfig creates a new node option set, initialized to the default values.
@@ -90,12 +90,12 @@ func NewNodeConfig() *NodeConfig {
 	return &config
 }
 
-// Node represents a Geth Ethereum node instance.
+// Node represents a Grue Rue node instance.
 type Node struct {
 	node *node.Node
 }
 
-// NewNode creates and configures a new Geth node.
+// NewNode creates and configures a new Grue node.
 func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 	// If no or partial configurations were specified, use defaults
 	if config == nil {
@@ -129,39 +129,39 @@ func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 	}
 
 	var genesis *core.Genesis
-	if config.EthereumGenesis != "" {
+	if config.RueGenesis != "" {
 		// Parse the user supplied genesis spec if not mainnet
 		genesis = new(core.Genesis)
-		if err := json.Unmarshal([]byte(config.EthereumGenesis), genesis); err != nil {
+		if err := json.Unmarshal([]byte(config.RueGenesis), genesis); err != nil {
 			return nil, fmt.Errorf("invalid genesis spec: %v", err)
 		}
 		// If we have the testnet, hard code the chain configs too
-		if config.EthereumGenesis == TestnetGenesis() {
+		if config.RueGenesis == TestnetGenesis() {
 			genesis.Config = params.TestnetChainConfig
-			if config.EthereumNetworkID == 1 {
-				config.EthereumNetworkID = 3
+			if config.RueNetworkID == 1 {
+				config.RueNetworkID = 3
 			}
 		}
 	}
-	// Register the Ethereum protocol if requested
-	if config.EthereumEnabled {
-		ethConf := eth.DefaultConfig
-		ethConf.Genesis = genesis
-		ethConf.SyncMode = downloader.LightSync
-		ethConf.NetworkId = uint64(config.EthereumNetworkID)
-		ethConf.DatabaseCache = config.EthereumDatabaseCache
+	// Register the Rue protocol if requested
+	if config.RueEnabled {
+		rueConf := rue.DefaultConfig
+		rueConf.Genesis = genesis
+		rueConf.SyncMode = downloader.LightSync
+		rueConf.NetworkId = uint64(config.RueNetworkID)
+		rueConf.DatabaseCache = config.RueDatabaseCache
 		if err := rawStack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-			return les.New(ctx, &ethConf)
+			return les.New(ctx, &rueConf)
 		}); err != nil {
-			return nil, fmt.Errorf("ethereum init: %v", err)
+			return nil, fmt.Errorf("rue init: %v", err)
 		}
 		// If netstats reporting is requested, do it
-		if config.EthereumNetStats != "" {
+		if config.RueNetStats != "" {
 			if err := rawStack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
-				var lesServ *les.LightEthereum
+				var lesServ *les.LightRue
 				ctx.Service(&lesServ)
 
-				return ethstats.New(config.EthereumNetStats, nil, lesServ)
+				return ruestats.New(config.RueNetStats, nil, lesServ)
 			}); err != nil {
 				return nil, fmt.Errorf("netstats init: %v", err)
 			}
@@ -189,13 +189,13 @@ func (n *Node) Stop() error {
 	return n.node.Stop()
 }
 
-// GetEthereumClient retrieves a client to access the Ethereum subsystem.
-func (n *Node) GetEthereumClient() (client *EthereumClient, _ error) {
+// GetRueClient retrieves a client to access the Rue subsystem.
+func (n *Node) GetRueClient() (client *RueClient, _ error) {
 	rpc, err := n.node.Attach()
 	if err != nil {
 		return nil, err
 	}
-	return &EthereumClient{ethclient.NewClient(rpc)}, nil
+	return &RueClient{rueclient.NewClient(rpc)}, nil
 }
 
 // GetNodeInfo gathers and returns a collection of metadata known about the host.

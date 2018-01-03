@@ -25,7 +25,7 @@
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// THEORY OF LIABILITY, WHRUEER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
@@ -593,7 +593,7 @@ var (
 // isMarshaler reports whether type t implements Marshaler.
 func isMarshaler(t reflect.Type) bool {
 	// We're checking for (likely) pointer-receiver methods
-	// so if t is not a pointer, something is very wrong.
+	// so if t is not a pointer, somrueing is very wrong.
 	// The calls above only invoke isMarshaler on pointer types.
 	if t.Kind() != reflect.Ptr {
 		panic("proto: misuse of isMarshaler")
@@ -604,7 +604,7 @@ func isMarshaler(t reflect.Type) bool {
 // isUnmarshaler reports whether type t implements Unmarshaler.
 func isUnmarshaler(t reflect.Type) bool {
 	// We're checking for (likely) pointer-receiver methods
-	// so if t is not a pointer, something is very wrong.
+	// so if t is not a pointer, somrueing is very wrong.
 	// The calls above only invoke isUnmarshaler on pointer types.
 	if t.Kind() != reflect.Ptr {
 		panic("proto: misuse of isUnmarshaler")

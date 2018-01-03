@@ -1,18 +1,18 @@
-Name "geth ${MAJORVERSION}.${MINORVERSION}.${BUILDVERSION}" # VERSION variables set through command line arguments
+Name "grue ${MAJORVERSION}.${MINORVERSION}.${BUILDVERSION}" # VERSION variables set through command line arguments
 InstallDir "$InstDir"
 OutFile "${OUTPUTFILE}" # set through command line arguments
 
 # Links for "Add/Remove Programs"
-!define HELPURL "https://github.com/rue-foundation/go-rue/issues"
-!define UPDATEURL "https://github.com/rue-foundation/go-rue/releases"
-!define ABOUTURL "https://github.com/rue-foundation/go-rue#rue-go"
+!define HELPURL "https://github.com/Rue-Foundation/go-rue/issues"
+!define UPDATEURL "https://github.com/Rue-Foundation/go-rue/releases"
+!define ABOUTURL "https://github.com/Rue-Foundation/go-rue#rue-go"
 !define /date NOW "%Y%m%d"
 
 PageEx license
   LicenseData {{.License}}
 PageExEnd
 
-# Install geth binary
+# Install grue binary
 Section "Grue" GRUE_IDX
   SetOutPath $INSTDIR
   file {{.Grue}}
@@ -20,7 +20,7 @@ Section "Grue" GRUE_IDX
   # Create start menu launcher
   createDirectory "$SMPROGRAMS\${APPNAME}"
   createShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\grue.exe" "--fast" "--cache=512"
-  createShortCut "$SMPROGRAMS\${APPNAME}\Attach.lnk" "$INSTDIR\geth.exe" "attach" "" ""
+  createShortCut "$SMPROGRAMS\${APPNAME}\Attach.lnk" "$INSTDIR\grue.exe" "attach" "" ""
   createShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "" ""
 
   # Firewall - remove rules (if exists)
@@ -33,7 +33,7 @@ Section "Grue" GRUE_IDX
   SimpleFC::AdvAddRule "Grue outgoing peers (TCP:30303)" ""  6 2 1 2147483647 1 "$INSTDIR\grue.exe" "" "" "Rue" "" 30303 "" ""
   SimpleFC::AdvAddRule "Grue UDP discovery (UDP:30303)" "" 17 2 1 2147483647 1 "$INSTDIR\grue.exe" "" "" "Rue" "" 30303 "" ""
 
-  # Set default IPC endpoint (https://github.com/ethereum/EIPs/issues/147)
+  # Set default IPC endpoint (https://github.com/rue/EIPs/issues/147)
   ${EnvVarUpdate} $0 "RUE_SOCKET" "R" "HKLM" "\\.\pipe\grue.ipc"
   ${EnvVarUpdate} $0 "RUE_SOCKET" "A" "HKLM" "\\.\pipe\grue.ipc"
 

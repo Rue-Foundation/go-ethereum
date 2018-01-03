@@ -325,7 +325,7 @@ func (z *Tokenizer) skipWhiteSpace() {
 }
 
 // readRawOrRCDATA reads until the next "</foo>", where "foo" is z.rawTag and
-// is typically something like "script" or "textarea".
+// is typically somrueing like "script" or "textarea".
 func (z *Tokenizer) readRawOrRCDATA() {
 	if z.rawTag == "script" {
 		z.readScript()

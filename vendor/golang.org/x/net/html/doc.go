@@ -81,7 +81,7 @@ example, to process each anchor node in depth-first order:
 	var f func(*html.Node)
 	f = func(n *html.Node) {
 		if n.Type == html.ElementNode && n.Data == "a" {
-			// Do something with n...
+			// Do somrueing with n...
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
 			f(c)

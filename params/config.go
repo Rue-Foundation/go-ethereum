@@ -1,18 +1,18 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2016 The go-rue Authors
+// This file is part of the go-rue library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-rue library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-rue library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
 
 package params
 
@@ -39,12 +39,12 @@ var (
 		DunedinBlock: big.NewInt(3506400),
 		BerlinBlock: big.NewInt(4383000),
 		PekingBlock: big.NewInt(5259600),
-		RennisanceBlock: big.NewInt(6355350),
+		RenaissanceBlock: big.NewInt(6355350),
 		EdinburghBlock: big.NewInt(6574500),
 		KitchenerBlock: big.NewInt(7012800),
 		WaterlooBlock: big.NewInt(7670250),
 		KyotoBlock: big.NewInt(8546850),
-		InstanbulBlock: big.NewInt(9642600),
+		IstanbulBlock: big.NewInt(9642600),
 		NovaBlock: big.NewInt(10957500),
 		SolBlock: big.NewInt(13149000),
 		ChenXingBlock: big.NewInt(13368150),
@@ -84,25 +84,25 @@ var (
 		EIP155Block:    big.NewInt(0),
 		EIP158Block:    big.NewInt(0),
 
-		Ethash: new(EthashConfig),
+		Ruehash: new(RuehashConfig),
 	}
 
-	// AllEthashProtocolChanges contains every protocol change (EIPs) introduced
-	// and accepted by the Ethereum core developers into the Ethash consensus.
+	// AllRuehashProtocolChanges contains every protocol change (EIPs) introduced
+	// and accepted by the Rue core developers into the Ruehash consensus.
 	//
 	// This configuration is intentionally not using keyed fields to force anyone
 	// adding flags to the config to also have to set these fields.
-	AllEthashProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), new(EthashConfig), nil}
+	AllRuehashProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0),  big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0), big.NewInt(0),  new(RuehashConfig), nil}
 
 	// AllCliqueProtocolChanges contains every protocol change (EIPs) introduced
-	// and accepted by the Ethereum core developers into the Clique consensus.
+	// and accepted by the Rue core developers into the Clique consensus.
 	//
 	// This configuration is intentionally not using keyed fields to force anyone
 	// adding flags to the config to also have to set these fields.
-	AllCliqueProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, &CliqueConfig{Period: 0, Epoch: 30000}}
+	//AllCliqueProtocolChanges = &ChainConfig{big.NewInt(1337), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), nil, &CliqueConfig{Period: 0, Epoch: 30000}}
 
-	TestChainConfig = &ChainConfig{big.NewInt(1), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), new(EthashConfig), nil}
-	TestRules       = TestChainConfig.Rules(new(big.Int))
+	//TestChainConfig = &ChainConfig{big.NewInt(1), big.NewInt(0), nil, false, big.NewInt(0), common.Hash{}, big.NewInt(0), big.NewInt(0), big.NewInt(0), new(RuehashConfig), nil}
+	//TestRules       = TestChainConfig.Rules(new(big.Int))
 )
 
 // ChainConfig is the core config which determines the blockchain settings.
@@ -116,28 +116,74 @@ type ChainConfig struct {
 	HomesteadBlock *big.Int `json:"homesteadBlock,omitempty"` // Homestead switch block (nil = no fork, 0 = already homestead)
 
 	DAOForkBlock   *big.Int `json:"daoForkBlock,omitempty"`   // TheDAO hard-fork switch block (nil = no fork)
-	DAOForkSupport bool     `json:"daoForkSupport,omitempty"` // Whether the nodes supports or opposes the DAO hard-fork
+	DAOForkSupport bool     `json:"daoForkSupport,omitempty"` // Whrue the nodes supports or opposes the DAO hard-fork
 
-	// EIP150 implements the Gas price changes (https://github.com/ethereum/EIPs/issues/150)
+	// EIP150 implements the Gas price changes (https://github.com/rue/EIPs/issues/150)
 	EIP150Block *big.Int    `json:"eip150Block,omitempty"` // EIP150 HF block (nil = no fork)
 	EIP150Hash  common.Hash `json:"eip150Hash,omitempty"`  // EIP150 HF hash (needed for header only clients as only gas pricing changed)
 
 	EIP155Block *big.Int `json:"eip155Block,omitempty"` // EIP155 HF block
 	EIP158Block *big.Int `json:"eip158Block,omitempty"` // EIP158 HF block
 
-	ByzantiumBlock *big.Int `json:"byzantiumBlock,omitempty"` // Byzantium switch block (nil = no fork, 0 = already on byzantium)
-
+	FrontierBlock *big.Int `json:"frontierBlock,omitempty"` // Byzantium switch block (nil = no fork, 0 = already on byzantium)
+	HorizonBlock *big.Int `json:"horizonBlock,omitempty"`
+	HopeBlock *big.Int `json:"hopeBlock,omitempty"`
+	SettlementBlock *big.Int `json:"settlementBlock,omitempty"`
+	ByzantiumBlock *big.Int `json:"byzantiumBlock,omitempty"`
+	DunedinBlock *big.Int `json:"dunedinBlock,omitempty"`
+	BerlinBlock *big.Int `json:"berlinBlock,omitempty"`
+	PekingBlock *big.Int `json:"pekingBlock,omitempty"`
+	RenaissanceBlock *big.Int `json:"renaissanceBlock,omitempty"`
+	EdinburghBlock *big.Int `json:"edinburghBlock,omitempty"`
+	KitchenerBlock *big.Int `json:"kitchenerBlock,omitempty"`
+	WaterlooBlock *big.Int `json:"waterlooBlock,omitempty"`
+	KyotoBlock *big.Int `json:"kyotoBlock,omitempty"`
+	IstanbulBlock *big.Int `json:"istanbulBlock,omitempty"`
+	NovaBlock *big.Int `json:"novaBlock,omitempty"`
+	SolBlock *big.Int `json:"solBlock,omitempty"`
+	ChenXingBlock *big.Int `json:"chenxingBlock,omitempty"`
+	TaihakuseiBlock *big.Int `json:"taihakuseiBlock,omitempty"`
+	SaoHaoBlock *big.Int `json:"saohaoBlock,omitempty"`
+	JupiterBlock *big.Int `json:"jupiterBlock,omitempty"`
+	PlutoBlock *big.Int `json:"plutoBlock,omitempty"`
+	MilkyWayBlock *big.Int `json:"milkywayBlock,omitempty"`
+	AndromedaBlock *big.Int `json:"andromedaBlock,omitempty"`
+	BodesBlock *big.Int `json:"bodesBlock,omitempty"`
+	HoagsBlock *big.Int `json:"hoagsBlock,omitempty"`
+	MayallsBlock *big.Int `json:"mayallsBlock,omitempty"`
+	ThalesBlock *big.Int `json:"thalesBlock,omitempty"`
+	PythagorasBlock *big.Int `json:"pythagorasBlock,omitempty"`
+	ParmenidesBlock *big.Int `json:"parmenidesBlock,omitempty"`
+	ZenoBlock *big.Int `json:"zenoBlock,omitempty"`
+	SocratesBlock *big.Int `json:"socratesBlock,omitempty"`
+	PlatoBlock *big.Int `json:"platoBlock,omitempty"`
+	CiceroBlock *big.Int `json:"ciceroBlock,omitempty"`
+	AquinasBlock *big.Int `json:"aquinasBlock,omitempty"`
+	DescartesBlock *big.Int `json:"descartesBlock,omitempty"`
+	HobbesBlock *big.Int `json:"hobbesBlock,omitempty"`
+	SpinozaBlock *big.Int `json:"spinozaBlock,omitempty"`
+	LockeBlock *big.Int `json:"lockeBlock,omitempty"`
+	NewtonBlock *big.Int `json:"newtonBlock,omitempty"`
+	LeibnizBlock *big.Int `json:"leibnizBlock,omitempty"`
+	VoltaireBlock *big.Int `json:"voltaireBlock,omitempty"`
+	HumeBlock *big.Int `json:"humeBlock,omitempty"`
+	RousseauBlock *big.Int `json:"rousseauBlock,omitempty"`
+	SmithBlock *big.Int `json:"smithBlock,omitempty"`
+	KantBlock *big.Int `json:"kantBlock,omitempty"`
+	ButerinBlock *big.Int `json:"buterinBlock,omitempty"`
+	
+	
 	// Various consensus engines
-	Ethash *EthashConfig `json:"ethash,omitempty"`
+	Ruehash *RuehashConfig `json:"ruehash,omitempty"`
 	Clique *CliqueConfig `json:"clique,omitempty"`
 }
 
-// EthashConfig is the consensus engine configs for proof-of-work based sealing.
-type EthashConfig struct{}
+// RuehashConfig is the consensus engine configs for proof-of-work based sealing.
+type RuehashConfig struct{}
 
 // String implements the stringer interface, returning the consensus engine details.
-func (c *EthashConfig) String() string {
-	return "ethash"
+func (c *RuehashConfig) String() string {
+	return "ruehash"
 }
 
 // CliqueConfig is the consensus engine configs for proof-of-authority based sealing.
@@ -155,8 +201,8 @@ func (c *CliqueConfig) String() string {
 func (c *ChainConfig) String() string {
 	var engine interface{}
 	switch {
-	case c.Ethash != nil:
-		engine = c.Ethash
+	case c.Ruehash != nil:
+		engine = c.Ruehash
 	case c.Clique != nil:
 		engine = c.Clique
 	default:
@@ -172,12 +218,12 @@ func (c *ChainConfig) String() string {
 		c.DunedinBlock,
 		c.BerlinBlock,
 		c.PekingBlock,
-		c.RennisanceBlock,
+		c.RenaissanceBlock,
 		c.EdinburghBlock,
 		c.KitchenerBlock,
 		c.WaterlooBlock,
 		c.KyotoBlock,
-		c.InstanbulBlock,
+		c.IstanbulBlock,
 		c.NovaBlock,
 		c.SolBlock,
 		c.ChenXingBlock,
@@ -243,8 +289,8 @@ func (c *ChainConfig) IsBerlin(num *big.Int) bool {
 func (c *ChainConfig) IsPeking(num *big.Int) bool {
 	return isForked(c.PekingBlock, num)
 }
-func (c *ChainConfig) IsRennisance(num *big.Int) bool {
-	return isForked(c.RennisanceBlock, num)
+func (c *ChainConfig) IsRenaissance(num *big.Int) bool {
+	return isForked(c.RenaissanceBlock, num)
 }
 func (c *ChainConfig) IsEdinburgh(num *big.Int) bool {
 	return isForked(c.EdinburghBlock, num)
@@ -258,8 +304,8 @@ func (c *ChainConfig) IsWaterloo(num *big.Int) bool {
 func (c *ChainConfig) IsKyoto(num *big.Int) bool {
 	return isForked(c.KyotoBlock, num)
 }
-func (c *ChainConfig) IsInstanbul(num *big.Int) bool {
-	return isForked(c.InstanbulBlock, num)
+func (c *ChainConfig) IsIstanbul(num *big.Int) bool {
+	return isForked(c.IstanbulBlock, num)
 }
 func (c *ChainConfig) IsNova(num *big.Int) bool {
 	return isForked(c.NovaBlock, num)
@@ -288,8 +334,8 @@ func (c *ChainConfig) IsMilkyWay(num *big.Int) bool {
 func (c *ChainConfig) IsAndromeda(num *big.Int) bool {
 	return isForked(c.AndromedaBlock, num)
 }
-func (c *ChainConfig) IsFrontier(num *big.Int) bool {
-	return isForked(c.FrontierBlock, num)
+func (c *ChainConfig) IsBodes(num *big.Int) bool {
+	return isForked(c.BodesBlock, num)
 }
 func (c *ChainConfig) IsHoags(num *big.Int) bool {
 	return isForked(c.HoagsBlock, num)
@@ -501,8 +547,52 @@ func (err *ConfigCompatError) Error() string {
 // phases.
 type Rules struct {
 	ChainId                                   *big.Int
-	IsHomestead, IsEIP150, IsEIP155, IsEIP158 bool
+	IsEIP150, IsEIP155, IsEIP158 			  bool
+	IsFrontier                               bool
+	IsHope                               bool
+	IsSettlement                              bool
 	IsByzantium                               bool
+	IsDunedin                               bool
+	IsBerlin                               bool
+	IsRenaissance                               bool
+	IsEdinburgh                               bool
+	IsKitchener                               bool
+	IsWaterloo                               bool
+	IsKyoto                               bool
+	IsIstanbul                               bool
+	IsNova                               bool
+	IsSol                               bool
+	IsChenXing                               bool
+	IsTaihakusei                               bool
+	IsSaoHao                               bool
+	IsJupiter                               bool
+	IsPluto                               bool
+	IsMilkyWay                               bool
+	IsAndromeda                               bool
+	IsBodes                               bool
+	IsHoags                               bool
+	IsMayalls                               bool
+	IsThales                               bool
+	IsPythagoras                               bool
+	IsParmenides                               bool
+	IsZeno                               bool
+	IsSocrates                               bool
+	IsPlato                               bool
+	IsCicero                               bool
+	IsAquinas                               bool
+	IsDescartes                               bool
+	IsHobbes                               bool
+	IsSpinoza                               bool
+	IsLocke                               bool
+	IsNewton                               bool
+	IsLeibniz                               bool
+	IsVoltaire                               bool
+	IsHume                               bool
+	IsRousseau                               bool
+	IsSmith                               bool
+	IsKant                               bool
+	IsButerin                               bool
+
 }
 
 func (c *ChainConfig) Rules(num *big.Int) Rules {
@@ -510,5 +600,5 @@ func (c *ChainConfig) Rules(num *big.Int) Rules {
 	if chainId == nil {
 		chainId = new(big.Int)
 	}
-	return Rules{ChainId: new(big.Int).Set(chainId), IsHomestead: c.IsHomestead(num), IsEIP150: c.IsEIP150(num), IsEIP155: c.IsEIP155(num), IsEIP158: c.IsEIP158(num), IsByzantium: c.IsByzantium(num)}
+	return Rules{ChainId: new(big.Int).Set(chainId), IsEIP150: c.IsEIP150(num), IsEIP155: c.IsEIP155(num), IsEIP158: c.IsEIP158(num), IsFrontier: c.IsFrontier(num), IsHope: c.IsHope(num), IsSettlement: c.IsSettlement(num), IsByzantium: c.IsByzantium(num), IsDunedin: c.IsDunedin(num), IsBerlin: c.IsBerlin(num), IsRenaissance: c.IsRenaissance(num), IsEdinburgh: c.IsEdinburgh(num), IsKitchener: c.IsKitchener(num), IsWaterloo: c.IsWaterloo(num), IsKyoto: c.IsKyoto(num), IsIstanbul: c.IsIstanbul(num), IsNova: c.IsNova(num), IsSol: c.IsSol(num), IsChenXing: c.IsChenXing(num), IsTaihakusei: c.IsTaihakusei(num), IsSaoHao: c.IsSaoHao(num), IsJupiter: c.IsJupiter(num), IsPluto: c.IsPluto(num), IsMilkyWay: c.IsMilkyWay(num), IsAndromeda: c.IsAndromeda(num), IsBodes: c.IsBodes(num), IsHoags: c.IsHoags(num), IsMayalls: c.IsMayalls(num), IsThales: c.IsThales(num), IsPythagoras: c.IsPythagoras(num), IsParmenides: c.IsParmenides(num), IsZeno: c.IsZeno(num), IsSocrates: c.IsSocrates(num), IsPlato: c.IsPlato(num), IsCicero: c.IsCicero(num), IsAquinas: c.IsAquinas(num), IsDescartes: c.IsDescartes(num), IsHobbes: c.IsHobbes(num), IsSpinoza: c.IsSpinoza(num), IsLocke: c.IsLocke(num), IsNewton: c.IsNewton(num), IsLeibniz: c.IsLeibniz(num), IsVoltaire: c.IsVoltaire(num), IsHume: c.IsHume(num), IsRousseau: c.IsRousseau(num), IsSmith: c.IsSmith(num), IsKant: c.IsKant(num), IsButerin: c.IsButerin(num)}
 }

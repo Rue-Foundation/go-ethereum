@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: {{.Author}}
 Build-Depends: debhelper (>= 8.0.0), golang-1.9
 Standards-Version: 3.9.5
-Homepage: https://ethereum.org
+Homepage: https://rue.org
 Vcs-Git: git://github.com/Rue-Foundation/go-rue.git
 Vcs-Browser: https://github.com/Rue-Foundation/go-rue
 
@@ -12,7 +12,7 @@ Package: {{.Name}}
 Architecture: any
 Depends: ${misc:Depends}, {{.ExeList}}
 Description: Meta-package to install grue and other tools
- Meta-package to install geth and other tools
+ Meta-package to install grue and other tools
 
 {{range .Executables}}
 Package: {{$.ExeName .}}

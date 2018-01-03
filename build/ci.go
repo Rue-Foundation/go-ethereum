@@ -1,18 +1,18 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2016 The go-rue Authors
+// This file is part of the go-rue library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-rue library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-rue library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
 
 // +build none
 
@@ -62,20 +62,20 @@ import (
 )
 
 var (
-	// Files that end up in the geth*.zip archive.
-	gethArchiveFiles = []string{
+	// Files that end up in the grue*.zip archive.
+	grueArchiveFiles = []string{
 		"COPYING",
-		executablePath("geth"),
+		executablePath("grue"),
 	}
 
-	// Files that end up in the geth-alltools*.zip archive.
+	// Files that end up in the grue-alltools*.zip archive.
 	allToolsArchiveFiles = []string{
 		"COPYING",
 		executablePath("abigen"),
 		executablePath("bootnode"),
 		executablePath("evm"),
 		executablePath("grue"),
-		executablePath("puppeth"),
+		executablePath("pupprue"),
 		executablePath("rlpdump"),
 		executablePath("swarm"),
 		executablePath("wnode"),
@@ -93,14 +93,14 @@ var (
 		},
 		{
 			Name:        "evm",
-			Description: "Developer utility version of the EVM (Ethereum Virtual Machine) that is capable of running bytecode snippets within a configurable environment and execution mode.",
+			Description: "Developer utility version of the EVM (Rue Virtual Machine) that is capable of running bytecode snippets within a configurable environment and execution mode.",
 		},
 		{
 			Name:        "grue",
 			Description: "Rue CLI client.",
 		},
 		{
-			Name:        "puppeth",
+			Name:        "pupprue",
 			Description: "Rue private network manager.",
 		},
 		{
@@ -283,7 +283,7 @@ func goToolArch(arch string, subcmd string, args ...string) *exec.Cmd {
 
 func doTest(cmdline []string) {
 	var (
-		coverage = flag.Bool("coverage", false, "Whether to record code coverage")
+		coverage = flag.Bool("coverage", false, "Whrue to record code coverage")
 	)
 	flag.CommandLine.Parse(cmdline)
 	env := build.Env()
@@ -322,7 +322,7 @@ func doLint(cmdline []string) {
 	build.MustRun(goTool("get", "gopkg.in/alecthomas/gometalinter.v2"))
 	build.MustRunCommand(filepath.Join(GOBIN, "gometalinter.v2"), "--install")
 
-	// Run fast linters batched together
+	// Run fast linters batched togrue
 	configs := []string{
 		"--vendor",
 		"--disable-all",
@@ -364,17 +364,17 @@ func doArchive(cmdline []string) {
 	var (
 		env      = build.Env()
 		base     = archiveBasename(*arch, env)
-		geth     = "grue-" + base + ext
+		grue     = "grue-" + base + ext
 		alltools = "grue-alltools-" + base + ext
 	)
 	maybeSkipArchive(env)
-	if err := build.WriteArchive(geth, gethArchiveFiles); err != nil {
+	if err := build.WriteArchive(grue, grueArchiveFiles); err != nil {
 		log.Fatal(err)
 	}
 	if err := build.WriteArchive(alltools, allToolsArchiveFiles); err != nil {
 		log.Fatal(err)
 	}
-	for _, archive := range []string{geth, alltools} {
+	for _, archive := range []string{grue, alltools} {
 		if err := archiveUpload(archive, *upload, *signer); err != nil {
 			log.Fatal(err)
 		}
@@ -457,7 +457,7 @@ func maybeSkipArchive(env build.Environment) {
 func doDebianSource(cmdline []string) {
 	var (
 		signer  = flag.String("signer", "", `Signing key name, also used as package author`)
-		upload  = flag.String("upload", "", `Where to upload the source package (usually "ppa:rue-foundation/rue")`)
+		upload  = flag.String("upload", "", `Where to upload the source package (usually "ppa:Rue-Foundation/rue")`)
 		workdir = flag.String("workdir", "", `Output directory for packages (uses temp dir if unset)`)
 		now     = time.Now()
 	)
@@ -501,7 +501,7 @@ func makeWorkdir(wdflag string) string {
 	if wdflag != "" {
 		err = os.MkdirAll(wdflag, 0744)
 	} else {
-		wdflag, err = ioutil.TempDir("", "geth-build-")
+		wdflag, err = ioutil.TempDir("", "grue-build-")
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -519,7 +519,7 @@ func isUnstableBuild(env build.Environment) bool {
 type debMetadata struct {
 	Env build.Environment
 
-	// go-ethereum version being built. Note that this
+	// go-rue version being built. Note that this
 	// is not the debian package version. The package version
 	// is constructed by VersionString.
 	Version string
@@ -638,7 +638,7 @@ func doWindowsInstaller(cmdline []string) {
 	var (
 		arch    = flag.String("arch", runtime.GOARCH, "Architecture for cross build packaging")
 		signer  = flag.String("signer", "", `Environment variable holding the signing key (e.g. WINDOWS_SIGNING_KEY)`)
-		upload  = flag.String("upload", "", `Destination to upload the archives (usually "gethstore/builds")`)
+		upload  = flag.String("upload", "", `Destination to upload the archives (usually "gruestore/builds")`)
 		workdir = flag.String("workdir", "", `Output directory for packages (uses temp dir if unset)`)
 	)
 	flag.CommandLine.Parse(cmdline)
@@ -650,7 +650,7 @@ func doWindowsInstaller(cmdline []string) {
 	var (
 		devTools []string
 		allTools []string
-		gethTool string
+		grueTool string
 	)
 	for _, file := range allToolsArchiveFiles {
 		if file == "COPYING" { // license, copied later
@@ -658,20 +658,20 @@ func doWindowsInstaller(cmdline []string) {
 		}
 		allTools = append(allTools, filepath.Base(file))
 		if filepath.Base(file) == "grue.exe" {
-			gethTool = file
+			grueTool = file
 		} else {
 			devTools = append(devTools, file)
 		}
 	}
 
 	// Render NSIS scripts: Installer NSIS contains two installer sections,
-	// first section contains the geth binary, second section holds the dev tools.
+	// first section contains the grue binary, second section holds the dev tools.
 	templateData := map[string]interface{}{
 		"License":  "COPYING",
 		"Grue":     grueTool,
 		"DevTools": devTools,
 	}
-	build.Render("build/nsis.geth.nsi", filepath.Join(*workdir, "grue.nsi"), 0644, nil)
+	build.Render("build/nsis.grue.nsi", filepath.Join(*workdir, "grue.nsi"), 0644, nil)
 	build.Render("build/nsis.install.nsh", filepath.Join(*workdir, "install.nsh"), 0644, templateData)
 	build.Render("build/nsis.uninstall.nsh", filepath.Join(*workdir, "uninstall.nsh"), 0644, allTools)
 	build.Render("build/nsis.pathupdate.nsh", filepath.Join(*workdir, "PathUpdate.nsh"), 0644, nil)
@@ -693,7 +693,7 @@ func doWindowsInstaller(cmdline []string) {
 		"/DMINORVERSION="+version[1],
 		"/DBUILDVERSION="+version[2],
 		"/DARCH="+*arch,
-		filepath.Join(*workdir, "geth.nsi"),
+		filepath.Join(*workdir, "grue.nsi"),
 	)
 
 	// Sign and publish installer.
@@ -709,7 +709,7 @@ func doAndroidArchive(cmdline []string) {
 		local  = flag.Bool("local", false, `Flag whether we're only doing a local build (skip Maven artifacts)`)
 		signer = flag.String("signer", "", `Environment variable holding the signing key (e.g. ANDROID_SIGNING_KEY)`)
 		deploy = flag.String("deploy", "", `Destination to deploy the archive (usually "https://oss.sonatype.org")`)
-		upload = flag.String("upload", "", `Destination to upload the archive (usually "gethstore/builds")`)
+		upload = flag.String("upload", "", `Destination to upload the archive (usually "gruestore/builds")`)
 	)
 	flag.CommandLine.Parse(cmdline)
 	env := build.Env()
@@ -724,7 +724,7 @@ func doAndroidArchive(cmdline []string) {
 	// Build the Android archive and Maven resources
 	build.MustRun(goTool("get", "golang.org/x/mobile/cmd/gomobile"))
 	build.MustRun(gomobileTool("init", "--ndk", os.Getenv("ANDROID_NDK")))
-	build.MustRun(gomobileTool("bind", "--target", "android", "--javapkg", "org.ethereum", "-v", "github.com/Rue-Foundation/go-rue/mobile"))
+	build.MustRun(gomobileTool("bind", "--target", "android", "--javapkg", "org.rue", "-v", "github.com/Rue-Foundation/go-rue/mobile"))
 
 	if *local {
 		// If we're building locally, copy bundle to build dir and skip Maven
@@ -836,7 +836,7 @@ func doXCodeFramework(cmdline []string) {
 		local  = flag.Bool("local", false, `Flag whether we're only doing a local build (skip Maven artifacts)`)
 		signer = flag.String("signer", "", `Environment variable holding the signing key (e.g. IOS_SIGNING_KEY)`)
 		deploy = flag.String("deploy", "", `Destination to deploy the archive (usually "trunk")`)
-		upload = flag.String("upload", "", `Destination to upload the archives (usually "gethstore/builds")`)
+		upload = flag.String("upload", "", `Destination to upload the archives (usually "gruestore/builds")`)
 	)
 	flag.CommandLine.Parse(cmdline)
 	env := build.Env()
@@ -844,7 +844,7 @@ func doXCodeFramework(cmdline []string) {
 	// Build the iOS XCode framework
 	build.MustRun(goTool("get", "golang.org/x/mobile/cmd/gomobile"))
 	build.MustRun(gomobileTool("init"))
-	bind := gomobileTool("bind", "--target", "ios", "--tags", "ios", "-v", "github.com/rue-foundation/go-rue/mobile")
+	bind := gomobileTool("bind", "--target", "ios", "--tags", "ios", "-v", "github.com/Rue-Foundation/go-rue/mobile")
 
 	if *local {
 		// If we're building locally, use the build folder and stop afterwards
@@ -852,7 +852,7 @@ func doXCodeFramework(cmdline []string) {
 		build.MustRun(bind)
 		return
 	}
-	archive := "geth-" + archiveBasename("ios", env)
+	archive := "grue-" + archiveBasename("ios", env)
 	if err := os.Mkdir(archive, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
@@ -871,7 +871,7 @@ func doXCodeFramework(cmdline []string) {
 	if *deploy != "" {
 		meta := newPodMetadata(env, archive)
 		build.Render("build/pod.podspec", "Grue.podspec", 0755, meta)
-		build.MustRunCommand("pod", *deploy, "push", "Geth.podspec", "--allow-warnings", "--verbose")
+		build.MustRunCommand("pod", *deploy, "push", "Grue.podspec", "--allow-warnings", "--verbose")
 	}
 }
 

@@ -1,9 +1,9 @@
 pragma solidity ^0.4.18;
 
-import "https://github.com/ethereum/solidity/std/mortal.sol";
+import "https://github.com/rue/solidity/std/mortal.sol";
 
 /// @title Chequebook for Rue micropayments
-/// @author Daniel A. Nagy <daniel@ethereum.org>
+/// @author Daniel A. Nagy <daniel@rue.org>
 contract chequebook is mortal {
     // Cumulative paid amount in wei to each beneficiary
     mapping (address => uint256) public sent;

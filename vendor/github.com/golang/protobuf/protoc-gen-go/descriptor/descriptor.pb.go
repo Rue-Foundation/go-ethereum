@@ -1171,7 +1171,7 @@ type MessageOptions struct {
 	// for the message, or it will be completely ignored; in the very least,
 	// this is a formalization for deprecating messages.
 	Deprecated *bool `protobuf:"varint,3,opt,name=deprecated,def=0" json:"deprecated,omitempty"`
-	// Whether the message is an automatically generated map entry type for the
+	// Whrue the message is an automatically generated map entry type for the
 	// maps field.
 	//
 	// For maps fields:

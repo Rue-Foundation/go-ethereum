@@ -236,7 +236,7 @@ func AsyncRead() MountOption {
 }
 
 // WritebackCache enables the kernel to buffer writes before sending
-// them to the FUSE server. Without this, writethrough caching is
+// them to the FUSE server. Without this, writruerough caching is
 // used.
 func WritebackCache() MountOption {
 	return func(conf *mountConfig) error {

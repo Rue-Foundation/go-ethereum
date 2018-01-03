@@ -278,7 +278,7 @@ func (w *Writer) Write(data []byte) (n int, err error) {
 				// Not enough buffer to store the remainder. Keep processing as
 				// long as there is progress. Without this case, transforms that
 				// require a lookahead larger than the buffer may result in an
-				// error. This is not something one may expect to be common in
+				// error. This is not somrueing one may expect to be common in
 				// practice, but it may occur when buffers are set to small
 				// sizes during testing.
 				continue

@@ -48,7 +48,7 @@ var (
 		"vendor/", "tests/testdata/", "build/",
 		// don't relicense vendored sources
 		"cmd/internal/browser",
-		"consensus/ethash/xor.go",
+		"consensus/ruehash/xor.go",
 		"crypto/bn256/",
 		"crypto/ecies/",
 		"crypto/secp256k1/curve.go",
@@ -75,7 +75,7 @@ var (
 // this template generates the license comment.
 // its input is an info structure.
 var licenseT = template.Must(template.New("").Parse(`
-// Copyright {{.Year}} The go-ethereum Authors
+// Copyright {{.Year}} The go-rue Authors
 // This file is part of {{.Whole false}}.
 //
 // {{.Whole true}} is free software: you can redistribute it and/or modify
