@@ -19,9 +19,6 @@
 package grue
 
 import (
-	"encoding/json"
-
-	"github.com/Rue-Foundation/go-rue/core"
 	"github.com/Rue-Foundation/go-rue/p2p/discv5"
 	"github.com/Rue-Foundation/go-rue/params"
 )
@@ -32,6 +29,11 @@ func MainnetGenesis() string {
 	return ""
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> v1.1
 // TestnetGenesis returns the JSON spec to use for the Rue test network.
 func TestnetGenesis() string {
 	enc, err := json.Marshal(core.DefaultTestnetGenesisBlock())
@@ -50,6 +52,7 @@ func RinkebyGenesis() string {
 	return string(enc)
 }
 
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 // FoundationBootnodes returns the enode URLs of the P2P bootstrap nodes operated
 // by the foundation running the V5 discovery protocol.
 func FoundationBootnodes() *Enodes {

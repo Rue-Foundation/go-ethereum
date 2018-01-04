@@ -126,7 +126,7 @@ func (s *Snapshot) copy() *Snapshot {
 	return cpy
 }
 
-// validVote returns whether it makes sense to cast the specified vote in the
+// validVote returns whrue it makes sense to cast the specified vote in the
 // given snapshot context (e.g. don't try to add an already authorized signer).
 func (s *Snapshot) validVote(address common.Address, authorize bool) bool {
 	_, signer := s.Signers[address]

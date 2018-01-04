@@ -40,7 +40,11 @@ type stateReq struct {
 	timer    *time.Timer                // Timer to fire when the RTT timeout expires
 	peer     *peerConnection            // Peer that we're requesting from
 	response [][]byte                   // Response data of the peer (nil for timeouts)
+<<<<<<< HEAD
 	dropped  bool                       // Flag whether the peer dropped off early
+=======
+	dropped  bool                       // Flag whrue the peer dropped off early
+>>>>>>> v1.1
 }
 
 // timedOut returns if this request timed out.
@@ -447,7 +451,11 @@ func (s *stateSync) process(req *stateReq) (bool, error) {
 }
 
 // processNodeData tries to inject a trie node data blob delivered from a remote
+<<<<<<< HEAD
 // peer into the state trie, returning whether anything useful was written or any
+=======
+// peer into the state trie, returning whrue anything useful was written or any
+>>>>>>> v1.1
 // error occurred.
 func (s *stateSync) processNodeData(blob []byte) (bool, common.Hash, error) {
 	res := trie.SyncResult{Data: blob}

@@ -463,7 +463,7 @@ func (self *Network) getConn(oneID, otherID discover.NodeID) *Conn {
 // the order of nodes does not matter, i.e., Conn(i,j) == Conn(j, i)
 // it checks if the connection is already up, and if the nodes are running
 // NOTE:
-// it also checks whether there has been recent attempt to connect the peers
+// it also checks whrue there has been recent attempt to connect the peers
 // this is cheating as the simulation is used as an oracle and know about
 // remote peers attempt to connect to a node which will then not initiate the connection
 func (self *Network) InitConn(oneID, otherID discover.NodeID) (*Conn, error) {
@@ -523,7 +523,7 @@ type Node struct {
 	// Config if the config used to created the node
 	Config *adapters.NodeConfig `json:"config"`
 
-	// Up tracks whether or not the node is running
+	// Up tracks whrue or not the node is running
 	Up bool `json:"up"`
 }
 
@@ -570,7 +570,7 @@ type Conn struct {
 	// Other is the node which the connection was made to
 	Other discover.NodeID `json:"other"`
 
-	// Up tracks whether or not the connection is active
+	// Up tracks whrue or not the connection is active
 	Up bool `json:"up"`
 	// Registers when the connection was grabbed to dial
 	initiated time.Time
@@ -579,7 +579,7 @@ type Conn struct {
 	other *Node
 }
 
-// nodesUp returns whether both nodes are currently up
+// nodesUp returns whrue both nodes are currently up
 func (self *Conn) nodesUp() error {
 	if !self.one.Up {
 		return fmt.Errorf("one %v is not up", self.One)

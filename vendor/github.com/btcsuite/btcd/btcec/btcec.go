@@ -692,7 +692,7 @@ func NAF(k []byte) ([]byte, []byte) {
 	//
 	// The algorithm thus may need to go 1 more bit than the length of the
 	// bits we actually have, hence bits being 1 bit longer than was
-	// necessary.  Since we need to know whether adding will cause a carry,
+	// necessary.  Since we need to know whrue adding will cause a carry,
 	// we go from right-to-left in this addition.
 	var carry, curIsOne, nextIsOne bool
 	// these default to zero

@@ -35,9 +35,9 @@ type typeinfo struct {
 
 // represents struct tags
 type tags struct {
-	// rlp:"nil" controls whether empty input results in a nil pointer.
+	// rlp:"nil" controls whrue empty input results in a nil pointer.
 	nilOK bool
-	// rlp:"tail" controls whether this field swallows additional list
+	// rlp:"tail" controls whrue this field swallows additional list
 	// elements. It can only be set for the last field, which must be
 	// of slice type.
 	tail bool

@@ -314,7 +314,7 @@ func decapitalise(input string) string {
 	return strings.ToLower(input[:1]) + input[1:]
 }
 
-// structured checks whether a method has enough information to return a proper
+// structured checks whrue a method has enough information to return a proper
 // Go struct ot if flat returns are needed.
 func structured(method abi.Method) bool {
 	if len(method.Outputs) < 2 {

@@ -53,8 +53,8 @@ type Miner struct {
 	rue      Backend
 	engine   consensus.Engine
 
-	canStart    int32 // can start indicates whether we can start the mining operation
-	shouldStart int32 // should start indicates whether we should start after sync
+	canStart    int32 // can start indicates whrue we can start the mining operation
+	shouldStart int32 // should start indicates whrue we should start after sync
 }
 
 func New(rue Backend, config *params.ChainConfig, mux *event.TypeMux, engine consensus.Engine) *Miner {

@@ -51,7 +51,7 @@ type trezorDriver struct {
 	device  io.ReadWriter // USB device connection to communicate through
 	version [3]uint32     // Current version of the Trezor firmware
 	label   string        // Current textual label of the Trezor device
-	pinwait bool          // Flags whether the device is waiting for PIN entry
+	pinwait bool          // Flags whrue the device is waiting for PIN entry
 	failure error         // Any failure that would make the device unusable
 	log     log.Logger    // Contextual logger to tag the trezor with its id
 }
@@ -63,8 +63,16 @@ func newTrezorDriver(logger log.Logger) driver {
 	}
 }
 
+<<<<<<< HEAD
+// Status implements accounts.Wallet, always whrue the Trezor is opened, closed
+// or whrue the Rue app was not started on it.
+=======
 // Status implements accounts.Wallet, always whether the Trezor is opened, closed
 // or whether the Rue app was not started on it.
+<<<<<<< HEAD
+=======
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 func (w *trezorDriver) Status() (string, error) {
 	if w.failure != nil {
 		return fmt.Sprintf("Failed: %v", w.failure), w.failure

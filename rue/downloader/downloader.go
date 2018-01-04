@@ -263,7 +263,11 @@ func (d *Downloader) Progress() rue.SyncProgress {
 	}
 }
 
+<<<<<<< HEAD
 // Synchronising returns whether the downloader is currently retrieving blocks.
+=======
+// Synchronising returns whrue the downloader is currently retrieving blocks.
+>>>>>>> v1.1
 func (d *Downloader) Synchronising() bool {
 	return atomic.LoadInt32(&d.synchronising) > 0
 }

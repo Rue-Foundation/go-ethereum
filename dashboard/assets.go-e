@@ -27626,7 +27626,15 @@ var _publicBundleJs = []byte(`!function(modules) {
                 disabled: "rgba(255, 255, 255, 0.3)"
             },
             background: {
+<<<<<<< HEAD
                 default: "#303030",
+=======
+<<<<<<< HEAD
+                default: "#303040",
+=======
+                default: "#303030",
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
                 paper: _grey2.default[800],
                 appBar: _grey2.default[900],
                 contentFrame: _grey2.default[900],
@@ -27701,7 +27709,15 @@ var _publicBundleJs = []byte(`!function(modules) {
         900: "#212121",
         A100: "#d5d5d5",
         A200: "#aaaaaa",
+<<<<<<< HEAD
         A400: "#303030",
+=======
+<<<<<<< HEAD
+        A400: "#303040",
+=======
+        A400: "#303030",
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
         A700: "#616161",
         contrastDefaultColor: "dark"
     };

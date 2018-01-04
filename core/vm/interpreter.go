@@ -65,7 +65,7 @@ type Interpreter struct {
 
 // NewInterpreter returns a new instance of the Interpreter.
 func NewInterpreter(evm *EVM, cfg Config) *Interpreter {
-	// We use the STOP instruction whether to see
+	// We use the STOP instruction whrue to see
 	// the jump table was initialised. If it was not
 	// we'll set the default jump table.
 	if !cfg.JumpTable[STOP].valid {

@@ -63,7 +63,15 @@ import (
 var (
 	genesisFlag = flag.String("genesis", "", "Genesis json file to seed the chain with")
 	apiPortFlag = flag.Int("apiport", 8080, "Listener port for the HTTP API connection")
+<<<<<<< HEAD
 	ruePortFlag = flag.Int("rueport", 30303, "Listener port for the devp2p connection")
+=======
+<<<<<<< HEAD
+	ruePortFlag = flag.Int("rueport", 30304, "Listener port for the devp2p connection")
+=======
+	ruePortFlag = flag.Int("rueport", 30303, "Listener port for the devp2p connection")
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 	bootFlag    = flag.String("bootnodes", "", "Comma separated bootnode enode URLs to seed with")
 	netFlag     = flag.Uint64("network", 0, "Network ID to use for the Rue protocol")
 	statsFlag   = flag.String("ruestats", "", "Ruestats network monitoring auth string")
@@ -87,7 +95,15 @@ var (
 )
 
 var (
+<<<<<<< HEAD
 	rue = new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)
+=======
+<<<<<<< HEAD
+	rues = new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)
+=======
+	rue = new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 )
 
 func main() {
@@ -352,7 +368,15 @@ func (f *faucet) apiHandler(conn *websocket.Conn) {
 	}
 	// Send over the initial stats and the latest header
 	if err = send(conn, map[string]interface{}{
+<<<<<<< HEAD
 		"funds":    balance.Div(balance, rue),
+=======
+<<<<<<< HEAD
+		"funds":    balance.Div(balance, rues),
+=======
+		"funds":    balance.Div(balance, rue),
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 		"funded":   nonce,
 		"peers":    f.stack.Server().PeerCount(),
 		"requests": f.reqs,
@@ -469,7 +493,15 @@ func (f *faucet) apiHandler(conn *websocket.Conn) {
 		)
 		if timeout = f.timeouts[username]; time.Now().After(timeout) {
 			// User wasn't funded recently, create the funding transaction
+<<<<<<< HEAD
 			amount := new(big.Int).Mul(big.NewInt(int64(*payoutFlag)), rue)
+=======
+<<<<<<< HEAD
+			amount := new(big.Int).Mul(big.NewInt(int64(*payoutFlag)), rues)
+=======
+			amount := new(big.Int).Mul(big.NewInt(int64(*payoutFlag)), rue)
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 			amount = new(big.Int).Mul(amount, new(big.Int).Exp(big.NewInt(5), big.NewInt(int64(msg.Tier)), nil))
 			amount = new(big.Int).Div(amount, new(big.Int).Exp(big.NewInt(2), big.NewInt(int64(msg.Tier)), nil))
 
@@ -561,7 +593,15 @@ func (f *faucet) loop() {
 				log.Info("Updated faucet state", "block", head.Number, "hash", head.Hash(), "balance", balance, "nonce", nonce, "price", price)
 			}
 			// Faucet state retrieved, update locally and send to clients
+<<<<<<< HEAD
 			balance = new(big.Int).Div(balance, rue)
+=======
+<<<<<<< HEAD
+			balance = new(big.Int).Div(balance, rues)
+=======
+			balance = new(big.Int).Div(balance, rue)
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 
 			f.lock.Lock()
 			f.price, f.nonce = price, nonce

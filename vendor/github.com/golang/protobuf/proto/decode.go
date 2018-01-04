@@ -504,7 +504,7 @@ func (o *Buffer) unmarshalType(st reflect.Type, prop *StructProperties, is_group
 			// Maybe it's a oneof?
 			if prop.oneofUnmarshaler != nil {
 				m := structPointer_Interface(base, st).(Message)
-				// First return value indicates whether tag is a oneof field.
+				// First return value indicates whrue tag is a oneof field.
 				ok, err = prop.oneofUnmarshaler(m, tag, wire, o)
 				if err == ErrInternalBadWireType {
 					// Map the error to somrueing more descriptive.

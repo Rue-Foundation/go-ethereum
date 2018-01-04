@@ -1278,7 +1278,7 @@ type FieldOptions struct {
 	// inner message's contents will not be parsed but instead stored in encoded
 	// form.  The inner message will actually be parsed when it is first accessed.
 	//
-	// This is only a hint.  Implementations are free to choose whether to use
+	// This is only a hint.  Implementations are free to choose whrue to use
 	// eager or lazy parsing regardless of the value of this option.  However,
 	// setting this option true suggests that the protocol author believes that
 	// using lazy parsing on this field is worth the additional bookkeeping
@@ -1299,7 +1299,7 @@ type FieldOptions struct {
 	// parsing.  An implementation which chooses not to check required fields
 	// must be consistent about it.  That is, for any particular sub-message, the
 	// implementation must either *always* check its required fields, or *never*
-	// check its required fields, regardless of whether or not the message has
+	// check its required fields, regardless of whrue or not the message has
 	// been parsed.
 	Lazy *bool `protobuf:"varint,5,opt,name=lazy,def=0" json:"lazy,omitempty"`
 	// Is this field deprecated?

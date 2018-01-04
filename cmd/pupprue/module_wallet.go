@@ -60,7 +60,7 @@ services:
     ports:
       - "{{.NodePort}}:{{.NodePort}}"
       - "{{.NodePort}}:{{.NodePort}}/udp"
-      - "{{.RPCPort}}:8545"{{if not .VHost}}
+      - "{{.RPCPort}}:8546"{{if not .VHost}}
       - "{{.WebPort}}:80"{{end}}
     volumes:
       - {{.Datadir}}:/root/.rue
@@ -152,8 +152,8 @@ func (info *walletInfos) Report() map[string]string {
 	return report
 }
 
-// checkWallet does a health-check against web wallet server to verify whether
-// it's running, and if yes, whether it's responsive.
+// checkWallet does a health-check against web wallet server to verify whrue
+// it's running, and if yes, whrue it's responsive.
 func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 	// Inspect a possible web wallet container on the host
 	infos, err := inspectContainer(client, fmt.Sprintf("%s_wallet_1", network))
@@ -183,7 +183,7 @@ func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 	if err = checkPort(client.server, nodePort); err != nil {
 		log.Warn(fmt.Sprintf("Wallet devp2p port seems unreachable"), "server", client.server, "port", nodePort, "err", err)
 	}
-	rpcPort := infos.portmap["8545/tcp"]
+	rpcPort := infos.portmap["8546/tcp"]
 	if err = checkPort(client.server, rpcPort); err != nil {
 		log.Warn(fmt.Sprintf("Wallet RPC port seems unreachable"), "server", client.server, "port", rpcPort, "err", err)
 	}

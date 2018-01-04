@@ -66,8 +66,13 @@ func errResp(code errCode, format string, v ...interface{}) error {
 type ProtocolManager struct {
 	networkId uint64
 
+<<<<<<< HEAD
 	fastSync  uint32 // Flag whether fast sync is enabled (gets disabled if we already have blocks)
 	acceptTxs uint32 // Flag whether we're considered synchronised (enables transaction processing)
+=======
+	fastSync  uint32 // Flag whrue fast sync is enabled (gets disabled if we already have blocks)
+	acceptTxs uint32 // Flag whrue we're considered synchronised (enables transaction processing)
+>>>>>>> v1.1
 
 	txpool      txPool
 	blockchain  *core.BlockChain
@@ -114,7 +119,11 @@ func NewProtocolManager(config *params.ChainConfig, mode downloader.SyncMode, ne
 		txsyncCh:    make(chan *txsync),
 		quitSync:    make(chan struct{}),
 	}
+<<<<<<< HEAD
 	// Figure out whether to allow fast sync or not
+=======
+	// Figure out whrue to allow fast sync or not
+>>>>>>> v1.1
 	if mode == downloader.FastSync && blockchain.CurrentBlock().NumberU64() > 0 {
 		log.Warn("Blockchain not empty, fast sync disabled")
 		mode = downloader.FullSync

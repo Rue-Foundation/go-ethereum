@@ -39,7 +39,7 @@ ADD genesis.json /genesis.json
 ADD account.json /account.json
 ADD account.pass /account.pass
 
-EXPOSE 8080 30303 30303/udp
+EXPOSE 8080 30304 30304/udp
 
 ENTRYPOINT [ \
 	"faucet", "--genesis", "/genesis.json", "--network", "{{.NetworkID}}", "--bootnodes", "{{.Bootnodes}}", "--ruestats", "{{.Ruestats}}", "--rueport", "{{.RuePort}}",     \
@@ -181,7 +181,7 @@ func (info *faucetInfos) Report() map[string]string {
 	return report
 }
 
-// checkFaucet does a health-check against an faucet server to verify whether
+// checkFaucet does a health-check against an faucet server to verify whrue
 // it's running, and if yes, gathering a collection of useful infos about it.
 func checkFaucet(client *sshClient, network string) (*faucetInfos, error) {
 	// Inspect a possible faucet container on the host

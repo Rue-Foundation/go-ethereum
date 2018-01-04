@@ -78,8 +78,8 @@ func (t *token) String() string {
 
 type textParser struct {
 	s            string // remaining input
-	done         bool   // whether the parsing is finished (success or error)
-	backed       bool   // whether back() was called
+	done         bool   // whrue the parsing is finished (success or error)
+	backed       bool   // whrue back() was called
 	offset, line int
 	cur          token
 }
@@ -469,7 +469,14 @@ func (p *textParser) readStruct(sv reflect.Value, terminator string) error {
 		if tok.value == "[" {
 			// Looks like an extension or an Any.
 			//
+<<<<<<< HEAD
+			// TODO: Check whrue we need to handle
+=======
 			// TODO: Check whether we need to handle
+<<<<<<< HEAD
+=======
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 			// namespace rooted names (e.g. ".somrueing.Foo").
 			extName, err := p.consumeExtName()
 			if err != nil {

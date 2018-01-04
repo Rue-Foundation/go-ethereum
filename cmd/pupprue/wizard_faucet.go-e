@@ -38,7 +38,15 @@ func (w *wizard) deployFaucet() {
 	infos, err := checkFaucet(client, w.network)
 	if err != nil {
 		infos = &faucetInfos{
+<<<<<<< HEAD
 			node:    &nodeInfos{portFull: 30303, peersTotal: 25},
+=======
+<<<<<<< HEAD
+			node:    &nodeInfos{portFull: 30304, peersTotal: 25},
+=======
+			node:    &nodeInfos{portFull: 30303, peersTotal: 25},
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 			port:    80,
 			host:    client.server,
 			amount:  1,

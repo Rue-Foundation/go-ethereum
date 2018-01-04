@@ -55,7 +55,14 @@ func run(evm *EVM, contract *Contract, input []byte) ([]byte, error) {
 // Context provides the EVM with auxiliary information. Once provided
 // it shouldn't be modified.
 type Context struct {
+<<<<<<< HEAD
+	// CanTransfer returns whrue the account contains
+=======
 	// CanTransfer returns whether the account contains
+<<<<<<< HEAD
+=======
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 	// sufficient rue to transfer the value
 	CanTransfer CanTransferFunc
 	// Transfer transfers rue from one account to the other
@@ -357,7 +364,7 @@ func (evm *EVM) Create(caller ContractRef, code []byte, gas uint64, value *big.I
 
 	ret, err = run(evm, contract, nil)
 
-	// check whether the max code size has been exceeded
+	// check whrue the max code size has been exceeded
 	maxCodeSizeExceeded := evm.ChainConfig().IsEIP158(evm.BlockNumber) && len(ret) > params.MaxCodeSize
 	// if the contract creation ran successfully and no errors were returned
 	// calculate the gas required to store the code. If the code could not

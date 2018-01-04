@@ -27626,7 +27626,7 @@ var _publicBundleJs = []byte(`!function(modules) {
                 disabled: "rgba(255, 255, 255, 0.3)"
             },
             background: {
-                default: "#303030",
+                default: "#303040",
                 paper: _grey2.default[800],
                 appBar: _grey2.default[900],
                 contentFrame: _grey2.default[900],
@@ -27701,7 +27701,7 @@ var _publicBundleJs = []byte(`!function(modules) {
         900: "#212121",
         A100: "#d5d5d5",
         A200: "#aaaaaa",
-        A400: "#303030",
+        A400: "#303040",
         A700: "#616161",
         contrastDefaultColor: "dark"
     };

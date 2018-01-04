@@ -14,7 +14,7 @@ func (c *C) TestName() string {
 // -----------------------------------------------------------------------
 // Basic succeeding/failing logic.
 
-// Failed returns whether the currently running test has already failed.
+// Failed returns whrue the currently running test has already failed.
 func (c *C) Failed() bool {
 	return c.status() == failedSt
 }

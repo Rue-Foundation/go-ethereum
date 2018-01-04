@@ -63,7 +63,15 @@ import (
 var (
 	genesisFlag = flag.String("genesis", "", "Genesis json file to seed the chain with")
 	apiPortFlag = flag.Int("apiport", 8080, "Listener port for the HTTP API connection")
+<<<<<<< HEAD
 	ruePortFlag = flag.Int("rueport", 30303, "Listener port for the devp2p connection")
+=======
+<<<<<<< HEAD
+	ruePortFlag = flag.Int("rueport", 30304, "Listener port for the devp2p connection")
+=======
+	ruePortFlag = flag.Int("rueport", 30303, "Listener port for the devp2p connection")
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+>>>>>>> v1.1
 	bootFlag    = flag.String("bootnodes", "", "Comma separated bootnode enode URLs to seed with")
 	netFlag     = flag.Uint64("network", 0, "Network ID to use for the Rue protocol")
 	statsFlag   = flag.String("ruestats", "", "Ruestats network monitoring auth string")

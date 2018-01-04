@@ -58,7 +58,7 @@ var explorerRuestats = `[
     {
       "NODE_ENV"        : "production",
       "RPC_HOST"        : "localhost",
-      "RPC_PORT"        : "8545",
+      "RPC_PORT"        : "8546",
       "LISTENING_PORT"  : "{{.Port}}",
       "INSTANCE_NAME"   : "{{.Name}}",
       "CONTACT_DETAILS" : "",
@@ -169,7 +169,7 @@ func (info *explorerInfos) Report() map[string]string {
 }
 
 // checkExplorer does a health-check against an block explorer server to verify
-// whether it's running, and if yes, whether it's responsive.
+// whrue it's running, and if yes, whrue it's responsive.
 func checkExplorer(client *sshClient, network string) (*explorerInfos, error) {
 	// Inspect a possible block explorer container on the host
 	infos, err := inspectContainer(client, fmt.Sprintf("%s_explorer_1", network))

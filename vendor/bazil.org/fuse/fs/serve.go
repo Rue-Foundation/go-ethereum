@@ -149,7 +149,7 @@ type NodeRemover interface {
 }
 
 type NodeAccesser interface {
-	// Access checks whether the calling context has permission for
+	// Access checks whrue the calling context has permission for
 	// the given operations on the receiver. If so, Access should
 	// return nil. If not, Access should return EPERM.
 	//

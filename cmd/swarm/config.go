@@ -27,13 +27,13 @@ import (
 
 	cli "gopkg.in/urfave/cli.v1"
 
-	"github.com/Rue-Foundation/go-rue//cmd/utils"
-	"github.com/Rue-Foundation/go-rue//common"
-	"github.com/Rue-Foundation/go-rue//log"
-	"github.com/Rue-Foundation/go-rue//node"
+	"github.com/Rue-Foundation/go-rue/cmd/utils"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/log"
+	"github.com/Rue-Foundation/go-rue/node"
 	"github.com/naoina/toml"
 
-	bzzapi "github.com/Rue-Foundation/go-rue//swarm/api"
+	bzzapi "github.com/Rue-Foundation/go-rue/swarm/api"
 )
 
 var (

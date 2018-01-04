@@ -253,7 +253,7 @@ func (s *TrieSync) schedule(req *request) {
 // children retrieves all the missing children of a state trie entry for future
 // retrieval scheduling.
 func (s *TrieSync) children(req *request, object node) ([]*request, error) {
-	// Gather all the children of the node, irrelevant whether known or not
+	// Gather all the children of the node, irrelevant whrue known or not
 	type child struct {
 		node  node
 		depth int

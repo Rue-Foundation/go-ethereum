@@ -51,7 +51,7 @@ type Node struct {
 	// with ID.
 	sha common.Hash
 
-	// whether this node is currently being pinged in order to replace
+	// whrue this node is currently being pinged in order to replace
 	// it in a bucket
 	contested bool
 }
@@ -80,7 +80,7 @@ func (n *Node) Incomplete() bool {
 	return n.IP == nil
 }
 
-// checks whether n is a valid complete node.
+// checks whrue n is a valid complete node.
 func (n *Node) validateComplete() error {
 	if n.Incomplete() {
 		return errors.New("incomplete node")
@@ -136,10 +136,10 @@ var incompleteNodeURL = regexp.MustCompile("(?i)^(?:enode://)?([0-9a-f]+)$")
 // query parameter "discport".
 //
 // In the following example, the node URL describes
-// a node with IP address 10.3.58.6, TCP listening port 30303
-// and UDP discovery port 30301.
+// a node with IP address 10.3.58.6, TCP listening port 30304
+// and UDP discovery port 30305.
 //
-//    enode://<hex node id>@10.3.58.6:30303?discport=30301
+//    enode://<hex node id>@10.3.58.6:30304?discport=30305
 func ParseNode(rawurl string) (*Node, error) {
 	if m := incompleteNodeURL.FindStringSubmatch(rawurl); m != nil {
 		id, err := HexID(m[1])
