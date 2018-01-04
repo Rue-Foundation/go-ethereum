@@ -147,11 +147,7 @@ func StringToAddress(s string) Address { return BytesToAddress([]byte(s)) }
 func BigToAddress(b *big.Int) Address  { return BytesToAddress(b.Bytes()) }
 func HexToAddress(s string) Address    { return BytesToAddress(FromHex(s)) }
 
-<<<<<<< HEAD
-// IsHexAddress verifies whrue a string can represent a valid hex-encoded
-=======
 // IsHexAddress verifies whether a string can represent a valid hex-encoded
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 // Rue address or not.
 func IsHexAddress(s string) bool {
 	if hasHexPrefix(s) {

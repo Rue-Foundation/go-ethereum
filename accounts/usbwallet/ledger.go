@@ -100,11 +100,7 @@ func (w *ledgerDriver) Status() (string, error) {
 	return fmt.Sprintf("Rue app v%d.%d.%d online", w.version[0], w.version[1], w.version[2]), w.failure
 }
 
-<<<<<<< HEAD
-// offline returns whrue the wallet and the Rue app is offline or not.
-=======
 // offline returns whether the wallet and the Rue app is offline or not.
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 //
 // The method assumes that the state lock is held!
 func (w *ledgerDriver) offline() bool {

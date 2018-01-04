@@ -29,27 +29,6 @@ func MainnetGenesis() string {
 	return ""
 }
 
-<<<<<<< HEAD
-=======
-// TestnetGenesis returns the JSON spec to use for the Rue test network.
-func TestnetGenesis() string {
-	enc, err := json.Marshal(core.DefaultTestnetGenesisBlock())
-	if err != nil {
-		panic(err)
-	}
-	return string(enc)
-}
-
-// RinkebyGenesis returns the JSON spec to use for the Rinkeby test network
-func RinkebyGenesis() string {
-	enc, err := json.Marshal(core.DefaultRinkebyGenesisBlock())
-	if err != nil {
-		panic(err)
-	}
-	return string(enc)
-}
-
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 // FoundationBootnodes returns the enode URLs of the P2P bootstrap nodes operated
 // by the foundation running the V5 discovery protocol.
 func FoundationBootnodes() *Enodes {

@@ -55,11 +55,7 @@ func run(evm *EVM, contract *Contract, input []byte) ([]byte, error) {
 // Context provides the EVM with auxiliary information. Once provided
 // it shouldn't be modified.
 type Context struct {
-<<<<<<< HEAD
-	// CanTransfer returns whrue the account contains
-=======
 	// CanTransfer returns whether the account contains
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 	// sufficient rue to transfer the value
 	CanTransfer CanTransferFunc
 	// Transfer transfers rue from one account to the other

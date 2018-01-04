@@ -49,11 +49,7 @@ type NodeConfig struct {
 	// set to zero, then only the configured static and trusted peers can connect.
 	MaxPeers int
 
-<<<<<<< HEAD
-	// RueEnabled specifies whrue the node should run the Rue protocol.
-=======
 	// RueEnabled specifies whether the node should run the Rue protocol.
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 	RueEnabled bool
 
 	// RueNetworkID is the network identifier used by the Rue protocol to
@@ -139,16 +135,6 @@ func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 		if err := json.Unmarshal([]byte(config.RueGenesis), genesis); err != nil {
 			return nil, fmt.Errorf("invalid genesis spec: %v", err)
 		}
-<<<<<<< HEAD
-=======
-		// If we have the testnet, hard code the chain configs too
-		if config.RueGenesis == TestnetGenesis() {
-			genesis.Config = params.TestnetChainConfig
-			if config.RueNetworkID == 1 {
-				config.RueNetworkID = 3
-			}
-		}
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 	}
 	// Register the Rue protocol if requested
 	if config.RueEnabled {

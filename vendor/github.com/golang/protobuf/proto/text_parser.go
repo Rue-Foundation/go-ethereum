@@ -25,7 +25,7 @@
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHRUEER IN CONTRACT, STRICT LIABILITY, OR TORT
+// THEORY OF LIABILITY, whetherER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
@@ -78,8 +78,8 @@ func (t *token) String() string {
 
 type textParser struct {
 	s            string // remaining input
-	done         bool   // whrue the parsing is finished (success or error)
-	backed       bool   // whrue back() was called
+	done         bool   // whether the parsing is finished (success or error)
+	backed       bool   // whether back() was called
 	offset, line int
 	cur          token
 }
@@ -469,12 +469,8 @@ func (p *textParser) readStruct(sv reflect.Value, terminator string) error {
 		if tok.value == "[" {
 			// Looks like an extension or an Any.
 			//
-<<<<<<< HEAD
-			// TODO: Check whrue we need to handle
-=======
 			// TODO: Check whether we need to handle
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
-			// namespace rooted names (e.g. ".somrueing.Foo").
+			// namespace rooted names (e.g. ".something.Foo").
 			extName, err := p.consumeExtName()
 			if err != nil {
 				return err
