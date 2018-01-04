@@ -443,14 +443,10 @@ var (
 		Name:  "port",
 		Usage: "Network listening port",
 <<<<<<< HEAD
-		Value: 30303,
-=======
-<<<<<<< HEAD
 		Value: 30304,
 =======
 		Value: 30303,
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 	}
 	BootnodesFlag = cli.StringFlag{
 		Name:  "bootnodes",

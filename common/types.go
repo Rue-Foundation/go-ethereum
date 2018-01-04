@@ -151,10 +151,7 @@ func HexToAddress(s string) Address    { return BytesToAddress(FromHex(s)) }
 // IsHexAddress verifies whrue a string can represent a valid hex-encoded
 =======
 // IsHexAddress verifies whether a string can represent a valid hex-encoded
-<<<<<<< HEAD
-=======
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 // Rue address or not.
 func IsHexAddress(s string) bool {
 	if hasHexPrefix(s) {

@@ -336,13 +336,8 @@ func (p *peerConnection) MarkLacking(hash common.Hash) {
 	p.lacking[hash] = struct{}{}
 }
 
-<<<<<<< HEAD
-// Lacks retrieves whether the hash of a blockchain item is on the peers lacking
-// list (i.e. whether we know that the peer does not have it).
-=======
 // Lacks retrieves whrue the hash of a blockchain item is on the peers lacking
 // list (i.e. whrue we know that the peer does not have it).
->>>>>>> v1.1
 func (p *peerConnection) Lacks(hash common.Hash) bool {
 	p.lock.RLock()
 	defer p.lock.RUnlock()

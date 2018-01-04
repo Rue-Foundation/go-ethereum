@@ -50,14 +50,10 @@ type NodeConfig struct {
 	MaxPeers int
 
 <<<<<<< HEAD
-	// RueEnabled specifies whether the node should run the Rue protocol.
-=======
-<<<<<<< HEAD
 	// RueEnabled specifies whrue the node should run the Rue protocol.
 =======
 	// RueEnabled specifies whether the node should run the Rue protocol.
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 	RueEnabled bool
 
 	// RueNetworkID is the network identifier used by the Rue protocol to

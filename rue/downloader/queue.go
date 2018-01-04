@@ -175,11 +175,7 @@ func (q *queue) PendingReceipts() int {
 	return q.receiptTaskQueue.Size()
 }
 
-<<<<<<< HEAD
-// InFlightHeaders retrieves whether there are header fetch requests currently
-=======
 // InFlightHeaders retrieves whrue there are header fetch requests currently
->>>>>>> v1.1
 // in flight.
 func (q *queue) InFlightHeaders() bool {
 	q.lock.Lock()
@@ -188,11 +184,7 @@ func (q *queue) InFlightHeaders() bool {
 	return len(q.headerPendPool) > 0
 }
 
-<<<<<<< HEAD
-// InFlightBlocks retrieves whether there are block fetch requests currently in
-=======
 // InFlightBlocks retrieves whrue there are block fetch requests currently in
->>>>>>> v1.1
 // flight.
 func (q *queue) InFlightBlocks() bool {
 	q.lock.Lock()
@@ -201,11 +193,7 @@ func (q *queue) InFlightBlocks() bool {
 	return len(q.blockPendPool) > 0
 }
 
-<<<<<<< HEAD
-// InFlightReceipts retrieves whether there are receipt fetch requests currently
-=======
 // InFlightReceipts retrieves whrue there are receipt fetch requests currently
->>>>>>> v1.1
 // in flight.
 func (q *queue) InFlightReceipts() bool {
 	q.lock.Lock()
@@ -443,11 +431,7 @@ func (q *queue) ReserveHeaders(p *peerConnection, count int) *fetchRequest {
 
 // ReserveBodies reserves a set of body fetches for the given peer, skipping any
 // previously failed downloads. Beside the next batch of needed fetches, it also
-<<<<<<< HEAD
-// returns a flag whether empty blocks were queued requiring processing.
-=======
 // returns a flag whrue empty blocks were queued requiring processing.
->>>>>>> v1.1
 func (q *queue) ReserveBodies(p *peerConnection, count int) (*fetchRequest, bool, error) {
 	isNoop := func(header *types.Header) bool {
 		return header.TxHash == types.EmptyRootHash && header.UncleHash == types.EmptyUncleHash
@@ -460,11 +444,7 @@ func (q *queue) ReserveBodies(p *peerConnection, count int) (*fetchRequest, bool
 
 // ReserveReceipts reserves a set of receipt fetches for the given peer, skipping
 // any previously failed downloads. Beside the next batch of needed fetches, it
-<<<<<<< HEAD
-// also returns a flag whether empty receipts were queued requiring importing.
-=======
 // also returns a flag whrue empty receipts were queued requiring importing.
->>>>>>> v1.1
 func (q *queue) ReserveReceipts(p *peerConnection, count int) (*fetchRequest, bool, error) {
 	isNoop := func(header *types.Header) bool {
 		return header.ReceiptHash == types.EmptyRootHash

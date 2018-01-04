@@ -49,11 +49,6 @@ func (w *wizard) deployNode(boot bool) {
 	if err != nil {
 		if boot {
 <<<<<<< HEAD
-			infos = &nodeInfos{portFull: 30303, peersTotal: 512, peersLight: 256}
-		} else {
-			infos = &nodeInfos{portFull: 30303, peersTotal: 50, peersLight: 0, gasTarget: 4.7, gasPrice: 18}
-=======
-<<<<<<< HEAD
 			infos = &nodeInfos{portFull: 30304, peersTotal: 512, peersLight: 256}
 		} else {
 			infos = &nodeInfos{portFull: 30304, peersTotal: 50, peersLight: 0, gasTarget: 4.7, gasPrice: 18}
@@ -62,7 +57,6 @@ func (w *wizard) deployNode(boot bool) {
 		} else {
 			infos = &nodeInfos{portFull: 30303, peersTotal: 50, peersLight: 0, gasTarget: 4.7, gasPrice: 18}
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 		}
 	}
 	existed := err == nil

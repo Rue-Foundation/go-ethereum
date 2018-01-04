@@ -31,9 +31,6 @@ func MainnetGenesis() string {
 
 <<<<<<< HEAD
 =======
-<<<<<<< HEAD
-=======
->>>>>>> v1.1
 // TestnetGenesis returns the JSON spec to use for the Rue test network.
 func TestnetGenesis() string {
 	enc, err := json.Marshal(core.DefaultTestnetGenesisBlock())

@@ -63,15 +63,6 @@ func NewReleaseService(ctx *node.ServiceContext, config Config) (node.Service, e
 	// Retrieve the Rue service dependency to access the blockchain
 	var apiBackend rueapi.Backend
 <<<<<<< HEAD
-	var rue *rue.Rue
-	if err := ctx.Service(&rue); err == nil {
-		apiBackend = rue.ApiBackend
-	} else {
-		var rue *les.LightRue
-		if err := ctx.Service(&rue); err == nil {
-			apiBackend = rue.ApiBackend
-=======
-<<<<<<< HEAD
 	var ruer *rue.Rue
 	if err := ctx.Service(&ruer); err == nil {
 		apiBackend = ruer.ApiBackend
@@ -88,7 +79,6 @@ func NewReleaseService(ctx *node.ServiceContext, config Config) (node.Service, e
 		if err := ctx.Service(&rue); err == nil {
 			apiBackend = rue.ApiBackend
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 		} else {
 			return nil, err
 		}

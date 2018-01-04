@@ -77,14 +77,10 @@ func (s *StateSuite) TestDump(c *checker.C) {
             "root": "56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
             "codeHash": "87874902497a5bb968da31a2998d8f22e949d1ef6214bcdedd8bae24cca4b9e3",
 <<<<<<< HEAD
-            "code": "03030303030303",
-=======
-<<<<<<< HEAD
             "code": "03030403030403",
 =======
             "code": "03030303030303",
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
             "storage": {}
         }
     }

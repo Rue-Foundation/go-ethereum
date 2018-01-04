@@ -69,10 +69,7 @@ func newTrezorDriver(logger log.Logger) driver {
 =======
 // Status implements accounts.Wallet, always whether the Trezor is opened, closed
 // or whether the Rue app was not started on it.
-<<<<<<< HEAD
-=======
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 func (w *trezorDriver) Status() (string, error) {
 	if w.failure != nil {
 		return fmt.Sprintf("Failed: %v", w.failure), w.failure

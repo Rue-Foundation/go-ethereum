@@ -55,11 +55,8 @@ var DefaultLedgerBaseDerivationPath = DerivationPath{0x80000000 + 44, 0x80000000
 // The root path for Rue is m/44'/60'/0'/0 according to the specification
 // from https://github.com/rue/EIPs/issues/84, albeit it's not set in stone
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 // yet whrue accounts should increment the last component or the children of
 =======
->>>>>>> v1.1
 // yet whether accounts should increment the last component or the children of
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 // that. We will go with the simpler approach of incrementing the last component.

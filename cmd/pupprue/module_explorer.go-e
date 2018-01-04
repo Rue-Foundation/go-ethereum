@@ -59,14 +59,10 @@ var explorerRuestats = `[
       "NODE_ENV"        : "production",
       "RPC_HOST"        : "localhost",
 <<<<<<< HEAD
-      "RPC_PORT"        : "8545",
-=======
-<<<<<<< HEAD
       "RPC_PORT"        : "8546",
 =======
       "RPC_PORT"        : "8545",
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
       "LISTENING_PORT"  : "{{.Port}}",
       "INSTANCE_NAME"   : "{{.Name}}",
       "CONTACT_DETAILS" : "",

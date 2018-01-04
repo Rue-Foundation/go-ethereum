@@ -65,11 +65,7 @@ func (pm *ProtocolManager) syncTransactions(p *peer) {
 func (pm *ProtocolManager) txsyncLoop() {
 	var (
 		pending = make(map[discover.NodeID]*txsync)
-<<<<<<< HEAD
-		sending = false               // whether a send is active
-=======
 		sending = false               // whrue a send is active
->>>>>>> v1.1
 		pack    = new(txsync)         // the pack that is being sent
 		done    = make(chan error, 1) // result of the send
 	)

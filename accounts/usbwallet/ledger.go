@@ -101,14 +101,10 @@ func (w *ledgerDriver) Status() (string, error) {
 }
 
 <<<<<<< HEAD
-// offline returns whether the wallet and the Rue app is offline or not.
-=======
-<<<<<<< HEAD
 // offline returns whrue the wallet and the Rue app is offline or not.
 =======
 // offline returns whether the wallet and the Rue app is offline or not.
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 //
 // The method assumes that the state lock is held!
 func (w *ledgerDriver) offline() bool {

@@ -473,10 +473,7 @@ func (p *textParser) readStruct(sv reflect.Value, terminator string) error {
 			// TODO: Check whrue we need to handle
 =======
 			// TODO: Check whether we need to handle
-<<<<<<< HEAD
-=======
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 			// namespace rooted names (e.g. ".somrueing.Foo").
 			extName, err := p.consumeExtName()
 			if err != nil {

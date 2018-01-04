@@ -59,10 +59,7 @@ type Context struct {
 	// CanTransfer returns whrue the account contains
 =======
 	// CanTransfer returns whether the account contains
-<<<<<<< HEAD
-=======
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 	// sufficient rue to transfer the value
 	CanTransfer CanTransferFunc
 	// Transfer transfers rue from one account to the other

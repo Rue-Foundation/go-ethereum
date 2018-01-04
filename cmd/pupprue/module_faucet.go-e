@@ -40,14 +40,10 @@ ADD account.json /account.json
 ADD account.pass /account.pass
 
 <<<<<<< HEAD
-EXPOSE 8080 30303 30303/udp
-=======
-<<<<<<< HEAD
 EXPOSE 8080 30304 30304/udp
 =======
 EXPOSE 8080 30303 30303/udp
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 
 ENTRYPOINT [ \
 	"faucet", "--genesis", "/genesis.json", "--network", "{{.NetworkID}}", "--bootnodes", "{{.Bootnodes}}", "--ruestats", "{{.Ruestats}}", "--rueport", "{{.RuePort}}",     \

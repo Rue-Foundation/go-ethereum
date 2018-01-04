@@ -61,14 +61,10 @@ services:
       - "{{.NodePort}}:{{.NodePort}}"
       - "{{.NodePort}}:{{.NodePort}}/udp"
 <<<<<<< HEAD
-      - "{{.RPCPort}}:8545"{{if not .VHost}}
-=======
-<<<<<<< HEAD
       - "{{.RPCPort}}:8546"{{if not .VHost}}
 =======
       - "{{.RPCPort}}:8545"{{if not .VHost}}
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
       - "{{.WebPort}}:80"{{end}}
     volumes:
       - {{.Datadir}}:/root/.rue
@@ -192,14 +188,10 @@ func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 		log.Warn(fmt.Sprintf("Wallet devp2p port seems unreachable"), "server", client.server, "port", nodePort, "err", err)
 	}
 <<<<<<< HEAD
-	rpcPort := infos.portmap["8545/tcp"]
-=======
-<<<<<<< HEAD
 	rpcPort := infos.portmap["8546/tcp"]
 =======
 	rpcPort := infos.portmap["8545/tcp"]
 >>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
->>>>>>> v1.1
 	if err = checkPort(client.server, rpcPort); err != nil {
 		log.Warn(fmt.Sprintf("Wallet RPC port seems unreachable"), "server", client.server, "port", rpcPort, "err", err)
 	}
