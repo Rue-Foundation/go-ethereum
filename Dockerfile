@@ -1,4 +1,4 @@
-# Build Geth in a stock Go builder container
+# Build Grue in a stock Go builder container
 FROM golang:1.9-alpine as builder
 
 RUN apk add --no-cache make gcc musl-dev linux-headers
@@ -6,7 +6,7 @@ RUN apk add --no-cache make gcc musl-dev linux-headers
 ADD . /go-rue
 RUN cd /go-rue && make grue
 
-# Pull Geth into a second stage deploy alpine container
+# Pull Grue into a second stage deploy alpine container
 FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates

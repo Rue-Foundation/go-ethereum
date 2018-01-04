@@ -1,18 +1,18 @@
-// Copyright 2015 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2015 The go-rue Authors
+// This file is part of the go-rue library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-rue library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-rue library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
 
 package rlp
 
@@ -36,7 +36,7 @@ func TestCountValues(t *testing.T) {
 		{"C0", 1, nil},
 		{"01 02 03", 3, nil},
 		{"01 C406070809 02", 3, nil},
-		{"820101 820202 8403030303 04", 4, nil},
+		{"820101 820202 8403030403 04", 4, nil},
 
 		// size errors
 		{"8142", 0, ErrCanonSize},

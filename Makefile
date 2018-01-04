@@ -11,10 +11,10 @@
 GOBIN = $(shell pwd)/build/bin
 GO ?= latest
 
-geth:
+grue:
 	build/env.sh go run build/ci.go install ./cmd/grue
 	@echo "Done building."
-	@echo "Run \"$(GOBIN)/geth\" to launch grue."
+	@echo "Run \"$(GOBIN)/grue\" to launch grue."
 
 swarm:
 	build/env.sh go run build/ci.go install ./cmd/swarm
@@ -32,7 +32,7 @@ android:
 ios:
 	build/env.sh go run build/ci.go xcode --local
 	@echo "Done building."
-	@echo "Import \"$(GOBIN)/Geth.framework\" to use the library."
+	@echo "Import \"$(GOBIN)/Grue.framework\" to use the library."
 
 test: all
 	build/env.sh go run build/ci.go test

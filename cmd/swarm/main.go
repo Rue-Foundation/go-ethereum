@@ -1,18 +1,18 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2016 The go-rue Authors
+// This file is part of go-rue.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-rue is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-rue is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -38,7 +38,7 @@ import (
 	"github.com/Rue-Foundation/go-rue/console"
 	"github.com/Rue-Foundation/go-rue/contracts/ens"
 	"github.com/Rue-Foundation/go-rue/crypto"
-	"github.com/Rue-Foundation/go-rue/ethclient"
+	"github.com/Rue-Foundation/go-rue/rueclient"
 	"github.com/Rue-Foundation/go-rue/internal/debug"
 	"github.com/Rue-Foundation/go-rue/log"
 	"github.com/Rue-Foundation/go-rue/node"
@@ -102,7 +102,7 @@ var (
 	}
 	SwarmSwapAPIFlag = cli.StringFlag{
 		Name:   "swap-api",
-		Usage:  "URL of the Ethereum API provider to use to settle SWAP payments",
+		Usage:  "URL of the Rue API provider to use to settle SWAP payments",
 		EnvVar: SWARM_ENV_SWAP_API,
 	}
 	SwarmSyncEnabledFlag = cli.BoolTFlag{
@@ -112,7 +112,7 @@ var (
 	}
 	EnsAPIFlag = cli.StringFlag{
 		Name:   "ens-api",
-		Usage:  "URL of the Ethereum API provider to use for ENS record lookups",
+		Usage:  "URL of the Rue API provider to use for ENS record lookups",
 		EnvVar: SWARM_ENV_ENS_API,
 	}
 	EnsAddrFlag = cli.StringFlag{
@@ -152,8 +152,8 @@ var (
 	}
 
 	// the following flags are deprecated and should be removed in the future
-	DeprecatedEthAPIFlag = cli.StringFlag{
-		Name:  "ethapi",
+	DeprecatedRueAPIFlag = cli.StringFlag{
+		Name:  "rueapi",
 		Usage: "DEPRECATED: please use --ens-api and --swap-api",
 	}
 )
@@ -166,7 +166,7 @@ var (
 
 var defaultNodeConfig = node.DefaultConfig
 
-// This init function sets defaults so cmd/swarm can run alongside geth.
+// This init function sets defaults so cmd/swarm can run alongside grue.
 func init() {
 	defaultNodeConfig.Name = clientIdentifier
 	defaultNodeConfig.Version = params.VersionWithCommit(gitCommit)
@@ -176,13 +176,13 @@ func init() {
 	utils.ListenPortFlag.Value = 30399
 }
 
-var app = utils.NewApp(gitCommit, "Ethereum Swarm")
+var app = utils.NewApp(gitCommit, "Rue Swarm")
 
 // This init function creates the cli.App.
 func init() {
 	app.Action = bzzd
 	app.HideVersion = true // we have a command to print the version
-	app.Copyright = "Copyright 2013-2016 The go-ethereum Authors"
+	app.Copyright = "Copyright 2013-2016 The go-rue Authors"
 	app.Commands = []cli.Command{
 		{
 			Action:    version,
@@ -362,7 +362,7 @@ DEPRECATED: use 'swarm db clean'.
 		SwarmUpFromStdinFlag,
 		SwarmUploadMimeType,
 		//deprecated flags
-		DeprecatedEthAPIFlag,
+		DeprecatedRueAPIFlag,
 	}
 	app.Flags = append(app.Flags, debug.Flags...)
 	app.Before = func(ctx *cli.Context) error {
@@ -405,13 +405,13 @@ func bzzd(ctx *cli.Context) error {
 	}
 
 	cfg := defaultNodeConfig
-	//geth only supports --datadir via command line
+	//grue only supports --datadir via command line
 	//in order to be consistent within swarm, if we pass --datadir via environment variable
-	//or via config file, we get the same directory for geth and swarm
+	//or via config file, we get the same directory for grue and swarm
 	if _, err := os.Stat(bzzconfig.Path); err == nil {
 		cfg.DataDir = bzzconfig.Path
 	}
-	//setup the ethereum node
+	//setup the rue node
 	utils.SetNodeConfig(ctx, &cfg)
 	stack, err := node.New(&cfg)
 	if err != nil {
@@ -420,7 +420,7 @@ func bzzd(ctx *cli.Context) error {
 	//a few steps need to be done after the config phase is completed,
 	//due to overriding behavior
 	initSwarmNode(bzzconfig, stack, ctx)
-	//register BZZ as node.Service in the ethereum node
+	//register BZZ as node.Service in the rue node
 	registerBzzService(bzzconfig, ctx, stack)
 	//start the node
 	utils.StartNode(stack)
@@ -460,7 +460,7 @@ func detectEnsAddr(client *rpc.Client) (common.Address, error) {
 		return common.Address{}, err
 	}
 
-	block, err := ethclient.NewClient(client).BlockByNumber(ctx, big.NewInt(0))
+	block, err := rueclient.NewClient(client).BlockByNumber(ctx, big.NewInt(0))
 	if err != nil {
 		return common.Address{}, err
 	}
@@ -471,10 +471,6 @@ func detectEnsAddr(client *rpc.Client) (common.Address, error) {
 		log.Info("using Mainnet ENS contract address", "addr", ens.MainNetAddress)
 		return ens.MainNetAddress, nil
 
-	case version == "3" && block.Hash() == params.TestnetGenesisHash:
-		log.Info("using Testnet ENS contract address", "addr", ens.TestNetAddress)
-		return ens.TestNetAddress, nil
-
 	default:
 		return common.Address{}, fmt.Errorf("unknown version and genesis hash: %s %s", version, block.Hash())
 	}
@@ -484,24 +480,24 @@ func registerBzzService(bzzconfig *bzzapi.Config, ctx *cli.Context, stack *node.
 
 	//define the swarm service boot function
 	boot := func(ctx *node.ServiceContext) (node.Service, error) {
-		var swapClient *ethclient.Client
+		var swapClient *rueclient.Client
 		var err error
 		if bzzconfig.SwapApi != "" {
 			log.Info("connecting to SWAP API", "url", bzzconfig.SwapApi)
-			swapClient, err = ethclient.Dial(bzzconfig.SwapApi)
+			swapClient, err = rueclient.Dial(bzzconfig.SwapApi)
 			if err != nil {
 				return nil, fmt.Errorf("error connecting to SWAP API %s: %s", bzzconfig.SwapApi, err)
 			}
 		}
 
-		var ensClient *ethclient.Client
+		var ensClient *rueclient.Client
 		if bzzconfig.EnsApi != "" {
 			log.Info("connecting to ENS API", "url", bzzconfig.EnsApi)
 			client, err := rpc.Dial(bzzconfig.EnsApi)
 			if err != nil {
 				return nil, fmt.Errorf("error connecting to ENS API %s: %s", bzzconfig.EnsApi, err)
 			}
-			ensClient = ethclient.NewClient(client)
+			ensClient = rueclient.NewClient(client)
 
 			//no ENS root address set yet
 			if bzzconfig.EnsRoot == (common.Address{}) {
@@ -516,7 +512,7 @@ func registerBzzService(bzzconfig *bzzapi.Config, ctx *cli.Context, stack *node.
 
 		return swarm.NewSwarm(ctx, swapClient, ensClient, bzzconfig, bzzconfig.SwapEnabled, bzzconfig.SyncEnabled, bzzconfig.Cors)
 	}
-	//register within the ethereum node
+	//register within the rue node
 	if err := stack.Register(boot); err != nil {
 		utils.Fatalf("Failed to register the Swarm service: %v", err)
 	}

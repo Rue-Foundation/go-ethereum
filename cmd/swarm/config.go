@@ -1,18 +1,18 @@
-// Copyright 2017 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2017 The go-rue Authors
+// This file is part of go-rue.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-rue is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-rue is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -27,13 +27,13 @@ import (
 
 	cli "gopkg.in/urfave/cli.v1"
 
-	"github.com/Rue-Foundation/go-rue//cmd/utils"
-	"github.com/Rue-Foundation/go-rue//common"
-	"github.com/Rue-Foundation/go-rue//log"
-	"github.com/Rue-Foundation/go-rue//node"
+	"github.com/Rue-Foundation/go-rue/cmd/utils"
+	"github.com/Rue-Foundation/go-rue/common"
+	"github.com/Rue-Foundation/go-rue/log"
+	"github.com/Rue-Foundation/go-rue/node"
 	"github.com/naoina/toml"
 
-	bzzapi "github.com/Rue-Foundation/go-rue//swarm/api"
+	bzzapi "github.com/Rue-Foundation/go-rue/swarm/api"
 )
 
 var (
@@ -69,7 +69,7 @@ const (
 	SWARM_ENV_ENS_ADDR        = "SWARM_ENS_ADDR"
 	SWARM_ENV_CORS            = "SWARM_CORS"
 	SWARM_ENV_BOOTNODES       = "SWARM_BOOTNODES"
-	GETH_ENV_DATADIR          = "GETH_DATADIR"
+	GRUE_ENV_DATADIR          = "GRUE_DATADIR"
 )
 
 // These settings ensure that TOML keys use the same names as Go struct fields.
@@ -110,7 +110,7 @@ func initSwarmNode(config *bzzapi.Config, stack *node.Node, ctx *cli.Context) {
 	//at this point, all vars should be set in the Config
 	//get the account for the provided swarm account
 	prvkey := getAccount(config.BzzAccount, ctx, stack)
-	//set the resolved config path (geth --datadir)
+	//set the resolved config path (grue --datadir)
 	config.Path = stack.InstanceDir()
 	//finally, initialize the configuration
 	config.Init(prvkey)
@@ -124,7 +124,7 @@ func initSwarmNode(config *bzzapi.Config, stack *node.Node, ctx *cli.Context) {
 func configFileOverride(config *bzzapi.Config, ctx *cli.Context) (*bzzapi.Config, error) {
 	var err error
 
-	//only do something if the -config flag has been set
+	//only do somrueing if the -config flag has been set
 	if ctx.GlobalIsSet(SwarmTomlConfigPathFlag.Name) {
 		var filepath string
 		if filepath = ctx.GlobalString(SwarmTomlConfigPathFlag.Name); filepath == "" {
@@ -233,7 +233,7 @@ func envVarsOverride(currentConfig *bzzapi.Config) (config *bzzapi.Config) {
 		}
 	}
 
-	if datadir := os.Getenv(GETH_ENV_DATADIR); datadir != "" {
+	if datadir := os.Getenv(GRUE_ENV_DATADIR); datadir != "" {
 		currentConfig.Path = datadir
 	}
 
@@ -305,9 +305,9 @@ func dumpConfig(ctx *cli.Context) error {
 
 //deprecated flags checked here
 func checkDeprecated(ctx *cli.Context) {
-	// exit if the deprecated --ethapi flag is set
-	if ctx.GlobalString(DeprecatedEthAPIFlag.Name) != "" {
-		utils.Fatalf("--ethapi is no longer a valid command line flag, please use --ens-api and/or --swap-api.")
+	// exit if the deprecated --rueapi flag is set
+	if ctx.GlobalString(DeprecatedRueAPIFlag.Name) != "" {
+		utils.Fatalf("--rueapi is no longer a valid command line flag, please use --ens-api and/or --swap-api.")
 	}
 }
 
@@ -315,7 +315,7 @@ func checkDeprecated(ctx *cli.Context) {
 func printConfig(config *bzzapi.Config) string {
 	out, err := tomlSettings.Marshal(&config)
 	if err != nil {
-		return (fmt.Sprintf("Something is not right with the configuration: %v", err))
+		return (fmt.Sprintf("Somrueing is not right with the configuration: %v", err))
 	}
 	return string(out)
 }

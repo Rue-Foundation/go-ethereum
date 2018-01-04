@@ -1,18 +1,18 @@
-// Copyright 2014 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2014 The go-rue Authors
+// This file is part of the go-rue library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-rue library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-rue library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
 
 package vm
 
@@ -55,10 +55,14 @@ func run(evm *EVM, contract *Contract, input []byte) ([]byte, error) {
 // Context provides the EVM with auxiliary information. Once provided
 // it shouldn't be modified.
 type Context struct {
+<<<<<<< HEAD
+	// CanTransfer returns whrue the account contains
+=======
 	// CanTransfer returns whether the account contains
-	// sufficient ether to transfer the value
+>>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
+	// sufficient rue to transfer the value
 	CanTransfer CanTransferFunc
-	// Transfer transfers ether from one account to the other
+	// Transfer transfers rue from one account to the other
 	Transfer TransferFunc
 	// GetHash returns the hash corresponding to n
 	GetHash GetHashFunc
@@ -75,7 +79,7 @@ type Context struct {
 	Difficulty  *big.Int       // Provides information for DIFFICULTY
 }
 
-// EVM is the Ethereum Virtual Machine base object and provides
+// EVM is the Rue Virtual Machine base object and provides
 // the necessary tools to run a contract on the given state with
 // the provided context. It should be noted that any error
 // generated through any of the calls should be considered a
@@ -99,7 +103,7 @@ type EVM struct {
 	// virtual machine configuration options used to initialise the
 	// evm.
 	vmConfig Config
-	// global (to this context) ethereum virtual machine
+	// global (to this context) rue virtual machine
 	// used throughout the execution of the tx.
 	interpreter *Interpreter
 	// abort is used to abort the EVM calling operations
@@ -357,7 +361,7 @@ func (evm *EVM) Create(caller ContractRef, code []byte, gas uint64, value *big.I
 
 	ret, err = run(evm, contract, nil)
 
-	// check whether the max code size has been exceeded
+	// check whrue the max code size has been exceeded
 	maxCodeSizeExceeded := evm.ChainConfig().IsEIP158(evm.BlockNumber) && len(ret) > params.MaxCodeSize
 	// if the contract creation ran successfully and no errors were returned
 	// calculate the gas required to store the code. If the code could not
@@ -375,7 +379,7 @@ func (evm *EVM) Create(caller ContractRef, code []byte, gas uint64, value *big.I
 	// When an error was returned by the EVM or when setting the creation code
 	// above we revert to the snapshot and consume any gas remaining. Additionally
 	// when we're in homestead this also counts for code storage gas errors.
-	if maxCodeSizeExceeded || (err != nil && (evm.ChainConfig().IsHomestead(evm.BlockNumber) || err != ErrCodeStoreOutOfGas)) {
+	if maxCodeSizeExceeded || (err != nil && (evm.ChainConfig().IsFrontier(evm.BlockNumber) || err != ErrCodeStoreOutOfGas)) {
 		evm.StateDB.RevertToSnapshot(snapshot)
 		if err != errExecutionReverted {
 			contract.UseGas(contract.Gas)

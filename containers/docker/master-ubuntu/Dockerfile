@@ -5,7 +5,7 @@ RUN \
   apt-get install -y --no-install-recommends golang git make gcc libc-dev ca-certificates && \
   git clone --depth 1 --branch release/1.7 https://github.com/Rue-Foundation/go-rue && \
   (cd go-rue && make grue) && \
-  cp go-rue/build/bin/grue /geth && \
+  cp go-rue/build/bin/grue /grue && \
   apt-get remove -y golang git make gcc libc-dev && apt autoremove -y && apt-get clean && \
   rm -rf /go-rue
 
