@@ -1,35 +1,35 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package accounts implements high level Rue account management.
+// Package accounts implements high level Ruereum account management.
 package accounts
 
 import (
 	"math/big"
 
-	rue "github.com/Rue-Foundation/go-rue"
+	ruereum "github.com/Rue-Foundation/go-rue"
 	"github.com/Rue-Foundation/go-rue/common"
 	"github.com/Rue-Foundation/go-rue/core/types"
 	"github.com/Rue-Foundation/go-rue/event"
 )
 
-// Account represents an Rue account located at a specific location defined
+// Account represents an Ruereum account located at a specific location defined
 // by the optional URL field.
 type Account struct {
-	Address common.Address `json:"address"` // Rue account address derived from the key
+	Address common.Address `json:"address"` // Ruereum account address derived from the key
 	URL     URL            `json:"url"`     // Optional resource locator within a backend
 }
 
@@ -67,7 +67,7 @@ type Wallet interface {
 	// rather only contain the accounts explicitly pinned during account derivation.
 	Accounts() []Account
 
-	// Contains returns whrue an account is part of this particular wallet or not.
+	// Contains returns whruer an account is part of this particular wallet or not.
 	Contains(account Account) bool
 
 	// Derive attempts to explicitly derive a hierarchical deterministic account at
@@ -85,7 +85,7 @@ type Wallet interface {
 	//
 	// You can disable automatic account discovery by calling SelfDerive with a nil
 	// chain state reader.
-	SelfDerive(base DerivationPath, chain rue.ChainStateReader)
+	SelfDerive(base DerivationPath, chain ruereum.ChainStateReader)
 
 	// SignHash requests the wallet to sign the given hash.
 	//

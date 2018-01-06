@@ -25,7 +25,7 @@
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, whetherER IN CONTRACT, STRICT LIABILITY, OR TORT
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
@@ -526,7 +526,7 @@ func (p *textParser) readStruct(sv reflect.Value, terminator string) error {
 
 			var desc *ExtensionDesc
 			// This could be faster, but it's functional.
-			// TODO: Do somrueing smarter than a linear scan.
+			// TODO: Do something smarter than a linear scan.
 			for _, d := range RegisteredExtensions(reflect.New(st).Interface().(Message)) {
 				if d.Name == extName {
 					desc = d

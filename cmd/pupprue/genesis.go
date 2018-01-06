@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -28,9 +28,9 @@ import (
 	"github.com/Rue-Foundation/go-rue/params"
 )
 
-// cppRueGenesisSpec represents the genesis specification format used by the
-// C++ Rue implementation.
-type cppRueGenesisSpec struct {
+// cppRuereumGenesisSpec represents the genesis specification format used by the
+// C++ Ruereum implementation.
+type cppRuereumGenesisSpec struct {
 	SealEngine string `json:"sealEngine"`
 	Params     struct {
 		AccountStartNonce       hexutil.Uint64 `json:"accountStartNonce"`
@@ -62,38 +62,38 @@ type cppRueGenesisSpec struct {
 		GasLimit   hexutil.Uint64 `json:"gasLimit"`
 	} `json:"genesis"`
 
-	Accounts map[common.Address]*cppRueGenesisSpecAccount `json:"accounts"`
+	Accounts map[common.Address]*cppRuereumGenesisSpecAccount `json:"accounts"`
 }
 
-// cppRueGenesisSpecAccount is the prefunded genesis account and/or precompiled
+// cppRuereumGenesisSpecAccount is the prefunded genesis account and/or precompiled
 // contract definition.
-type cppRueGenesisSpecAccount struct {
+type cppRuereumGenesisSpecAccount struct {
 	Balance     *hexutil.Big                   `json:"balance"`
 	Nonce       uint64                         `json:"nonce,omitempty"`
-	Precompiled *cppRueGenesisSpecBuiltin `json:"precompiled,omitempty"`
+	Precompiled *cppRuereumGenesisSpecBuiltin `json:"precompiled,omitempty"`
 }
 
-// cppRueGenesisSpecBuiltin is the precompiled contract definition.
-type cppRueGenesisSpecBuiltin struct {
+// cppRuereumGenesisSpecBuiltin is the precompiled contract definition.
+type cppRuereumGenesisSpecBuiltin struct {
 	Name          string                               `json:"name,omitempty"`
 	StartingBlock hexutil.Uint64                       `json:"startingBlock,omitempty"`
-	Linear        *cppRueGenesisSpecLinearPricing `json:"linear,omitempty"`
+	Linear        *cppRuereumGenesisSpecLinearPricing `json:"linear,omitempty"`
 }
 
-type cppRueGenesisSpecLinearPricing struct {
+type cppRuereumGenesisSpecLinearPricing struct {
 	Base uint64 `json:"base"`
 	Word uint64 `json:"word"`
 }
 
-// newCppRueGenesisSpec converts a go-rue genesis block into a Parity specific
+// newCppRuereumGenesisSpec converts a go-ruereum genesis block into a Parity specific
 // chain specification format.
-func newCppRueGenesisSpec(network string, genesis *core.Genesis) (*cppRueGenesisSpec, error) {
-	// Only ruehash is currently supported between go-rue and cpp-rue
+func newCppRuereumGenesisSpec(network string, genesis *core.Genesis) (*cppRuereumGenesisSpec, error) {
+	// Only ruehash is currently supported between go-ruereum and cpp-ruereum
 	if genesis.Config.Ruehash == nil {
 		return nil, errors.New("unsupported consensus engine")
 	}
 	// Reconstruct the chain spec in Parity's format
-	spec := &cppRueGenesisSpec{
+	spec := &cppRuereumGenesisSpec{
 		SealEngine: "Ruehash",
 	}
 	spec.Params.AccountStartNonce = 0
@@ -126,36 +126,36 @@ func newCppRueGenesisSpec(network string, genesis *core.Genesis) (*cppRueGenesis
 	spec.Genesis.ExtraData = (hexutil.Bytes)(genesis.ExtraData)
 	spec.Genesis.GasLimit = (hexutil.Uint64)(genesis.GasLimit)
 
-	spec.Accounts = make(map[common.Address]*cppRueGenesisSpecAccount)
+	spec.Accounts = make(map[common.Address]*cppRuereumGenesisSpecAccount)
 	for address, account := range genesis.Alloc {
-		spec.Accounts[address] = &cppRueGenesisSpecAccount{
+		spec.Accounts[address] = &cppRuereumGenesisSpecAccount{
 			Balance: (*hexutil.Big)(account.Balance),
 			Nonce:   account.Nonce,
 		}
 	}
-	spec.Accounts[common.BytesToAddress([]byte{1})].Precompiled = &cppRueGenesisSpecBuiltin{
-		Name: "ecrecover", Linear: &cppRueGenesisSpecLinearPricing{Base: 3000},
+	spec.Accounts[common.BytesToAddress([]byte{1})].Precompiled = &cppRuereumGenesisSpecBuiltin{
+		Name: "ecrecover", Linear: &cppRuereumGenesisSpecLinearPricing{Base: 3000},
 	}
-	spec.Accounts[common.BytesToAddress([]byte{2})].Precompiled = &cppRueGenesisSpecBuiltin{
-		Name: "sha256", Linear: &cppRueGenesisSpecLinearPricing{Base: 60, Word: 12},
+	spec.Accounts[common.BytesToAddress([]byte{2})].Precompiled = &cppRuereumGenesisSpecBuiltin{
+		Name: "sha256", Linear: &cppRuereumGenesisSpecLinearPricing{Base: 60, Word: 12},
 	}
-	spec.Accounts[common.BytesToAddress([]byte{3})].Precompiled = &cppRueGenesisSpecBuiltin{
-		Name: "ripemd160", Linear: &cppRueGenesisSpecLinearPricing{Base: 600, Word: 120},
+	spec.Accounts[common.BytesToAddress([]byte{3})].Precompiled = &cppRuereumGenesisSpecBuiltin{
+		Name: "ripemd160", Linear: &cppRuereumGenesisSpecLinearPricing{Base: 600, Word: 120},
 	}
-	spec.Accounts[common.BytesToAddress([]byte{4})].Precompiled = &cppRueGenesisSpecBuiltin{
-		Name: "identity", Linear: &cppRueGenesisSpecLinearPricing{Base: 15, Word: 3},
+	spec.Accounts[common.BytesToAddress([]byte{4})].Precompiled = &cppRuereumGenesisSpecBuiltin{
+		Name: "identity", Linear: &cppRuereumGenesisSpecLinearPricing{Base: 15, Word: 3},
 	}
 	if genesis.Config.ByzantiumBlock != nil {
-		spec.Accounts[common.BytesToAddress([]byte{5})].Precompiled = &cppRueGenesisSpecBuiltin{
+		spec.Accounts[common.BytesToAddress([]byte{5})].Precompiled = &cppRuereumGenesisSpecBuiltin{
 			Name: "modexp", StartingBlock: (hexutil.Uint64)(genesis.Config.ByzantiumBlock.Uint64()),
 		}
-		spec.Accounts[common.BytesToAddress([]byte{6})].Precompiled = &cppRueGenesisSpecBuiltin{
-			Name: "alt_bn128_G1_add", StartingBlock: (hexutil.Uint64)(genesis.Config.ByzantiumBlock.Uint64()), Linear: &cppRueGenesisSpecLinearPricing{Base: 500},
+		spec.Accounts[common.BytesToAddress([]byte{6})].Precompiled = &cppRuereumGenesisSpecBuiltin{
+			Name: "alt_bn128_G1_add", StartingBlock: (hexutil.Uint64)(genesis.Config.ByzantiumBlock.Uint64()), Linear: &cppRuereumGenesisSpecLinearPricing{Base: 500},
 		}
-		spec.Accounts[common.BytesToAddress([]byte{7})].Precompiled = &cppRueGenesisSpecBuiltin{
-			Name: "alt_bn128_G1_mul", StartingBlock: (hexutil.Uint64)(genesis.Config.ByzantiumBlock.Uint64()), Linear: &cppRueGenesisSpecLinearPricing{Base: 40000},
+		spec.Accounts[common.BytesToAddress([]byte{7})].Precompiled = &cppRuereumGenesisSpecBuiltin{
+			Name: "alt_bn128_G1_mul", StartingBlock: (hexutil.Uint64)(genesis.Config.ByzantiumBlock.Uint64()), Linear: &cppRuereumGenesisSpecLinearPricing{Base: 40000},
 		}
-		spec.Accounts[common.BytesToAddress([]byte{8})].Precompiled = &cppRueGenesisSpecBuiltin{
+		spec.Accounts[common.BytesToAddress([]byte{8})].Precompiled = &cppRuereumGenesisSpecBuiltin{
 			Name: "alt_bn128_pairing_product", StartingBlock: (hexutil.Uint64)(genesis.Config.ByzantiumBlock.Uint64()),
 		}
 	}
@@ -201,10 +201,10 @@ type parityChainSpec struct {
 
 	Genesis struct {
 		Seal struct {
-			Rue struct {
+			Ruereum struct {
 				Nonce   hexutil.Bytes `json:"nonce"`
 				MixHash hexutil.Bytes `json:"mixHash"`
-			} `json:"rue"`
+			} `json:"ruereum"`
 		} `json:"seal"`
 
 		Difficulty *hexutil.Big   `json:"difficulty"`
@@ -256,10 +256,10 @@ type parityChainSpecAltBnPairingPricing struct {
 	Pair uint64 `json:"pair"`
 }
 
-// newParityChainSpec converts a go-rue genesis block into a Parity specific
+// newParityChainSpec converts a go-ruereum genesis block into a Parity specific
 // chain specification format.
 func newParityChainSpec(network string, genesis *core.Genesis, bootnodes []string) (*parityChainSpec, error) {
-	// Only ruehash is currently supported between go-rue and Parity
+	// Only ruehash is currently supported between go-ruereum and Parity
 	if genesis.Config.Ruehash == nil {
 		return nil, errors.New("unsupported consensus engine")
 	}
@@ -294,10 +294,10 @@ func newParityChainSpec(network string, genesis *core.Genesis, bootnodes []strin
 	spec.Params.EIP214Transition = genesis.Config.ByzantiumBlock.Uint64()
 	spec.Params.EIP658Transition = genesis.Config.ByzantiumBlock.Uint64()
 
-	spec.Genesis.Seal.Rue.Nonce = (hexutil.Bytes)(make([]byte, 8))
-	binary.LittleEndian.PutUint64(spec.Genesis.Seal.Rue.Nonce[:], genesis.Nonce)
+	spec.Genesis.Seal.Ruereum.Nonce = (hexutil.Bytes)(make([]byte, 8))
+	binary.LittleEndian.PutUint64(spec.Genesis.Seal.Ruereum.Nonce[:], genesis.Nonce)
 
-	spec.Genesis.Seal.Rue.MixHash = (hexutil.Bytes)(genesis.Mixhash[:])
+	spec.Genesis.Seal.Ruereum.MixHash = (hexutil.Bytes)(genesis.Mixhash[:])
 	spec.Genesis.Difficulty = (*hexutil.Big)(genesis.Difficulty)
 	spec.Genesis.Author = genesis.Coinbase
 	spec.Genesis.Timestamp = (hexutil.Uint64)(genesis.Timestamp)
@@ -341,9 +341,9 @@ func newParityChainSpec(network string, genesis *core.Genesis, bootnodes []strin
 	return spec, nil
 }
 
-// pyRueGenesisSpec represents the genesis specification format used by the
-// Python Rue implementation.
-type pyRueGenesisSpec struct {
+// pyRuereumGenesisSpec represents the genesis specification format used by the
+// Python Ruereum implementation.
+type pyRuereumGenesisSpec struct {
 	Nonce      hexutil.Bytes     `json:"nonce"`
 	Timestamp  hexutil.Uint64    `json:"timestamp"`
 	ExtraData  hexutil.Bytes     `json:"extraData"`
@@ -355,14 +355,14 @@ type pyRueGenesisSpec struct {
 	ParentHash common.Hash       `json:"parentHash"`
 }
 
-// newPyRueGenesisSpec converts a go-rue genesis block into a Parity specific
+// newPyRuereumGenesisSpec converts a go-ruereum genesis block into a Parity specific
 // chain specification format.
-func newPyRueGenesisSpec(network string, genesis *core.Genesis) (*pyRueGenesisSpec, error) {
-	// Only ruehash is currently supported between go-rue and pyrue
+func newPyRuereumGenesisSpec(network string, genesis *core.Genesis) (*pyRuereumGenesisSpec, error) {
+	// Only ruehash is currently supported between go-ruereum and pyruereum
 	if genesis.Config.Ruehash == nil {
 		return nil, errors.New("unsupported consensus engine")
 	}
-	spec := &pyRueGenesisSpec{
+	spec := &pyRuereumGenesisSpec{
 		Timestamp:  (hexutil.Uint64)(genesis.Timestamp),
 		ExtraData:  genesis.ExtraData,
 		GasLimit:   (hexutil.Uint64)(genesis.GasLimit),

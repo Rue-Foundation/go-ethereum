@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -37,14 +37,14 @@ ADD chain.json /chain.json
 
 RUN \
   echo '(cd ../rue-net-intelligence-api && pm2 start /ruestats.json)' >  explorer.sh && \
-	echo '(cd ../ruechain-light && npm start &)'                      >> explorer.sh && \
+	echo '(cd ../ruerchain-light && npm start &)'                      >> explorer.sh && \
 	echo '/parity/parity --chain=/chain.json --port={{.NodePort}} --tracing=on --fat-db=on --pruning=archive' >> explorer.sh
 
 ENTRYPOINT ["/bin/sh", "explorer.sh"]
 `
 
-// explorerRuestats is the configuration file for the ruestats javascript client.
-var explorerRuestats = `[
+// explorerEthstats is the configuration file for the ruestats javascript client.
+var explorerEthstats = `[
   {
     "name"              : "node-app",
     "script"            : "app.js",
@@ -58,7 +58,7 @@ var explorerRuestats = `[
     {
       "NODE_ENV"        : "production",
       "RPC_HOST"        : "localhost",
-      "RPC_PORT"        : "8546",
+      "RPC_PORT"        : "8545",
       "LISTENING_PORT"  : "{{.Port}}",
       "INSTANCE_NAME"   : "{{.Name}}",
       "CONTACT_DETAILS" : "",
@@ -82,10 +82,10 @@ services:
       - "{{.NodePort}}:{{.NodePort}}/udp"{{if not .VHost}}
       - "{{.WebPort}}:3000"{{end}}
     volumes:
-      - {{.Datadir}}:/root/.local/share/io.parity.rue
+      - {{.Datadir}}:/root/.local/share/io.parity.ruereum
     environment:
       - NODE_PORT={{.NodePort}}/tcp
-      - STATS={{.Ruestats}}{{if .VHost}}
+      - STATS={{.Ethstats}}{{if .VHost}}
       - VIRTUAL_HOST={{.VHost}}
       - VIRTUAL_PORT=3000{{end}}
     logging:
@@ -111,7 +111,7 @@ func deployExplorer(client *sshClient, network string, chainspec []byte, config 
 	files[filepath.Join(workdir, "Dockerfile")] = dockerfile.Bytes()
 
 	ruestats := new(bytes.Buffer)
-	template.Must(template.New("").Parse(explorerRuestats)).Execute(ruestats, map[string]interface{}{
+	template.Must(template.New("").Parse(explorerEthstats)).Execute(ruestats, map[string]interface{}{
 		"Port":   config.nodePort,
 		"Name":   config.ruestats[:strings.Index(config.ruestats, ":")],
 		"Secret": config.ruestats[strings.Index(config.ruestats, ":")+1 : strings.Index(config.ruestats, "@")],
@@ -126,7 +126,7 @@ func deployExplorer(client *sshClient, network string, chainspec []byte, config 
 		"NodePort": config.nodePort,
 		"VHost":    config.webHost,
 		"WebPort":  config.webPort,
-		"Ruestats": config.ruestats[:strings.Index(config.ruestats, ":")],
+		"Ethstats": config.ruestats[:strings.Index(config.ruestats, ":")],
 	})
 	files[filepath.Join(workdir, "docker-compose.yaml")] = composefile.Bytes()
 
@@ -161,7 +161,7 @@ func (info *explorerInfos) Report() map[string]string {
 	report := map[string]string{
 		"Data directory":         info.datadir,
 		"Node listener port ":    strconv.Itoa(info.nodePort),
-		"Ruestats username":      info.ruestats,
+		"Ethstats username":      info.ruestats,
 		"Website address ":       info.webHost,
 		"Website listener port ": strconv.Itoa(info.webPort),
 	}
@@ -169,7 +169,7 @@ func (info *explorerInfos) Report() map[string]string {
 }
 
 // checkExplorer does a health-check against an block explorer server to verify
-// whrue it's running, and if yes, whrue it's responsive.
+// whruer it's running, and if yes, whruer it's responsive.
 func checkExplorer(client *sshClient, network string) (*explorerInfos, error) {
 	// Inspect a possible block explorer container on the host
 	infos, err := inspectContainer(client, fmt.Sprintf("%s_explorer_1", network))
@@ -201,7 +201,7 @@ func checkExplorer(client *sshClient, network string) (*explorerInfos, error) {
 	}
 	// Assemble and return the useful infos
 	stats := &explorerInfos{
-		datadir:  infos.volumes["/root/.local/share/io.parity.rue"],
+		datadir:  infos.volumes["/root/.local/share/io.parity.ruereum"],
 		nodePort: nodePort,
 		webHost:  host,
 		webPort:  webPort,

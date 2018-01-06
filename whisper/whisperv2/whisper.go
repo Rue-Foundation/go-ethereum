@@ -1,18 +1,18 @@
-// Copyright 2014 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2014 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package whisperv2
 
@@ -58,7 +58,7 @@ type MessageEvent struct {
 	Message *Message
 }
 
-// Whisper represents a dark communication interface through the Rue
+// Whisper represents a dark communication interface through the Ruereum
 // network, using its very own P2P communication layer.
 type Whisper struct {
 	protocol p2p.Protocol
@@ -76,7 +76,7 @@ type Whisper struct {
 	quit chan struct{}
 }
 
-// New creates a Whisper client ready to communicate through the Rue P2P
+// New creates a Whisper client ready to communicate through the Ruereum P2P
 // network.
 func New() *Whisper {
 	whisper := &Whisper{
@@ -262,7 +262,7 @@ func (self *Whisper) add(envelope *Envelope) error {
 	// Insert the message into the tracked pool
 	hash := envelope.Hash()
 	if _, ok := self.messages[hash]; ok {
-		log.Trace(fmt.Sprintf("whisper envelope already cached: %x\n", envelope))
+		log.Trace(fmt.Sprintf("whisper envelope already cached: %x\n", hash))
 		return nil
 	}
 	self.messages[hash] = envelope
@@ -277,7 +277,7 @@ func (self *Whisper) add(envelope *Envelope) error {
 		// Notify the local node of a message arrival
 		go self.postEvent(envelope)
 	}
-	log.Trace(fmt.Sprintf("cached whisper envelope %x\n", envelope))
+	log.Trace(fmt.Sprintf("cached whisper envelope %x\n", hash))
 	return nil
 }
 

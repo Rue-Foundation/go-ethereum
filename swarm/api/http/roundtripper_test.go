@@ -1,18 +1,18 @@
-// Copyright 2016 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2016 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package http
 
@@ -29,11 +29,11 @@ import (
 func TestRoundTripper(t *testing.T) {
 	serveMux := http.NewServeMux()
 	serveMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "GET" {
+		if r.method == "GET" {
 			w.Header().Set("Content-Type", "text/plain")
 			http.ServeContent(w, r, "", time.Unix(0, 0), strings.NewReader(r.RequestURI))
 		} else {
-			http.Error(w, "Method "+r.Method+" is not supported.", http.StatusMethodNotAllowed)
+			http.Error(w, "method "+r.method+" is not supported.", http.StatusmethodNotAllowed)
 		}
 	})
 

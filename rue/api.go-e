@@ -1,18 +1,18 @@
-// Copyright 2015 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2015 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package rue
 
@@ -38,41 +38,41 @@ import (
 	"github.com/Rue-Foundation/go-rue/trie"
 )
 
-// PublicRueAPI provides an API to access Rue full node-related
+// PublicRuereumAPI provides an API to access Ruereum full node-related
 // information.
-type PublicRueAPI struct {
-	e *Rue
+type PublicRuereumAPI struct {
+	e *Ruereum
 }
 
-// NewPublicRueAPI creates a new Rue protocol API for full nodes.
-func NewPublicRueAPI(e *Rue) *PublicRueAPI {
-	return &PublicRueAPI{e}
+// NewPublicRuereumAPI creates a new Ruereum protocol API for full nodes.
+func NewPublicRuereumAPI(e *Ruereum) *PublicRuereumAPI {
+	return &PublicRuereumAPI{e}
 }
 
-// Ruebase is the address that mining rewards will be send to
-func (api *PublicRueAPI) Ruebase() (common.Address, error) {
-	return api.e.Ruebase()
+// Ruerbase is the address that mining rewards will be send to
+func (api *PublicRuereumAPI) Ruerbase() (common.Address, error) {
+	return api.e.Ruerbase()
 }
 
-// Coinbase is the address that mining rewards will be send to (alias for Ruebase)
-func (api *PublicRueAPI) Coinbase() (common.Address, error) {
-	return api.Ruebase()
+// Coinbase is the address that mining rewards will be send to (alias for Ruerbase)
+func (api *PublicRuereumAPI) Coinbase() (common.Address, error) {
+	return api.Ruerbase()
 }
 
 // Hashrate returns the POW hashrate
-func (api *PublicRueAPI) Hashrate() hexutil.Uint64 {
+func (api *PublicRuereumAPI) Hashrate() hexutil.Uint64 {
 	return hexutil.Uint64(api.e.Miner().HashRate())
 }
 
 // PublicMinerAPI provides an API to control the miner.
 // It offers only methods that operate on data that pose no security risk when it is publicly accessible.
 type PublicMinerAPI struct {
-	e     *Rue
+	e     *Ruereum
 	agent *miner.RemoteAgent
 }
 
 // NewPublicMinerAPI create a new PublicMinerAPI instance.
-func NewPublicMinerAPI(e *Rue) *PublicMinerAPI {
+func NewPublicMinerAPI(e *Ruereum) *PublicMinerAPI {
 	agent := miner.NewRemoteAgent(e.BlockChain(), e.Engine())
 	e.Miner().Register(agent)
 
@@ -118,11 +118,11 @@ func (api *PublicMinerAPI) SubmitHashrate(hashrate hexutil.Uint64, id common.Has
 // PrivateMinerAPI provides private RPC methods to control the miner.
 // These methods can be abused by external users and must be considered insecure for use by untrusted users.
 type PrivateMinerAPI struct {
-	e *Rue
+	e *Ruereum
 }
 
 // NewPrivateMinerAPI create a new RPC service which controls the miner of this node.
-func NewPrivateMinerAPI(e *Rue) *PrivateMinerAPI {
+func NewPrivateMinerAPI(e *Ruereum) *PrivateMinerAPI {
 	return &PrivateMinerAPI{e: e}
 }
 
@@ -187,9 +187,9 @@ func (api *PrivateMinerAPI) SetGasPrice(gasPrice hexutil.Big) bool {
 	return true
 }
 
-// SetRuebase sets the ruebase of the miner
-func (api *PrivateMinerAPI) SetRuebase(ruebase common.Address) bool {
-	api.e.SetRuebase(ruebase)
+// SetRuerbase sets the ruerbase of the miner
+func (api *PrivateMinerAPI) SetRuerbase(ruerbase common.Address) bool {
+	api.e.SetRuerbase(ruerbase)
 	return true
 }
 
@@ -198,15 +198,15 @@ func (api *PrivateMinerAPI) GetHashrate() uint64 {
 	return uint64(api.e.miner.HashRate())
 }
 
-// PrivateAdminAPI is the collection of Rue full node-related APIs
+// PrivateAdminAPI is the collection of Ruereum full node-related APIs
 // exposed over the private admin endpoint.
 type PrivateAdminAPI struct {
-	rue *Rue
+	rue *Ruereum
 }
 
 // NewPrivateAdminAPI creates a new API definition for the full node private
-// admin methods of the Rue service.
-func NewPrivateAdminAPI(rue *Rue) *PrivateAdminAPI {
+// admin methods of the Ruereum service.
+func NewPrivateAdminAPI(rue *Ruereum) *PrivateAdminAPI {
 	return &PrivateAdminAPI{rue: rue}
 }
 
@@ -291,15 +291,15 @@ func (api *PrivateAdminAPI) ImportChain(file string) (bool, error) {
 	return true, nil
 }
 
-// PublicDebugAPI is the collection of Rue full node APIs exposed
+// PublicDebugAPI is the collection of Ruereum full node APIs exposed
 // over the public debugging endpoint.
 type PublicDebugAPI struct {
-	rue *Rue
+	rue *Ruereum
 }
 
 // NewPublicDebugAPI creates a new API definition for the full node-
-// related public debug methods of the Rue service.
-func NewPublicDebugAPI(rue *Rue) *PublicDebugAPI {
+// related public debug methods of the Ruereum service.
+func NewPublicDebugAPI(rue *Ruereum) *PublicDebugAPI {
 	return &PublicDebugAPI{rue: rue}
 }
 
@@ -328,16 +328,16 @@ func (api *PublicDebugAPI) DumpBlock(blockNr rpc.BlockNumber) (state.Dump, error
 	return stateDb.RawDump(), nil
 }
 
-// PrivateDebugAPI is the collection of Rue full node APIs exposed over
+// PrivateDebugAPI is the collection of Ruereum full node APIs exposed over
 // the private debugging endpoint.
 type PrivateDebugAPI struct {
 	config *params.ChainConfig
-	rue    *Rue
+	rue    *Ruereum
 }
 
 // NewPrivateDebugAPI creates a new API definition for the full node-related
-// private debug methods of the Rue service.
-func NewPrivateDebugAPI(config *params.ChainConfig, rue *Rue) *PrivateDebugAPI {
+// private debug methods of the Ruereum service.
+func NewPrivateDebugAPI(config *params.ChainConfig, rue *Ruereum) *PrivateDebugAPI {
 	return &PrivateDebugAPI{config: config, rue: rue}
 }
 

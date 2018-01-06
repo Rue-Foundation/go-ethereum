@@ -1,18 +1,18 @@
-// Copyright 2016 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2016 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package bind
 
@@ -29,17 +29,17 @@ type tmplContract struct {
 	Type        string                 // Type name of the main contract binding
 	InputABI    string                 // JSON ABI used as the input to generate the binding from
 	InputBin    string                 // Optional EVM bytecode used to denetare deploy code from
-	Constructor abi.Method             // Contract constructor for deploy parametrization
-	Calls       map[string]*tmplMethod // Contract calls that only read state data
-	Transacts   map[string]*tmplMethod // Contract calls that write state data
+	Constructor abi.method             // Contract constructor for deploy parametrization
+	Calls       map[string]*tmplmethod // Contract calls that only read state data
+	Transacts   map[string]*tmplmethod // Contract calls that write state data
 }
 
-// tmplMethod is a wrapper around an abi.Method that contains a few preprocessed
+// tmplmethod is a wrapper around an abi.method that contains a few preprocessed
 // and cached data fields.
-type tmplMethod struct {
-	Original   abi.Method // Original method as parsed by the abi package
-	Normalized abi.Method // Normalized version of the parsed method (capitalized names, non-anonymous args/returns)
-	Structured bool       // Whrue the returns should be accumulated into a contract
+type tmplmethod struct {
+	Original   abi.method // Original method as parsed by the abi package
+	Normalized abi.method // Normalized version of the parsed method (capitalized names, non-anonymous args/returns)
+	Structured bool       // Whruer the returns should be accumulated into a contract
 }
 
 // tmplSource is language to template mapping containing all the supported
@@ -65,7 +65,7 @@ package {{.Package}}
 		// {{.Type}}Bin is the compiled bytecode used for deploying new contracts.
 		const {{.Type}}Bin = ` + "`" + `{{.InputBin}}` + "`" + `
 
-		// Deploy{{.Type}} deploys a new Rue contract, binding an instance of {{.Type}} to it.
+		// Deploy{{.Type}} deploys a new Ruereum contract, binding an instance of {{.Type}} to it.
 		func Deploy{{.Type}}(auth *bind.TransactOpts, backend bind.ContractBackend {{range .Constructor.Inputs}}, {{.Name}} {{bindtype .Type}}{{end}}) (common.Address, *types.Transaction, *{{.Type}}, error) {
 		  parsed, err := abi.JSON(strings.NewReader({{.Type}}ABI))
 		  if err != nil {
@@ -79,23 +79,23 @@ package {{.Package}}
 		}
 	{{end}}
 
-	// {{.Type}} is an auto generated Go binding around an Rue contract.
+	// {{.Type}} is an auto generated Go binding around an Ruereum contract.
 	type {{.Type}} struct {
 	  {{.Type}}Caller     // Read-only binding to the contract
 	  {{.Type}}Transactor // Write-only binding to the contract
 	}
 
-	// {{.Type}}Caller is an auto generated read-only Go binding around an Rue contract.
+	// {{.Type}}Caller is an auto generated read-only Go binding around an Ruereum contract.
 	type {{.Type}}Caller struct {
 	  contract *bind.BoundContract // Generic contract wrapper for the low level calls
 	}
 
-	// {{.Type}}Transactor is an auto generated write-only Go binding around an Rue contract.
+	// {{.Type}}Transactor is an auto generated write-only Go binding around an Ruereum contract.
 	type {{.Type}}Transactor struct {
 	  contract *bind.BoundContract // Generic contract wrapper for the low level calls
 	}
 
-	// {{.Type}}Session is an auto generated Go binding around an Rue contract,
+	// {{.Type}}Session is an auto generated Go binding around an Ruereum contract,
 	// with pre-set call and transact options.
 	type {{.Type}}Session struct {
 	  Contract     *{{.Type}}        // Generic contract binding to set the session for
@@ -103,31 +103,31 @@ package {{.Package}}
 	  TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 	}
 
-	// {{.Type}}CallerSession is an auto generated read-only Go binding around an Rue contract,
+	// {{.Type}}CallerSession is an auto generated read-only Go binding around an Ruereum contract,
 	// with pre-set call options.
 	type {{.Type}}CallerSession struct {
 	  Contract *{{.Type}}Caller // Generic contract caller binding to set the session for
 	  CallOpts bind.CallOpts    // Call options to use throughout this session
 	}
 
-	// {{.Type}}TransactorSession is an auto generated write-only Go binding around an Rue contract,
+	// {{.Type}}TransactorSession is an auto generated write-only Go binding around an Ruereum contract,
 	// with pre-set transact options.
 	type {{.Type}}TransactorSession struct {
 	  Contract     *{{.Type}}Transactor // Generic contract transactor binding to set the session for
 	  TransactOpts bind.TransactOpts    // Transaction auth options to use throughout this session
 	}
 
-	// {{.Type}}Raw is an auto generated low-level Go binding around an Rue contract.
+	// {{.Type}}Raw is an auto generated low-level Go binding around an Ruereum contract.
 	type {{.Type}}Raw struct {
 	  Contract *{{.Type}} // Generic contract binding to access the raw methods on
 	}
 
-	// {{.Type}}CallerRaw is an auto generated low-level read-only Go binding around an Rue contract.
+	// {{.Type}}CallerRaw is an auto generated low-level read-only Go binding around an Ruereum contract.
 	type {{.Type}}CallerRaw struct {
 		Contract *{{.Type}}Caller // Generic read-only contract binding to access the raw methods on
 	}
 
-	// {{.Type}}TransactorRaw is an auto generated low-level write-only Go binding around an Rue contract.
+	// {{.Type}}TransactorRaw is an auto generated low-level write-only Go binding around an Ruereum contract.
 	type {{.Type}}TransactorRaw struct {
 		Contract *{{.Type}}Transactor // Generic write-only contract binding to access the raw methods on
 	}
@@ -274,8 +274,8 @@ const tmplSourceJava = `
 
 package {{.Package}};
 
-import org.rue.grue.*;
-import org.rue.grue.internal.*;
+import org.ruereum.grue.*;
+import org.ruereum.grue.internal.*;
 
 {{range $contract := .Contracts}}
 	public class {{.Type}} {
@@ -286,8 +286,8 @@ import org.rue.grue.internal.*;
 			// BYTECODE is the compiled bytecode used for deploying new contracts.
 			public final static byte[] BYTECODE = "{{.InputBin}}".getBytes();
 
-			// deploy deploys a new Rue contract, binding an instance of {{.Type}} to it.
-			public static {{.Type}} deploy(TransactOpts auth, RueClient client{{range .Constructor.Inputs}}, {{bindtype .Type}} {{.Name}}{{end}}) throws Exception {
+			// deploy deploys a new Ruereum contract, binding an instance of {{.Type}} to it.
+			public static {{.Type}} deploy(TransactOpts auth, RuereumClient client{{range .Constructor.Inputs}}, {{bindtype .Type}} {{.Name}}{{end}}) throws Exception {
 				Interfaces args = Grue.newInterfaces({{(len .Constructor.Inputs)}});
 				{{range $index, $element := .Constructor.Inputs}}
 				  args.set({{$index}}, Grue.newInterface()); args.get({{$index}}).set{{namedtype (bindtype .Type) .Type}}({{.Name}});
@@ -303,17 +303,17 @@ import org.rue.grue.internal.*;
 			}
 		{{end}}
 
-		// Rue address where this contract is located at.
+		// Ruereum address where this contract is located at.
 		public final Address Address;
 
-		// Rue transaction in which this contract was deployed (if known!).
+		// Ruereum transaction in which this contract was deployed (if known!).
 		public final Transaction Deployer;
 
 		// Contract instance bound to a blockchain address.
 		private final BoundContract Contract;
 
 		// Creates a new instance of {{.Type}}, bound to a specific deployed contract.
-		public {{.Type}}(Address address, RueClient client) throws Exception {
+		public {{.Type}}(Address address, RuereumClient client) throws Exception {
 			this(Grue.bindContract(address, ABI, client));
 		}
 

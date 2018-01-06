@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -37,14 +37,14 @@ ADD genesis.json /genesis.json
 RUN \
   echo 'node server.js &'                     > wallet.sh && \
 	echo 'grue --cache 512 init /genesis.json' >> wallet.sh && \
-	echo $'grue --networkid {{.NetworkID}} --port {{.NodePort}} --bootnodes {{.Bootnodes}} --ruestats \'{{.Ruestats}}\' --cache=512 --rpc --rpcaddr=0.0.0.0 --rpccorsdomain "*"' >> wallet.sh
+	echo $'grue --networkid {{.NetworkID}} --port {{.NodePort}} --bootnodes {{.Bootnodes}} --ruestats \'{{.Ethstats}}\' --cache=512 --rpc --rpcaddr=0.0.0.0 --rpccorsdomain "*"' >> wallet.sh
 
 RUN \
-	sed -i 's/PupprueNetworkID/{{.NetworkID}}/g' dist/js/ruewallet-master.js && \
-	sed -i 's/PupprueNetwork/{{.Network}}/g'     dist/js/ruewallet-master.js && \
-	sed -i 's/PupprueDenom/{{.Denom}}/g'         dist/js/ruewallet-master.js && \
-	sed -i 's/PupprueHost/{{.Host}}/g'           dist/js/ruewallet-master.js && \
-	sed -i 's/PupprueRPCPort/{{.RPCPort}}/g'     dist/js/ruewallet-master.js
+	sed -i 's/PupprueNetworkID/{{.NetworkID}}/g' dist/js/ruerwallet-master.js && \
+	sed -i 's/PupprueNetwork/{{.Network}}/g'     dist/js/ruerwallet-master.js && \
+	sed -i 's/PupprueDenom/{{.Denom}}/g'         dist/js/ruerwallet-master.js && \
+	sed -i 's/PupprueHost/{{.Host}}/g'           dist/js/ruerwallet-master.js && \
+	sed -i 's/PupprueRPCPort/{{.RPCPort}}/g'     dist/js/ruerwallet-master.js
 
 ENTRYPOINT ["/bin/sh", "wallet.sh"]
 `
@@ -60,17 +60,13 @@ services:
     ports:
       - "{{.NodePort}}:{{.NodePort}}"
       - "{{.NodePort}}:{{.NodePort}}/udp"
-<<<<<<< HEAD
-      - "{{.RPCPort}}:8546"{{if not .VHost}}
-=======
       - "{{.RPCPort}}:8545"{{if not .VHost}}
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
       - "{{.WebPort}}:80"{{end}}
     volumes:
-      - {{.Datadir}}:/root/.rue
+      - {{.Datadir}}:/root/.ruereum
     environment:
       - NODE_PORT={{.NodePort}}/tcp
-      - STATS={{.Ruestats}}{{if .VHost}}
+      - STATS={{.Ethstats}}{{if .VHost}}
       - VIRTUAL_HOST={{.VHost}}
       - VIRTUAL_PORT=80{{end}}
     logging:
@@ -97,7 +93,7 @@ func deployWallet(client *sshClient, network string, bootnodes []string, config 
 		"NodePort":  config.nodePort,
 		"RPCPort":   config.rpcPort,
 		"Bootnodes": strings.Join(bootnodes, ","),
-		"Ruestats":  config.ruestats,
+		"Ethstats":  config.ruestats,
 		"Host":      client.address,
 	})
 	files[filepath.Join(workdir, "Dockerfile")] = dockerfile.Bytes()
@@ -110,7 +106,7 @@ func deployWallet(client *sshClient, network string, bootnodes []string, config 
 		"RPCPort":  config.rpcPort,
 		"VHost":    config.webHost,
 		"WebPort":  config.webPort,
-		"Ruestats": config.ruestats[:strings.Index(config.ruestats, ":")],
+		"Ethstats": config.ruestats[:strings.Index(config.ruestats, ":")],
 	})
 	files[filepath.Join(workdir, "docker-compose.yaml")] = composefile.Bytes()
 
@@ -147,7 +143,7 @@ type walletInfos struct {
 func (info *walletInfos) Report() map[string]string {
 	report := map[string]string{
 		"Data directory":         info.datadir,
-		"Ruestats username":      info.ruestats,
+		"Ethstats username":      info.ruestats,
 		"Node listener port ":    strconv.Itoa(info.nodePort),
 		"RPC listener port ":     strconv.Itoa(info.rpcPort),
 		"Website address ":       info.webHost,
@@ -156,8 +152,8 @@ func (info *walletInfos) Report() map[string]string {
 	return report
 }
 
-// checkWallet does a health-check against web wallet server to verify whrue
-// it's running, and if yes, whrue it's responsive.
+// checkWallet does a health-check against web wallet server to verify whruer
+// it's running, and if yes, whruer it's responsive.
 func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 	// Inspect a possible web wallet container on the host
 	infos, err := inspectContainer(client, fmt.Sprintf("%s_wallet_1", network))
@@ -187,17 +183,13 @@ func checkWallet(client *sshClient, network string) (*walletInfos, error) {
 	if err = checkPort(client.server, nodePort); err != nil {
 		log.Warn(fmt.Sprintf("Wallet devp2p port seems unreachable"), "server", client.server, "port", nodePort, "err", err)
 	}
-<<<<<<< HEAD
-	rpcPort := infos.portmap["8546/tcp"]
-=======
 	rpcPort := infos.portmap["8545/tcp"]
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 	if err = checkPort(client.server, rpcPort); err != nil {
 		log.Warn(fmt.Sprintf("Wallet RPC port seems unreachable"), "server", client.server, "port", rpcPort, "err", err)
 	}
 	// Assemble and return the useful infos
 	stats := &walletInfos{
-		datadir:  infos.volumes["/root/.rue"],
+		datadir:  infos.volumes["/root/.ruereum"],
 		nodePort: nodePort,
 		rpcPort:  rpcPort,
 		webHost:  host,

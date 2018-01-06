@@ -1,41 +1,41 @@
-Name "grue ${MAJORVERSION}.${MINORVERSION}.${BUILDVERSION}" # VERSION variables set through command line arguments
+Name "geth ${MAJORVERSION}.${MINORVERSION}.${BUILDVERSION}" # VERSION variables set through command line arguments
 InstallDir "$InstDir"
 OutFile "${OUTPUTFILE}" # set through command line arguments
 
 # Links for "Add/Remove Programs"
-!define HELPURL "https://github.com/Rue-Foundation/go-rue/issues"
-!define UPDATEURL "https://github.com/Rue-Foundation/go-rue/releases"
-!define ABOUTURL "https://github.com/Rue-Foundation/go-rue#rue-go"
+!define HELPURL "https://github.com/ethereum/go-ethereum/issues"
+!define UPDATEURL "https://github.com/ethereum/go-ethereum/releases"
+!define ABOUTURL "https://github.com/ethereum/go-ethereum#ethereum-go"
 !define /date NOW "%Y%m%d"
 
 PageEx license
   LicenseData {{.License}}
 PageExEnd
 
-# Install grue binary
-Section "Grue" GRUE_IDX
+# Install geth binary
+Section "Geth" GETH_IDX
   SetOutPath $INSTDIR
-  file {{.Grue}}
+  file {{.Geth}}
 
   # Create start menu launcher
   createDirectory "$SMPROGRAMS\${APPNAME}"
-  createShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\grue.exe" "--fast" "--cache=512"
-  createShortCut "$SMPROGRAMS\${APPNAME}\Attach.lnk" "$INSTDIR\grue.exe" "attach" "" ""
+  createShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\geth.exe" "--fast" "--cache=512"
+  createShortCut "$SMPROGRAMS\${APPNAME}\Attach.lnk" "$INSTDIR\geth.exe" "attach" "" ""
   createShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "" ""
 
   # Firewall - remove rules (if exists)
-  SimpleFC::AdvRemoveRule "Grue incoming peers (TCP:30303)"
-  SimpleFC::AdvRemoveRule "Grue outgoing peers (TCP:30303)"
-  SimpleFC::AdvRemoveRule "Grue UDP discovery (UDP:30303)"
+  SimpleFC::AdvRemoveRule "Geth incoming peers (TCP:30303)"
+  SimpleFC::AdvRemoveRule "Geth outgoing peers (TCP:30303)"
+  SimpleFC::AdvRemoveRule "Geth UDP discovery (UDP:30303)"
 
   # Firewall - add rules
-  SimpleFC::AdvAddRule "Grue incoming peers (TCP:30303)" ""  6 1 1 2147483647 1 "$INSTDIR\grue.exe" "" "" "Rue" 30303 "" "" ""
-  SimpleFC::AdvAddRule "Grue outgoing peers (TCP:30303)" ""  6 2 1 2147483647 1 "$INSTDIR\grue.exe" "" "" "Rue" "" 30303 "" ""
-  SimpleFC::AdvAddRule "Grue UDP discovery (UDP:30303)" "" 17 2 1 2147483647 1 "$INSTDIR\grue.exe" "" "" "Rue" "" 30303 "" ""
+  SimpleFC::AdvAddRule "Geth incoming peers (TCP:30303)" ""  6 1 1 2147483647 1 "$INSTDIR\geth.exe" "" "" "Ethereum" 30303 "" "" ""
+  SimpleFC::AdvAddRule "Geth outgoing peers (TCP:30303)" ""  6 2 1 2147483647 1 "$INSTDIR\geth.exe" "" "" "Ethereum" "" 30303 "" ""
+  SimpleFC::AdvAddRule "Geth UDP discovery (UDP:30303)" "" 17 2 1 2147483647 1 "$INSTDIR\geth.exe" "" "" "Ethereum" "" 30303 "" ""
 
-  # Set default IPC endpoint (https://github.com/rue/EIPs/issues/147)
-  ${EnvVarUpdate} $0 "RUE_SOCKET" "R" "HKLM" "\\.\pipe\grue.ipc"
-  ${EnvVarUpdate} $0 "RUE_SOCKET" "A" "HKLM" "\\.\pipe\grue.ipc"
+  # Set default IPC endpoint (https://github.com/ethereum/EIPs/issues/147)
+  ${EnvVarUpdate} $0 "ETHEREUM_SOCKET" "R" "HKLM" "\\.\pipe\geth.ipc"
+  ${EnvVarUpdate} $0 "ETHEREUM_SOCKET" "A" "HKLM" "\\.\pipe\geth.ipc"
 
   # Add instdir to PATH
   Push "$INSTDIR"
@@ -54,8 +54,8 @@ Var GetInstalledSize.total
 Function GetInstalledSize
   StrCpy $GetInstalledSize.total 0
 
-  ${if} ${SectionIsSelected} ${GRUE_IDX}
-    SectionGetSize ${GRUE_IDX} $0
+  ${if} ${SectionIsSelected} ${GETH_IDX}
+    SectionGetSize ${GETH_IDX} $0
     IntOp $GetInstalledSize.total $GetInstalledSize.total + $0
   ${endif}
 

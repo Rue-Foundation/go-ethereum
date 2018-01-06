@@ -1,20 +1,20 @@
-// Copyright 2015 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2015 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
-// Package utils contains internal helper functions for go-rue commands.
+// Package utils contains internal helper functions for go-ruereum commands.
 package utils
 
 import (
@@ -127,7 +127,7 @@ var (
 	}
 	NetworkIdFlag = cli.Uint64Flag{
 		Name:  "networkid",
-		Usage: "Network identifier (1=maintnet)",
+		Usage: "Network identifier (integer, 1=Frontier, 2=Morden (disused), 3=Ropsten, 4=Rinkeby)",
 		Value: rue.DefaultConfig.NetworkId,
 	}
 	TestnetFlag = cli.BoolFlag{
@@ -315,8 +315,8 @@ var (
 		Usage: "Target gas limit sets the artificial target gas floor for the blocks to mine",
 		Value: params.GenesisGasLimit.Uint64(),
 	}
-	RuebaseFlag = cli.StringFlag{
-		Name:  "ruebase",
+	RuerbaseFlag = cli.StringFlag{
+		Name:  "ruerbase",
 		Usage: "Public address for block mining rewards (default = first account created)",
 		Value: "0",
 	}
@@ -346,7 +346,7 @@ var (
 		Usage: "Record information useful for VM and contract debugging",
 	}
 	// Logging and debug settings
-	RueStatsURLFlag = cli.StringFlag{
+	EthStatsURLFlag = cli.StringFlag{
 		Name:  "ruestats",
 		Usage: "Reporting URL of a ruestats service (nodename:secret@host:port)",
 	}
@@ -442,11 +442,7 @@ var (
 	ListenPortFlag = cli.IntFlag{
 		Name:  "port",
 		Usage: "Network listening port",
-<<<<<<< HEAD
-		Value: 30304,
-=======
 		Value: 30303,
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf
 	}
 	BootnodesFlag = cli.StringFlag{
 		Name:  "bootnodes",
@@ -763,15 +759,15 @@ func MakeAddress(ks *keystore.KeyStore, account string) (accounts.Account, error
 	return accs[index], nil
 }
 
-// setRuebase retrieves the ruebase either from the directly specified
+// setRuerbase retrieves the ruerbase either from the directly specified
 // command line flags or from the keystore if CLI indexed.
-func setRuebase(ctx *cli.Context, ks *keystore.KeyStore, cfg *rue.Config) {
-	if ctx.GlobalIsSet(RuebaseFlag.Name) {
-		account, err := MakeAddress(ks, ctx.GlobalString(RuebaseFlag.Name))
+func setRuerbase(ctx *cli.Context, ks *keystore.KeyStore, cfg *rue.Config) {
+	if ctx.GlobalIsSet(RuerbaseFlag.Name) {
+		account, err := MakeAddress(ks, ctx.GlobalString(RuerbaseFlag.Name))
 		if err != nil {
-			Fatalf("Option %q: %v", RuebaseFlag.Name, err)
+			Fatalf("Option %q: %v", RuerbaseFlag.Name, err)
 		}
-		cfg.Ruebase = account.Address
+		cfg.Ruerbase = account.Address
 	}
 }
 
@@ -980,8 +976,8 @@ func SetShhConfig(ctx *cli.Context, stack *node.Node, cfg *whisper.Config) {
 	}
 }
 
-// SetRueConfig applies rue-related command line flags to the config.
-func SetRueConfig(ctx *cli.Context, stack *node.Node, cfg *rue.Config) {
+// SetEthConfig applies rue-related command line flags to the config.
+func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *rue.Config) {
 	// Avoid conflicting network flags
 	checkExclusive(ctx, DeveloperFlag, TestnetFlag, RinkebyFlag)
 	checkExclusive(ctx, FastSyncFlag, LightModeFlag, SyncModeFlag)
@@ -989,7 +985,7 @@ func SetRueConfig(ctx *cli.Context, stack *node.Node, cfg *rue.Config) {
 	checkExclusive(ctx, LightServFlag, SyncModeFlag, "light")
 
 	ks := stack.AccountManager().Backends(keystore.KeyStoreType)[0].(*keystore.KeyStore)
-	setRuebase(ctx, ks, cfg)
+	setRuerbase(ctx, ks, cfg)
 	setGPO(ctx, &cfg.GPO)
 	setTxPool(ctx, &cfg.TxPool)
 	setRuehash(ctx, cfg)
@@ -1033,6 +1029,43 @@ func SetRueConfig(ctx *cli.Context, stack *node.Node, cfg *rue.Config) {
 		// TODO(fjl): force-enable this in --dev mode
 		cfg.EnablePreimageRecording = ctx.GlobalBool(VMEnableDebugFlag.Name)
 	}
+
+	// Override any default configs for hard coded networks.
+	switch {
+	case ctx.GlobalBool(TestnetFlag.Name):
+		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
+			cfg.NetworkId = 3
+		}
+		cfg.Genesis = core.DefaultTestnetGenesisBlock()
+	case ctx.GlobalBool(RinkebyFlag.Name):
+		if !ctx.GlobalIsSet(NetworkIdFlag.Name) {
+			cfg.NetworkId = 4
+		}
+		cfg.Genesis = core.DefaultRinkebyGenesisBlock()
+	case ctx.GlobalBool(DeveloperFlag.Name):
+		// Create new developer account or reuse existing one
+		var (
+			developer accounts.Account
+			err       error
+		)
+		if accs := ks.Accounts(); len(accs) > 0 {
+			developer = ks.Accounts()[0]
+		} else {
+			developer, err = ks.NewAccount("")
+			if err != nil {
+				Fatalf("Failed to create developer account: %v", err)
+			}
+		}
+		if err := ks.Unlock(developer, ""); err != nil {
+			Fatalf("Failed to unlock developer account: %v", err)
+		}
+		log.Info("Using developer account", "address", developer.Address)
+
+		cfg.Genesis = core.DeveloperGenesisBlock(uint64(ctx.GlobalInt(DeveloperPeriodFlag.Name)), developer.Address)
+		if !ctx.GlobalIsSet(GasPriceFlag.Name) {
+			cfg.GasPrice = big.NewInt(1)
+		}
+	}
 	// TODO(fjl): move trie cache generations into config
 	if gen := ctx.GlobalInt(TrieCacheGenFlag.Name); gen > 0 {
 		state.MaxTrieCacheGen = uint16(gen)
@@ -1047,8 +1080,8 @@ func SetDashboardConfig(ctx *cli.Context, cfg *dashboard.Config) {
 	cfg.Assets = ctx.GlobalString(DashboardAssetsFlag.Name)
 }
 
-// RegisterRueService adds an Rue client to the stack.
-func RegisterRueService(stack *node.Node, cfg *rue.Config) {
+// RegisterEthService adds an Ruereum client to the stack.
+func RegisterEthService(stack *node.Node, cfg *rue.Config) {
 	var err error
 	if cfg.SyncMode == downloader.LightSync {
 		err = stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
@@ -1065,7 +1098,7 @@ func RegisterRueService(stack *node.Node, cfg *rue.Config) {
 		})
 	}
 	if err != nil {
-		Fatalf("Failed to register the Rue service: %v", err)
+		Fatalf("Failed to register the Ruereum service: %v", err)
 	}
 }
 
@@ -1085,20 +1118,20 @@ func RegisterShhService(stack *node.Node, cfg *whisper.Config) {
 	}
 }
 
-// RegisterRueStatsService configures the Rue Stats daemon and adds it to
+// RegisterEthStatsService configures the Ruereum Stats daemon and adds it to
 // th egiven node.
-func RegisterRueStatsService(stack *node.Node, url string) {
+func RegisterEthStatsService(stack *node.Node, url string) {
 	if err := stack.Register(func(ctx *node.ServiceContext) (node.Service, error) {
 		// Retrieve both rue and les services
-		var rueServ *rue.Rue
+		var rueServ *rue.Ruereum
 		ctx.Service(&rueServ)
 
-		var lesServ *les.LightRue
+		var lesServ *les.LightRuereum
 		ctx.Service(&lesServ)
 
 		return ruestats.New(url, rueServ, lesServ)
 	}); err != nil {
-		Fatalf("Failed to register the Rue Stats service: %v", err)
+		Fatalf("Failed to register the Ruereum Stats service: %v", err)
 	}
 }
 
@@ -1128,6 +1161,10 @@ func MakeChainDatabase(ctx *cli.Context, stack *node.Node) ruedb.Database {
 func MakeGenesis(ctx *cli.Context) *core.Genesis {
 	var genesis *core.Genesis
 	switch {
+	case ctx.GlobalBool(TestnetFlag.Name):
+		genesis = core.DefaultTestnetGenesisBlock()
+	case ctx.GlobalBool(RinkebyFlag.Name):
+		genesis = core.DefaultRinkebyGenesisBlock()
 	case ctx.GlobalBool(DeveloperFlag.Name):
 		Fatalf("Developer chains are ephemeral")
 	}

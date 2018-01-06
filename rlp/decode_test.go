@@ -1,18 +1,18 @@
-// Copyright 2014 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2014 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package rlp
 
@@ -201,7 +201,7 @@ testfor:
 		s := test.newStream(unhex(test.string))
 		rs := reflect.ValueOf(s)
 		for j, call := range test.calls {
-			fval := rs.MethodByName(call)
+			fval := rs.methodByName(call)
 			ret := fval.Call(nil)
 			err := "<nil>"
 			if lastret := ret[len(ret)-1].Interface(); lastret != nil {
@@ -531,7 +531,7 @@ var decodeTests = []decodeTest{
 	{input: "817F", ptr: new(*uint), error: "rlp: non-canonical size information for uint"},
 	{input: "8180", ptr: new(*uint), value: uintp(0x80)},
 	{input: "C109", ptr: new(*[]uint), value: &[]uint{9}},
-	{input: "C58403030403", ptr: new(*[][]byte), value: &[][]byte{{3, 3, 3, 3}}},
+	{input: "C58403030303", ptr: new(*[][]byte), value: &[][]byte{{3, 3, 3, 3}}},
 
 	// check that input position is advanced also for empty values.
 	{input: "C3808005", ptr: new([]*uint), value: []*uint{uintp(0), uintp(0), uintp(5)}},
@@ -551,7 +551,7 @@ var decodeTests = []decodeTest{
 
 	// fuzzer crashes
 	{
-		input: "c330f9c030f93030ce3030403030403030bd303040303040",
+		input: "c330f9c030f93030ce3030303030303030bd303030303030",
 		ptr:   new(interface{}),
 		error: "rlp: element is larger than containing list",
 	},

@@ -1,20 +1,20 @@
-// Copyright 2014 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2014 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package rue implements the Rue protocol.
+// Package rue implements the Ruereum protocol.
 package rue
 
 import (
@@ -57,13 +57,13 @@ type LesServer interface {
 	SetBloomBitsIndexer(bbIndexer *core.ChainIndexer)
 }
 
-// Rue implements the Rue full node service.
-type Rue struct {
+// Ruereum implements the Ruereum full node service.
+type Ruereum struct {
 	config      *Config
 	chainConfig *params.ChainConfig
 
 	// Channel for shutting down the service
-	shutdownChan  chan bool    // Channel for shutting down the rue
+	shutdownChan  chan bool    // Channel for shutting down the ruereum
 	stopDbUpgrade func() error // stop chain db sequential key upgrade
 
 	// Handlers
@@ -82,28 +82,28 @@ type Rue struct {
 	bloomRequests chan chan *bloombits.Retrieval // Channel receiving bloom data retrieval requests
 	bloomIndexer  *core.ChainIndexer             // Bloom indexer operating during block imports
 
-	ApiBackend *RueApiBackend
+	ApiBackend *EthApiBackend
 
 	miner     *miner.Miner
 	gasPrice  *big.Int
-	ruebase common.Address
+	ruerbase common.Address
 
 	networkId     uint64
 	netRPCService *rueapi.PublicNetAPI
 
-	lock sync.RWMutex // Protects the variadic fields (e.g. gas price and ruebase)
+	lock sync.RWMutex // Protects the variadic fields (e.g. gas price and ruerbase)
 }
 
-func (s *Rue) AddLesServer(ls LesServer) {
+func (s *Ruereum) AddLesServer(ls LesServer) {
 	s.lesServer = ls
 	ls.SetBloomBitsIndexer(s.bloomIndexer)
 }
 
-// New creates a new Rue object (including the
-// initialisation of the common Rue object)
-func New(ctx *node.ServiceContext, config *Config) (*Rue, error) {
+// New creates a new Ruereum object (including the
+// initialisation of the common Ruereum object)
+func New(ctx *node.ServiceContext, config *Config) (*Ruereum, error) {
 	if config.SyncMode == downloader.LightSync {
-		return nil, errors.New("can't run rue.Rue in light sync mode, use les.LightRue")
+		return nil, errors.New("can't run rue.Ruereum in light sync mode, use les.LightRuereum")
 	}
 	if !config.SyncMode.IsValid() {
 		return nil, fmt.Errorf("invalid sync mode %d", config.SyncMode)
@@ -119,7 +119,7 @@ func New(ctx *node.ServiceContext, config *Config) (*Rue, error) {
 	}
 	log.Info("Initialised chain configuration", "config", chainConfig)
 
-	rue := &Rue{
+	rue := &Ruereum{
 		config:         config,
 		chainDb:        chainDb,
 		chainConfig:    chainConfig,
@@ -130,12 +130,12 @@ func New(ctx *node.ServiceContext, config *Config) (*Rue, error) {
 		stopDbUpgrade:  stopDbUpgrade,
 		networkId:      config.NetworkId,
 		gasPrice:       config.GasPrice,
-		ruebase:      config.Ruebase,
+		ruerbase:      config.Ruerbase,
 		bloomRequests:  make(chan chan *bloombits.Retrieval),
 		bloomIndexer:   NewBloomIndexer(chainDb, params.BloomBitsBlocks),
 	}
 
-	log.Info("Initialising Rue protocol", "versions", ProtocolVersions, "network", config.NetworkId)
+	log.Info("Initialising Ruereum protocol", "versions", ProtocolVersions, "network", config.NetworkId)
 
 	if !config.SkipBcVersionCheck {
 		bcVersion := core.GetBlockChainVersion(chainDb)
@@ -169,7 +169,7 @@ func New(ctx *node.ServiceContext, config *Config) (*Rue, error) {
 	rue.miner = miner.New(rue, rue.chainConfig, rue.EventMux(), rue.engine)
 	rue.miner.SetExtra(makeExtraData(config.ExtraData))
 
-	rue.ApiBackend = &RueApiBackend{rue, nil}
+	rue.ApiBackend = &EthApiBackend{rue, nil}
 	gpoParams := config.GPO
 	if gpoParams.Default == nil {
 		gpoParams.Default = config.GasPrice
@@ -208,7 +208,7 @@ func CreateDB(ctx *node.ServiceContext, config *Config, name string) (ruedb.Data
 	return db, nil
 }
 
-// CreateConsensusEngine creates the required type of consensus engine instance for an Rue service
+// CreateConsensusEngine creates the required type of consensus engine instance for an Ruereum service
 func CreateConsensusEngine(ctx *node.ServiceContext, config *ruehash.Config, chainConfig *params.ChainConfig, db ruedb.Database) consensus.Engine {
 	// If proof-of-authority is requested, set it up
 	if chainConfig.Clique != nil {
@@ -239,9 +239,9 @@ func CreateConsensusEngine(ctx *node.ServiceContext, config *ruehash.Config, cha
 	}
 }
 
-// APIs returns the collection of RPC services the rue package offers.
+// APIs returns the collection of RPC services the ruereum package offers.
 // NOTE, some of these services probably need to be moved to somewhere else.
-func (s *Rue) APIs() []rpc.API {
+func (s *Ruereum) APIs() []rpc.API {
 	apis := rueapi.GetAPIs(s.ApiBackend)
 
 	// Append any APIs exposed explicitly by the consensus engine
@@ -252,7 +252,7 @@ func (s *Rue) APIs() []rpc.API {
 		{
 			Namespace: "rue",
 			Version:   "1.0",
-			Service:   NewPublicRueAPI(s),
+			Service:   NewPublicRuereumAPI(s),
 			Public:    true,
 		}, {
 			Namespace: "rue",
@@ -296,52 +296,52 @@ func (s *Rue) APIs() []rpc.API {
 	}...)
 }
 
-func (s *Rue) ResetWithGenesisBlock(gb *types.Block) {
+func (s *Ruereum) ResetWithGenesisBlock(gb *types.Block) {
 	s.blockchain.ResetWithGenesisBlock(gb)
 }
 
-func (s *Rue) Ruebase() (eb common.Address, err error) {
+func (s *Ruereum) Ruerbase() (eb common.Address, err error) {
 	s.lock.RLock()
-	ruebase := s.ruebase
+	ruerbase := s.ruerbase
 	s.lock.RUnlock()
 
-	if ruebase != (common.Address{}) {
-		return ruebase, nil
+	if ruerbase != (common.Address{}) {
+		return ruerbase, nil
 	}
 	if wallets := s.AccountManager().Wallets(); len(wallets) > 0 {
 		if accounts := wallets[0].Accounts(); len(accounts) > 0 {
-			ruebase := accounts[0].Address
+			ruerbase := accounts[0].Address
 
 			s.lock.Lock()
-			s.ruebase = ruebase
+			s.ruerbase = ruerbase
 			s.lock.Unlock()
 
-			log.Info("Ruebase automatically configured", "address", ruebase)
-			return ruebase, nil
+			log.Info("Ruerbase automatically configured", "address", ruerbase)
+			return ruerbase, nil
 		}
 	}
-	return common.Address{}, fmt.Errorf("ruebase must be explicitly specified")
+	return common.Address{}, fmt.Errorf("ruerbase must be explicitly specified")
 }
 
 // set in js console via admin interface or wrapper from cli flags
-func (self *Rue) SetRuebase(ruebase common.Address) {
+func (self *Ruereum) SetRuerbase(ruerbase common.Address) {
 	self.lock.Lock()
-	self.ruebase = ruebase
+	self.ruerbase = ruerbase
 	self.lock.Unlock()
 
-	self.miner.SetRuebase(ruebase)
+	self.miner.SetRuerbase(ruerbase)
 }
 
-func (s *Rue) StartMining(local bool) error {
-	eb, err := s.Ruebase()
+func (s *Ruereum) StartMining(local bool) error {
+	eb, err := s.Ruerbase()
 	if err != nil {
-		log.Error("Cannot start mining without ruebase", "err", err)
-		return fmt.Errorf("ruebase missing: %v", err)
+		log.Error("Cannot start mining without ruerbase", "err", err)
+		return fmt.Errorf("ruerbase missing: %v", err)
 	}
 	if clique, ok := s.engine.(*clique.Clique); ok {
 		wallet, err := s.accountManager.Find(accounts.Account{Address: eb})
 		if wallet == nil || err != nil {
-			log.Error("Ruebase account unavailable locally", "err", err)
+			log.Error("Ruerbase account unavailable locally", "err", err)
 			return fmt.Errorf("signer missing: %v", err)
 		}
 		clique.Authorize(eb, wallet.SignHash)
@@ -357,24 +357,24 @@ func (s *Rue) StartMining(local bool) error {
 	return nil
 }
 
-func (s *Rue) StopMining()         { s.miner.Stop() }
-func (s *Rue) IsMining() bool      { return s.miner.Mining() }
-func (s *Rue) Miner() *miner.Miner { return s.miner }
+func (s *Ruereum) StopMining()         { s.miner.Stop() }
+func (s *Ruereum) IsMining() bool      { return s.miner.Mining() }
+func (s *Ruereum) Miner() *miner.Miner { return s.miner }
 
-func (s *Rue) AccountManager() *accounts.Manager  { return s.accountManager }
-func (s *Rue) BlockChain() *core.BlockChain       { return s.blockchain }
-func (s *Rue) TxPool() *core.TxPool               { return s.txPool }
-func (s *Rue) EventMux() *event.TypeMux           { return s.eventMux }
-func (s *Rue) Engine() consensus.Engine           { return s.engine }
-func (s *Rue) ChainDb() ruedb.Database            { return s.chainDb }
-func (s *Rue) IsListening() bool                  { return true } // Always listening
-func (s *Rue) RueVersion() int                    { return int(s.protocolManager.SubProtocols[0].Version) }
-func (s *Rue) NetVersion() uint64                 { return s.networkId }
-func (s *Rue) Downloader() *downloader.Downloader { return s.protocolManager.downloader }
+func (s *Ruereum) AccountManager() *accounts.Manager  { return s.accountManager }
+func (s *Ruereum) BlockChain() *core.BlockChain       { return s.blockchain }
+func (s *Ruereum) TxPool() *core.TxPool               { return s.txPool }
+func (s *Ruereum) EventMux() *event.TypeMux           { return s.eventMux }
+func (s *Ruereum) Engine() consensus.Engine           { return s.engine }
+func (s *Ruereum) ChainDb() ruedb.Database            { return s.chainDb }
+func (s *Ruereum) IsListening() bool                  { return true } // Always listening
+func (s *Ruereum) EthVersion() int                    { return int(s.protocolManager.SubProtocols[0].Version) }
+func (s *Ruereum) NetVersion() uint64                 { return s.networkId }
+func (s *Ruereum) Downloader() *downloader.Downloader { return s.protocolManager.downloader }
 
 // Protocols implements node.Service, returning all the currently configured
 // network protocols to start.
-func (s *Rue) Protocols() []p2p.Protocol {
+func (s *Ruereum) Protocols() []p2p.Protocol {
 	if s.lesServer == nil {
 		return s.protocolManager.SubProtocols
 	}
@@ -382,8 +382,8 @@ func (s *Rue) Protocols() []p2p.Protocol {
 }
 
 // Start implements node.Service, starting all internal goroutines needed by the
-// Rue protocol implementation.
-func (s *Rue) Start(srvr *p2p.Server) error {
+// Ruereum protocol implementation.
+func (s *Ruereum) Start(srvr *p2p.Server) error {
 	// Start the bloom bits servicing goroutines
 	s.startBloomHandlers()
 
@@ -407,8 +407,8 @@ func (s *Rue) Start(srvr *p2p.Server) error {
 }
 
 // Stop implements node.Service, terminating all internal goroutines used by the
-// Rue protocol.
-func (s *Rue) Stop() error {
+// Ruereum protocol.
+func (s *Ruereum) Stop() error {
 	if s.stopDbUpgrade != nil {
 		s.stopDbUpgrade()
 	}

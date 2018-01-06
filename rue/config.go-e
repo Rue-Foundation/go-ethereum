@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package rue
 
@@ -32,7 +32,7 @@ import (
 	"github.com/Rue-Foundation/go-rue/params"
 )
 
-// DefaultConfig contains default settings for use on the Rue main net.
+// DefaultConfig contains default settings for use on the Ruereum main net.
 var DefaultConfig = Config{
 	SyncMode: downloader.FastSync,
 	Ruehash: ruehash.Config{
@@ -72,7 +72,7 @@ func init() {
 
 type Config struct {
 	// The genesis block, which is inserted if the database is empty.
-	// If nil, the Rue main net block is used.
+	// If nil, the Ruereum main net block is used.
 	Genesis *core.Genesis `toml:",omitempty"`
 
 	// Protocol options
@@ -89,7 +89,7 @@ type Config struct {
 	DatabaseCache      int
 
 	// Mining-related options
-	Ruebase    common.Address `toml:",omitempty"`
+	Ruerbase    common.Address `toml:",omitempty"`
 	MinerThreads int            `toml:",omitempty"`
 	ExtraData    []byte         `toml:",omitempty"`
 	GasPrice     *big.Int

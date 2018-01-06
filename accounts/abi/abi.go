@@ -1,18 +1,18 @@
-// Copyright 2015 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2015 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package abi
 
@@ -44,10 +44,10 @@ func JSON(reader io.Reader) (ABI, error) {
 	return abi, nil
 }
 
-// Pack the given method name to conform the ABI. Method call's data
-// will consist of method_id, args0, arg1, ... argN. Method id consists
+// Pack the given method name to conform the ABI. method call's data
+// will consist of method_id, args0, arg1, ... argN. method id consists
 // of 4 bytes and arguments are all 32 bytes.
-// Method ids are created from the first 4 bytes of the hash of the
+// method ids are created from the first 4 bytes of the hash of the
 // methods string signature. (signature = baz(uint32,string32))
 func (abi ABI) Pack(name string, args ...interface{}) ([]byte, error) {
 	// Fetch the ABI of the requested method
@@ -60,7 +60,7 @@ func (abi ABI) Pack(name string, args ...interface{}) ([]byte, error) {
 		return arguments, nil
 
 	}
-	method, exist := abi.Methods[name]
+	method, exist := abi.methods[name]
 	if !exist {
 		return nil, fmt.Errorf("method '%s' not found", name)
 	}
@@ -79,8 +79,8 @@ func (abi ABI) Unpack(v interface{}, name string, output []byte) (err error) {
 		return fmt.Errorf("abi: unmarshalling empty output")
 	}
 	// since there can't be naming collisions with contracts and events,
-	// we need to decide whrue we're calling a method or an event
-	if method, ok := abi.Methods[name]; ok {
+	// we need to decide whruer we're calling a method or an event
+	if method, ok := abi.methods[name]; ok {
 		if len(output)%32 != 0 {
 			return fmt.Errorf("abi: improperly formatted output")
 		}
@@ -107,17 +107,17 @@ func (abi *ABI) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	abi.Methods = make(map[string]Method)
+	abi.methods = make(map[string]method)
 	abi.Events = make(map[string]Event)
 	for _, field := range fields {
 		switch field.Type {
 		case "constructor":
-			abi.Constructor = Method{
+			abi.Constructor = method{
 				Inputs: field.Inputs,
 			}
 		// empty defaults to function according to the abi spec
 		case "function", "":
-			abi.Methods[field.Name] = Method{
+			abi.methods[field.Name] = method{
 				Name:    field.Name,
 				Const:   field.Constant,
 				Inputs:  field.Inputs,
@@ -135,10 +135,10 @@ func (abi *ABI) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MethodById looks up a method by the 4-byte id
+// methodById looks up a method by the 4-byte id
 // returns nil if none found
-func (abi *ABI) MethodById(sigdata []byte) *Method {
-	for _, method := range abi.Methods {
+func (abi *ABI) methodById(sigdata []byte) *method {
+	for _, method := range abi.methods {
 		if bytes.Equal(method.Id(), sigdata[:4]) {
 			return &method
 		}

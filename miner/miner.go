@@ -1,20 +1,20 @@
-// Copyright 2014 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2014 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package miner implements Rue block creation and mining.
+// Package miner implements Ruereum block creation and mining.
 package miner
 
 import (
@@ -53,8 +53,8 @@ type Miner struct {
 	rue      Backend
 	engine   consensus.Engine
 
-	canStart    int32 // can start indicates whrue we can start the mining operation
-	shouldStart int32 // should start indicates whrue we should start after sync
+	canStart    int32 // can start indicates whruer we can start the mining operation
+	shouldStart int32 // should start indicates whruer we should start after sync
 }
 
 func New(rue Backend, config *params.ChainConfig, mux *event.TypeMux, engine consensus.Engine) *Miner {
@@ -105,7 +105,7 @@ out:
 
 func (self *Miner) Start(coinbase common.Address) {
 	atomic.StoreInt32(&self.shouldStart, 1)
-	self.worker.setRuebase(coinbase)
+	self.worker.setRuerbase(coinbase)
 	self.coinbase = coinbase
 
 	if atomic.LoadInt32(&self.canStart) == 0 {
@@ -177,7 +177,7 @@ func (self *Miner) PendingBlock() *types.Block {
 	return self.worker.pendingBlock()
 }
 
-func (self *Miner) SetRuebase(addr common.Address) {
+func (self *Miner) SetRuerbase(addr common.Address) {
 	self.coinbase = addr
-	self.worker.setRuebase(addr)
+	self.worker.setRuerbase(addr)
 }

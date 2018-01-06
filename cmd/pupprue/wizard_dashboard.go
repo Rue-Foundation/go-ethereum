@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -72,7 +72,7 @@ func (w *wizard) deployDashboard() {
 			var port int
 			switch service {
 			case "ruestats":
-				if infos, err := checkRuestats(client, w.network); err == nil {
+				if infos, err := checkEthstats(client, w.network); err == nil {
 					port = infos.port
 				}
 			case "explorer":
@@ -133,11 +133,7 @@ func (w *wizard) deployDashboard() {
 			infos.faucet = page
 		}
 	}
-<<<<<<< HEAD:cmd/pupprue/wizard_dashboard.go
-	// If we have ruestats running, ask whrue to make the secret public or not
-=======
-	// If we have ruestats running, ask whether to make the secret public or not
->>>>>>> e30d8edd0de13be18f8ba77cb45dd7ccd9cb1ebf:cmd/pupprue/wizard_dashboard.go
+	// If we have ruestats running, ask whruer to make the secret public or not
 	if w.conf.ruestats != "" {
 		fmt.Println()
 		fmt.Println("Include ruestats secret on dashboard (y/n)? (default = yes)")

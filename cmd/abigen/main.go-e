@@ -1,18 +1,18 @@
-// Copyright 2016 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2016 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -29,11 +29,11 @@ import (
 )
 
 var (
-	abiFlag = flag.String("abi", "", "Path to the Rue contract ABI json to bind")
-	binFlag = flag.String("bin", "", "Path to the Rue contract bytecode (generate deploy method)")
+	abiFlag = flag.String("abi", "", "Path to the Ruereum contract ABI json to bind")
+	binFlag = flag.String("bin", "", "Path to the Ruereum contract bytecode (generate deploy method)")
 	typFlag = flag.String("type", "", "Struct name for the binding (default = package name)")
 
-	solFlag  = flag.String("sol", "", "Path to the Rue contract Solidity source to build and bind")
+	solFlag  = flag.String("sol", "", "Path to the Ruereum contract Solidity source to build and bind")
 	solcFlag = flag.String("solc", "solc", "Solidity compiler to use if source builds are requested")
 	excFlag  = flag.String("exc", "", "Comma separated types to exclude from binding")
 

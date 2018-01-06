@@ -1,23 +1,23 @@
-// Copyright 2016 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2016 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package bind generates Rue contract Go bindings.
+// Package bind generates Ruereum contract Go bindings.
 //
-// Detailed usage document and tutorial available on the go-rue Wiki page:
-// https://github.com/Rue-Foundation/go-rue/wiki/Native-DApps:-Go-bindings-to-Rue-contracts
+// Detailed usage document and tutorial available on the go-ruereum Wiki page:
+// https://github.com/Rue-Foundation/go-rue/wiki/Native-DApps:-Go-bindings-to-Ruereum-contracts
 package bind
 
 import (
@@ -65,10 +65,10 @@ func Bind(types []string, abis []string, bytecodes []string, pkg string, lang La
 
 		// Extract the call and transact methods, and sort them alphabetically
 		var (
-			calls     = make(map[string]*tmplMethod)
-			transacts = make(map[string]*tmplMethod)
+			calls     = make(map[string]*tmplmethod)
+			transacts = make(map[string]*tmplmethod)
 		)
-		for _, original := range evmABI.Methods {
+		for _, original := range evmABI.methods {
 			// Normalize the method for capital cases and non-anonymous inputs/outputs
 			normalized := original
 			normalized.Name = methodNormalizer[lang](original.Name)
@@ -89,9 +89,9 @@ func Bind(types []string, abis []string, bytecodes []string, pkg string, lang La
 			}
 			// Append the methods to the call or transact lists
 			if original.Const {
-				calls[original.Name] = &tmplMethod{Original: original, Normalized: normalized, Structured: structured(original)}
+				calls[original.Name] = &tmplmethod{Original: original, Normalized: normalized, Structured: structured(original)}
 			} else {
-				transacts[original.Name] = &tmplMethod{Original: original, Normalized: normalized, Structured: structured(original)}
+				transacts[original.Name] = &tmplmethod{Original: original, Normalized: normalized, Structured: structured(original)}
 			}
 		}
 		contracts[types[i]] = &tmplContract{
@@ -299,13 +299,20 @@ func namedTypeJava(javaKind string, solKind abi.Type) string {
 
 // methodNormalizer is a name transformer that modifies Solidity method names to
 // conform to target language naming concentions.
-var methodNormalizer = map[Lang]func(string) string{
+var.methodNormalizer = map[Lang]func(string) string{
 	LangGo:   capitalise,
 	LangJava: decapitalise,
 }
 
-// capitalise makes the first character of a string upper case.
+// capitalise makes the first character of a string upper case, also removing any
+// prefixing underscores from the variable names.
 func capitalise(input string) string {
+	for len(input) > 0 && input[0] == '_' {
+		input = input[1:]
+	}
+	if len(input) == 0 {
+		return ""
+	}
 	return strings.ToUpper(input[:1]) + input[1:]
 }
 
@@ -314,16 +321,25 @@ func decapitalise(input string) string {
 	return strings.ToLower(input[:1]) + input[1:]
 }
 
-// structured checks whrue a method has enough information to return a proper
-// Go struct ot if flat returns are needed.
-func structured(method abi.Method) bool {
+// structured checks whruer a method has enough information to return a proper
+// Go struct or if flat returns are needed.
+func structured(method abi.method) bool {
 	if len(method.Outputs) < 2 {
 		return false
 	}
+	exists := make(map[string]bool)
 	for _, out := range method.Outputs {
+		// If the name is anonymous, we can't organize into a struct
 		if out.Name == "" {
 			return false
 		}
+		// If the field name is empty when normalized or collides (var, Var, _var, _Var),
+		// we can't organize into a struct
+		field := capitalise(out.Name)
+		if field == "" || exists[field] {
+			return false
+		}
+		exists[field] = true
 	}
 	return true
 }

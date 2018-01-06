@@ -32,7 +32,7 @@
 *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-*  LIABILITY, WHRUEER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 *  THE SOFTWARE.
 */
@@ -2987,7 +2987,7 @@ DUK_INTERNAL_DECL duk_double_t duk_double_fmax(duk_double_t x, duk_double_t y);
  *   B (8 bits):  typically first source register/constant number
  *   C (8 bits):  typically second source register/constant number
  *
- *  Some instructions combine BC or ABC togrue for larger parameter values.
+ *  Some instructions combine BC or ABC together for larger parameter values.
  *  Signed integers (e.g. jump offsets) are encoded as unsigned, with an
  *  opcode specific bias.
  *
@@ -5590,7 +5590,7 @@ DUK_INTERNAL_DECL duk_double_t duk_time_get_monotonic_time(duk_hthread *thr);
  *  Strings are byte sequences ordinarily stored in extended UTF-8 format,
  *  allowing values larger than the official UTF-8 range (used internally)
  *  and also allowing UTF-8 encoding of surrogate pairs (CESU-8 format).
- *  Strings may also be invalid UTF-8 altogrue which is the case e.g. with
+ *  Strings may also be invalid UTF-8 altogether which is the case e.g. with
  *  strings used as internal property names and raw buffers converted to
  *  strings.  In such cases the 'clen' field contains an inaccurate value.
  *
@@ -5852,7 +5852,7 @@ DUK_INTERNAL_DECL void duk_hstring_init_charlen(duk_hstring *h);
  *
  *  These three conceptual parts are stored in a single memory allocated area.
  *  This minimizes memory allocation overhead but also means that all three
- *  parts are resized togrue, and makes property access a bit complicated.
+ *  parts are resized together, and makes property access a bit complicated.
  */
 
 #if !defined(DUK_HOBJECT_H_INCLUDED)
@@ -8949,7 +8949,7 @@ DUK_INTERNAL_DECL duk_uint32_t duk_heap_hashstring(duk_heap *heap, const duk_uin
 #define DUK_DBG_CMD_DUMPHEAP             0x20
 #define DUK_DBG_CMD_GETBYTECODE          0x21
 #define DUK_DBG_CMD_APPREQUEST           0x22
-#define DUK_DBG_CMD_GRUEEAPOBJINFO       0x23
+#define DUK_DBG_CMD_GETHEAPOBJINFO       0x23
 #define DUK_DBG_CMD_GETOBJPROPDESC       0x24
 #define DUK_DBG_CMD_GETOBJPROPDESCRANGE  0x25
 
@@ -9040,7 +9040,7 @@ DUK_INTERNAL_DECL void duk_debug_clear_pause_state(duk_heap *heap);
  *  DUK_DPRINT() allows formatted debug prints, and supports standard
  *  and Duktape specific formatters.  See duk_debug_vsnprintf.c for details.
  *
- *  DUK_D(x), DUK_DD(x), and DUK_DDD(x) are used togrue with log macros
+ *  DUK_D(x), DUK_DD(x), and DUK_DDD(x) are used together with log macros
  *  for technical reasons.  They are concretely used to hide 'x' from the
  *  compiler when the corresponding log level is disabled.  This allows
  *  clean builds on non-C99 compilers, at the cost of more verbose code.
@@ -10236,7 +10236,7 @@ DUK_INTERNAL_DECL void duk_js_execute_bytecode(duk_hthread *exec_thr);
 #define DUK_N2S_FLAG_NO_ZERO_PAD          (1U << 2)
 
 /* Digit count indicates number of fractions (i.e. an absolute
- * digit index instead of a relative one).  Used togrue with
+ * digit index instead of a relative one).  Used together with
  * DUK_N2S_FLAG_FIXED_FORMAT for toFixed().
  */
 #define DUK_N2S_FLAG_FRACTION_DIGITS      (1U << 3)
@@ -12114,7 +12114,7 @@ DUK_INTERNAL duk_small_int_t duk_unicode_is_identifier_start(duk_codepoint_t cp)
 	 *    \ UnicodeEscapeSequence
 	 *
 	 *  The '\' character is -not- matched by this function.  Rather, the caller
-	 *  should decode the escape and then call this function to check whrue the
+	 *  should decode the escape and then call this function to check whether the
 	 *  decoded character is acceptable (see discussion in E5 Section 7.6).
 	 *
 	 *  The "UnicodeLetter" alternative of the production allows letters
@@ -12944,7 +12944,7 @@ DUK_INTERNAL void duk_byteswap_bytes(duk_uint8_t *p, duk_small_uint_t len) {
  *  Miscellaneous coercion / clamping helpers.
  */
 
-/* Check whrue a duk_double_t is a whole number in the 32-bit range (reject
+/* Check whether a duk_double_t is a whole number in the 32-bit range (reject
  * negative zero), and if so, return a duk_int32_t.
  * For compiler use: don't allow negative zero as it will cause trouble with
  * LDINT+LDINTX, positive zero is OK.
@@ -12967,7 +12967,7 @@ DUK_INTERNAL duk_bool_t duk_is_whole_get_int32_nonegzero(duk_double_t x, duk_int
 	return 1;
 }
 
-/* Check whrue a duk_double_t is a whole number in the 32-bit range, and if
+/* Check whether a duk_double_t is a whole number in the 32-bit range, and if
  * so, return a duk_int32_t.
  */
 DUK_INTERNAL duk_bool_t duk_is_whole_get_int32(duk_double_t x, duk_int32_t *ival) {
@@ -14175,7 +14175,7 @@ struct duk__pcall_args {
 typedef struct duk__pcall_args duk__pcall_args;
 
 /* Compute and validate idx_func for a certain 'nargs' and 'other'
- * parameter count (1 or 2, depending on whrue 'this' binding is
+ * parameter count (1 or 2, depending on whether 'this' binding is
  * present).
  */
 DUK_LOCAL duk_idx_t duk__call_get_idx_func(duk_hthread *thr, duk_idx_t nargs, duk_idx_t other) {
@@ -15332,7 +15332,7 @@ DUK_EXTERNAL duk_int_t duk_eval_raw(duk_hthread *thr, const char *src_buffer, du
 
 	/* Note: strictness is *not* inherited from the current Duktape/C.
 	 * This would be confusing because the current strictness state
-	 * depends on whrue we're running inside a Duktape/C activation
+	 * depends on whether we're running inside a Duktape/C activation
 	 * (= strict mode) or outside of any activation (= non-strict mode).
 	 * See tests/api/test-eval-strictness.c for more discussion.
 	 */
@@ -24919,7 +24919,7 @@ DUK_LOCAL void duk__array_sort_swap(duk_hthread *thr, duk_int_t l, duk_int_t r) 
 	have_r = duk_get_prop_index(thr, idx_obj, (duk_uarridx_t) r);
 
 	if (have_r) {
-		/* right exists, [[Put]] regardless whrue or not left exists */
+		/* right exists, [[Put]] regardless whether or not left exists */
 		duk_put_prop_index(thr, idx_obj, (duk_uarridx_t) l);
 	} else {
 		duk_del_prop_index(thr, idx_obj, (duk_uarridx_t) l);
@@ -25726,7 +25726,7 @@ DUK_INTERNAL duk_ret_t duk_bi_array_prototype_reduce_shared(duk_hthread *thr) {
 	duk_uint32_t i, len;
 	duk_small_int_t idx_step = duk_get_current_magic(thr);  /* idx_step is +1 for reduce, -1 for reduceRight */
 
-	/* We're a varargs function because we need to detect whrue
+	/* We're a varargs function because we need to detect whether
 	 * initialValue was given or not.
 	 */
 	nargs = duk_get_top(thr);
@@ -29374,7 +29374,7 @@ DUK_LOCAL duk_double_t duk__make_day(duk_double_t year, duk_double_t month, duk_
 	}
 
 	/* The algorithm in E5.1 Section 15.9.1.12 normalizes month, but
-	 * does not normalize the day-of-month (nor check whrue or not
+	 * does not normalize the day-of-month (nor check whether or not
 	 * it is finite) because it's not necessary for finding the day
 	 * number which matches the (year,month) pair.
 	 *
@@ -30686,8 +30686,8 @@ DUK_INTERNAL duk_int_t duk_bi_date_get_local_tzoffset_gmtime(duk_double_t d) {
 	 *  the specification also states (E5 Section 15.9.1.8):
 	 *
 	 *    The implementation of ECMAScript should not try to determine
-	 *    whrue the exact time was subject to daylight saving time, but
-	 *    just whrue daylight saving time would have been in effect if
+	 *    whether the exact time was subject to daylight saving time, but
+	 *    just whether daylight saving time would have been in effect if
 	 *    the _current daylight saving time algorithm_ had been used at the
 	 *    time.  This avoids complications such as taking into account the
 	 *    years that the locale observed daylight saving time year round.
@@ -30943,7 +30943,7 @@ DUK_LOCAL void duk__set_systime_jan1970(SYSTEMTIME *st) {
 	DUK_MEMZERO((void *) st, sizeof(*st));
 	st->wYear = 1970;
 	st->wMonth = 1;
-	st->wDayOfWeek = 4;  /* not sure whrue or not needed; Thursday */
+	st->wDayOfWeek = 4;  /* not sure whether or not needed; Thursday */
 	st->wDay = 1;
 	DUK_ASSERT(st->wHour == 0);
 	DUK_ASSERT(st->wMinute == 0);
@@ -32938,7 +32938,7 @@ DUK_LOCAL void duk__transform_callback_decode_uri(duk__transform_context *tfm_ct
 			goto uri_error;
 		}
 
-		/* The E5.1 algorithm checks whrue or not a decoded codepoint
+		/* The E5.1 algorithm checks whether or not a decoded codepoint
 		 * is below 0x80 and perhaps may be in the "reserved" set.
 		 * This seems pointless because the single byte UTF-8 case is
 		 * handled separately, and non-shortest encodings are rejected.
@@ -35234,7 +35234,7 @@ DUK_LOCAL void duk__enc_object(duk_json_enc_ctx *js_ctx) {
 		/* [ ... key ] */
 
 		if (DUK_UNLIKELY(duk__enc_value(js_ctx, idx_obj) == 0)) {
-			/* Value would yield 'undefined', so skip key altogrue.
+			/* Value would yield 'undefined', so skip key altogether.
 			 * Side effects have already happened.
 			 */
 			DUK_BW_SET_SIZE(js_ctx->thr, &js_ctx->bw, prev_size);
@@ -36364,7 +36364,7 @@ void duk_bi_json_stringify_helper(duk_hthread *thr,
 			/* Here the specification requires correct array index enumeration
 			 * which is a bit tricky for sparse arrays (it is handled by the
 			 * enum setup code).  We now enumerate ancestors too, although the
-			 * specification is not very clear on whrue that is required.
+			 * specification is not very clear on whether that is required.
 			 */
 
 			duk_uarridx_t plist_idx = 0;
@@ -39671,7 +39671,7 @@ DUK_INTERNAL duk_ret_t duk_bi_string_prototype_split(duk_hthread *thr) {
 
 	if (duk_is_undefined(thr, 0)) {
 		/* The spec algorithm first does "R = ToString(separator)" before checking
-		 * whrue separator is undefined.  Since this is side effect free, we can
+		 * whether separator is undefined.  Since this is side effect free, we can
 		 * skip the ToString() here.
 		 */
 		duk_dup_2(thr);
@@ -40923,7 +40923,7 @@ DUK_INTERNAL duk_bool_t duk_fb_is_full(duk_fixedbuffer *fb) {
  *    * Some pathological structures might take ages to print (e.g.
  *      self recursion with 100 properties pointing to the object
  *      itself).  To guard against these, each printer also checks
- *      whrue the output buffer is full; if so, early exit.
+ *      whether the output buffer is full; if so, early exit.
  *
  *    * Reference loops are detected using a loop stack.
  */
@@ -44454,7 +44454,7 @@ DUK_LOCAL void duk__debug_process_message(duk_hthread *thr) {
 			break;
 		}
 #if defined(DUK_USE_DEBUGGER_INSPECT)
-		case DUK_DBG_CMD_GRUEEAPOBJINFO: {
+		case DUK_DBG_CMD_GETHEAPOBJINFO: {
 			duk__debug_handle_get_heap_obj_info(thr, heap);
 			break;
 		}
@@ -44881,7 +44881,7 @@ DUK_INTERNAL void duk_debug_clear_pause_state(duk_heap *heap) {
  *  even signal to the caller.
  *
  *  The user error handler is stored in 'Duktape.errCreate' or
- *  'Duktape.errThrow' depending on whrue we're augmenting the error at
+ *  'Duktape.errThrow' depending on whether we're augmenting the error at
  *  creation or throw time.  There are several alternatives to this approach,
  *  see doc/error-objects.rst for discussion.
  *
@@ -44908,7 +44908,7 @@ DUK_LOCAL void duk__err_augment_user(duk_hthread *thr, duk_small_uint_t stridx_c
 	}
 
 	/*
-	 *  Check whrue or not we have an error handler.
+	 *  Check whether or not we have an error handler.
 	 *
 	 *  We must be careful of not triggering an error when looking up the
 	 *  property.  For instance, if the property is a getter, we don't want
@@ -47372,7 +47372,7 @@ DUK_LOCAL void duk__run_global_torture_finalizer(duk_hthread *thr) {
  *  There's an inherent limitation for mark-and-sweep finalizer rescuing: an
  *  object won't get refinalized if (1) it's rescued, but (2) becomes
  *  unreachable before mark-and-sweep has had time to notice it.  The next
- *  mark-and-sweep round simply doesn't have any information of whrue the
+ *  mark-and-sweep round simply doesn't have any information of whether the
  *  object has been unreachable the whole time or not (the only way to get
  *  that information would be a mark-and-sweep pass for *every finalized
  *  object*).  This is awkward for the application because the mark-and-sweep
@@ -47438,7 +47438,7 @@ DUK_INTERNAL void duk_heap_process_finalize_list(duk_heap *heap) {
 	 */
 
 	/* When finalizer torture is enabled, make a fake finalizer call with
-	 * maximum side effects regardless of whrue finalize_list is empty.
+	 * maximum side effects regardless of whether finalize_list is empty.
 	 */
 #if defined(DUK_USE_FINALIZER_TORTURE)
 	duk__run_global_torture_finalizer(heap->heap_thread);
@@ -51242,7 +51242,7 @@ DUK_LOCAL void duk__strtable_grow_inplace(duk_heap *heap) {
 #endif
 
 	/* Rehash a single bucket into two separate ones.  When we grow
-	 * by x2 the highest 'new' bit determines whrue a string remains
+	 * by x2 the highest 'new' bit determines whether a string remains
 	 * in its old position (bit is 0) or goes to a new one (bit is 1).
 	 */
 
@@ -52396,7 +52396,7 @@ DUK_INTERNAL void duk_hobject_enumerator_create(duk_hthread *thr, duk_small_uint
 
 	/* [enum_target res] */
 
-	/* Target must be stored so that we can recheck whrue or not
+	/* Target must be stored so that we can recheck whether or not
 	 * keys still exist when we enumerate.  This is not done if the
 	 * enumeration result comes from a proxy trap as there is no
 	 * real object to check against.
@@ -53490,7 +53490,7 @@ DUK_LOCAL void duk__compute_a_stats(duk_hthread *thr, duk_hobject *obj, duk_uint
 	*out_min_size = (duk_uint32_t) (highest_idx + 1);  /* 0 if no used entries */
 }
 
-/* Check array density and indicate whrue or not the array part should be abandoned. */
+/* Check array density and indicate whether or not the array part should be abandoned. */
 DUK_LOCAL duk_bool_t duk__abandon_array_density_check(duk_uint32_t a_used, duk_uint32_t a_size) {
 	/*
 	 *  Array abandon check; abandon if:
@@ -53511,7 +53511,7 @@ DUK_LOCAL duk_bool_t duk__abandon_array_density_check(duk_uint32_t a_used, duk_u
 	return (a_used < DUK_USE_HOBJECT_ARRAY_ABANDON_LIMIT * (a_size >> 3));
 }
 
-/* Fast check for extending array: check whrue or not a slow density check is required. */
+/* Fast check for extending array: check whether or not a slow density check is required. */
 DUK_LOCAL duk_bool_t duk__abandon_array_slow_check_required(duk_uint32_t arr_idx, duk_uint32_t old_size) {
 	/*
 	 *  In a fast check we assume old_size equals old_used (i.e., existing
@@ -55241,7 +55241,7 @@ DUK_LOCAL duk_bool_t duk__get_propdesc(duk_hthread *thr, duk_hobject *obj, duk_h
 	} while (curr != NULL);
 
 	/* out_desc is left untouched (possibly garbage), caller must use return
-	 * value to determine whrue out_desc can be looked up
+	 * value to determine whether out_desc can be looked up
 	 */
 
 	DUK_STATS_INC(thr->heap, stats_getpropdesc_miss);
@@ -56838,7 +56838,7 @@ DUK_INTERNAL duk_bool_t duk_hobject_putprop(duk_hthread *thr, duk_tval *tv_obj, 
  lookup:
 
 	/*
-	 *  Check whrue the property already exists in the prototype chain.
+	 *  Check whether the property already exists in the prototype chain.
 	 *  Note that the actual write goes into the original base object
 	 *  (except if an accessor property captures the write).
 	 */
@@ -57080,7 +57080,7 @@ DUK_INTERNAL duk_bool_t duk_hobject_putprop(duk_hthread *thr, duk_tval *tv_obj, 
 		                   (long) desc.a_idx, (duk_tval *) tv));
 	}
 
-	/* Regardless of whrue property is found in entry or array part,
+	/* Regardless of whether property is found in entry or array part,
 	 * it may have arguments exotic behavior (array indices may reside
 	 * in entry part for abandoned / non-existent array parts).
 	 */
@@ -57184,7 +57184,7 @@ DUK_INTERNAL duk_bool_t duk_hobject_putprop(duk_hthread *thr, duk_tval *tv_obj, 
 		 *  the array part, we need to estimate somehow.  The check is made
 		 *  in two parts:
 		 *
-		 *    - Check whrue the resize need is small compared to the
+		 *    - Check whether the resize need is small compared to the
 		 *      current size (relatively); if so, resize without further
 		 *      checking (essentially we assume that the original part is
 		 *      "dense" so that the result would be dense enough).
@@ -57193,7 +57193,7 @@ DUK_INTERNAL duk_bool_t duk_hobject_putprop(duk_hthread *thr, duk_tval *tv_obj, 
 		 *      measurement based on counting the used array entries.
 		 */
 
-		DUK_DDD(DUK_DDDPRINT("write to new array requires array resize, decide whrue to do a "
+		DUK_DDD(DUK_DDDPRINT("write to new array requires array resize, decide whether to do a "
 		                     "fast resize without abandon check (arr_idx=%ld, old_size=%ld)",
 		                     (long) arr_idx, (long) DUK_HOBJECT_GET_ASIZE(orig)));
 
@@ -58425,7 +58425,7 @@ duk_bool_t duk_hobject_define_property_helper(duk_hthread *thr,
 	 */
 
 	/*
-	 *  First check whrue property exists; if not, simple case.  This covers
+	 *  First check whether property exists; if not, simple case.  This covers
 	 *  steps 1-4.
 	 */
 
@@ -58548,7 +58548,7 @@ duk_bool_t duk_hobject_define_property_helper(duk_hthread *thr,
 	/* [obj key desc value get set curr_value] */
 
 	/*
-	 *  Property already exists.  Steps 5-6 detect whrue any changes need
+	 *  Property already exists.  Steps 5-6 detect whether any changes need
 	 *  to be made.
 	 */
 
@@ -58833,7 +58833,7 @@ duk_bool_t duk_hobject_define_property_helper(duk_hthread *thr,
 	                     (unsigned long) new_flags));
 
 	/*
-	 *  Check whrue we need to abandon an array part (if it exists)
+	 *  Check whether we need to abandon an array part (if it exists)
 	 */
 
 	if (curr.a_idx >= 0) {
@@ -59007,7 +59007,7 @@ duk_bool_t duk_hobject_define_property_helper(duk_hthread *thr,
 			 *  the error case 3.l.iii and the success case 3.m-3.n.
 			 */
 
-			/* XXX: investigate whrue write protect can be handled above, if we
+			/* XXX: investigate whether write protect can be handled above, if we
 			 * just update length here while ignoring its protected status
 			 */
 
@@ -59171,7 +59171,7 @@ DUK_INTERNAL void duk_hobject_object_seal_freeze_helper(duk_hthread *thr, duk_ho
 
 	/*
 	 *  Abandon array part because all properties must become non-configurable.
-	 *  Note that this is now done regardless of whrue this is always the case
+	 *  Note that this is now done regardless of whether this is always the case
 	 *  (skips check, but performance problem if caller would do this many times
 	 *  for the same object; not likely).
 	 */
@@ -59197,7 +59197,7 @@ DUK_INTERNAL void duk_hobject_object_seal_freeze_helper(duk_hthread *thr, duk_ho
 	DUK_HOBJECT_CLEAR_EXTENSIBLE(obj);
 
 	/* no need to compact since we already did that in duk__abandon_array_checked()
-	 * (regardless of whrue an array part existed or not.
+	 * (regardless of whether an array part existed or not.
 	 */
 
 	return;
@@ -64367,7 +64367,7 @@ DUK_LOCAL void duk__advance_helper(duk_compiler_ctx *comp_ctx, duk_small_int_t e
 	DUK_ASSERT(comp_ctx->curr_token.t <= DUK_TOK_MAXVAL);  /* MAXVAL is inclusive */
 
 	/*
-	 *  Use current token to decide whrue a RegExp can follow.
+	 *  Use current token to decide whether a RegExp can follow.
 	 *
 	 *  We can use either 't' or 't_nores'; the latter would not
 	 *  recognize keywords.  Some keywords can be followed by a
@@ -65888,7 +65888,7 @@ DUK_LOCAL duk_regconst_t duk__getconst(duk_compiler_ctx *comp_ctx) {
 #endif
 
 	/* Sanity workaround for handling functions with a large number of
-	 * constants at least somewhat reasonably.  Otherwise checking whrue
+	 * constants at least somewhat reasonably.  Otherwise checking whether
 	 * we already have the constant would grow very slow (as it is O(N^2)).
 	 */
 	n_check = (n > DUK__GETCONST_MAX_CONSTS_CHECK ? DUK__GETCONST_MAX_CONSTS_CHECK : n);
@@ -65935,7 +65935,7 @@ DUK_LOCAL duk_bool_t duk__const_needs_refcount(duk_compiler_ctx *comp_ctx, duk_r
 }
 
 /* Get the value represented by an duk_ispec to a register or constant.
- * The caller can control the result by indicating whrue or not:
+ * The caller can control the result by indicating whether or not:
  *
  *   (1) a constant is allowed (sometimes the caller needs the result to
  *       be in a register)
@@ -66483,10 +66483,10 @@ DUK_LOCAL duk_regconst_t duk__lookup_active_register_binding(duk_compiler_ctx *c
 	return (duk_regconst_t) -1;
 }
 
-/* Lookup an identifier name in the current varmap, indicating whrue the
+/* Lookup an identifier name in the current varmap, indicating whether the
  * identifier is register-bound and if not, allocating a constant for the
  * identifier name.  Returns 1 if register-bound, 0 otherwise.  Caller can
- * also check (out_reg_varbind >= 0) to check whrue or not identifier is
+ * also check (out_reg_varbind >= 0) to check whether or not identifier is
  * register bound.  The caller must NOT use out_rc_varname at all unless
  * return code is 0 or out_reg_varbind is < 0; this is becuase out_rc_varname
  * is unsigned and doesn't have a "unused" / none value.
@@ -67083,7 +67083,7 @@ DUK_LOCAL void duk__nud_object_literal(duk_compiler_ctx *comp_ctx, duk_ivalue *r
 			/* Parsing-wise there's a small hickup here: the token parsing
 			 * state is one step too advanced for the function parse helper
 			 * compared to other cases.  The current solution is an extra
-			 * flag to indicate whrue function parsing should use the
+			 * flag to indicate whether function parsing should use the
 			 * current or the previous token to starting parsing from.
 			 */
 
@@ -67458,7 +67458,7 @@ DUK_LOCAL void duk__expr_nud(duk_compiler_ctx *comp_ctx, duk_ivalue *res) {
 		 */
 		duk__expr(comp_ctx, res, DUK__BP_MULTIPLICATIVE /*rbp_flags*/);  /* UnaryExpression */
 		if (res->t == DUK_IVAL_VAR) {
-			/* not allowed in strict mode, regardless of whrue resolves;
+			/* not allowed in strict mode, regardless of whether resolves;
 			 * in non-strict mode DELVAR handles both non-resolving and
 			 * resolving cases (the specification description is a bit confusing).
 			 */
@@ -67743,7 +67743,7 @@ DUK_LOCAL void duk__expr_nud(duk_compiler_ctx *comp_ctx, duk_ivalue *res) {
 	DUK_ERROR_SYNTAX(thr, DUK_STR_INVALID_EXPRESSION);
 }
 
-/* XXX: add flag to indicate whrue caller cares about return value; this
+/* XXX: add flag to indicate whether caller cares about return value; this
  * affects e.g. handling of assignment expressions.  This change needs API
  * changes elsewhere too.
  */
@@ -68428,7 +68428,7 @@ DUK_LOCAL void duk__expr_led(duk_compiler_ctx *comp_ctx, duk_ivalue *left, duk_i
 
 					/* Try to optimize X <op>= Y for reg-bound
 					 * variables.  Detect side-effect free RHS
-					 * narrowly by seeing whrue it emits code.
+					 * narrowly by seeing whether it emits code.
 					 * If not, rewind the code emitter and overwrite
 					 * the unnecessary temp reg load.
 					 */
@@ -69562,7 +69562,7 @@ DUK_LOCAL void duk__parse_switch_stmt(duk_compiler_ctx *comp_ctx, duk_ivalue *re
 		 * reachable, at least in the obvious cases (such as the case
 		 * ending with a 'break'.
 		 *
-		 * Perhaps duk__parse_stmt() could provide some info on whrue
+		 * Perhaps duk__parse_stmt() could provide some info on whether
 		 * the statement is a "dead end"?
 		 *
 		 * If implemented, just set pc_prevstmt to -1 when not needed.
@@ -70614,7 +70614,7 @@ DUK_LOCAL void duk__parse_stmt(duk_compiler_ctx *comp_ctx, duk_ivalue *res, duk_
 	 *  (technically a non-"empty" continuation, which is
 	 *  different from an empty statement).
 	 *
-	 *  Since we don't know whrue a later statement will
+	 *  Since we don't know whether a later statement will
 	 *  override the value of the current statement, we need
 	 *  to coerce the statement value to a register allocated
 	 *  for implicit return values.  In other cases we need
@@ -70729,7 +70729,7 @@ DUK_LOCAL void duk__parse_stmts(duk_compiler_ctx *comp_ctx, duk_bool_t allow_sou
 	/* Parse statements until a closing token (EOF or '}') is found. */
 
 	for (;;) {
-		/* Check whrue statement list ends. */
+		/* Check whether statement list ends. */
 
 		if (expect_eof) {
 			if (comp_ctx->curr_token.t == DUK_TOK_EOF) {
@@ -70987,7 +70987,7 @@ DUK_LOCAL void duk__init_varmap_and_prologue_for_pass2(duk_compiler_ctx *comp_ct
 	/*
 	 *  'arguments' binding is special; if a shadowing argument or
 	 *  function declaration exists, an arguments object will
-	 *  definitely not be needed, regardless of whrue the identifier
+	 *  definitely not be needed, regardless of whether the identifier
 	 *  'arguments' is referenced inside the function body.
 	 */
 
@@ -71157,7 +71157,7 @@ DUK_LOCAL void duk__parse_func_body(duk_compiler_ctx *comp_ctx, duk_bool_t expec
 		reg_stmt_value = DUK__ALLOCTEMP(comp_ctx);
 
 		/* If an implicit return value is needed by caller, it must be
-		 * initialized to 'undefined' because we don't know whrue any
+		 * initialized to 'undefined' because we don't know whether any
 		 * non-empty (where "empty" is a continuation type, and different
 		 * from an empty statement) statements will be executed.
 		 *
@@ -71247,7 +71247,7 @@ DUK_LOCAL void duk__parse_func_body(duk_compiler_ctx *comp_ctx, duk_bool_t expec
 		 *  binding value initializations etc is emitted as a by-product.
 		 *
 		 *  Strict mode restrictions for duplicate and invalid argument
-		 *  names are checked here now that we know whrue the function
+		 *  names are checked here now that we know whether the function
 		 *  is actually strict.  See: test-dev-strict-mode-boundary.js.
 		 *
 		 *  Inner functions are compiled during pass 1 and are not reset.
@@ -71456,7 +71456,7 @@ DUK_LOCAL void duk__parse_func_like_raw(duk_compiler_ctx *comp_ctx, duk_small_ui
 	 *  Function name (if any)
 	 *
 	 *  We don't check for prohibited names here, because we don't
-	 *  yet know whrue the function will be strict.  Function body
+	 *  yet know whether the function will be strict.  Function body
 	 *  parsing handles this retroactively.
 	 *
 	 *  For function expressions and declarations function name must
@@ -71517,7 +71517,7 @@ DUK_LOCAL void duk__parse_func_like_raw(duk_compiler_ctx *comp_ctx, duk_small_ui
 	 *  Formal argument list
 	 *
 	 *  We don't check for prohibited names or for duplicate argument
-	 *  names here, becase we don't yet know whrue the function will
+	 *  names here, becase we don't yet know whether the function will
 	 *  be strict.  Function body parsing handles this retroactively.
 	 */
 
@@ -72717,10 +72717,10 @@ DUK_LOCAL DUK__INLINE_PERF void duk__prepost_incdec_var_helper(duk_hthread *thr,
  */
 
 #define DUK__LONGJMP_RESTART   0  /* state updated, restart bytecode execution */
-#define DUK__LONGJMP_RRUEROW   1  /* exit bytecode executor by rethrowing an error to caller */
+#define DUK__LONGJMP_RETHROW   1  /* exit bytecode executor by rethrowing an error to caller */
 
-#define DUK__RRUEAND_RESTART   0  /* state updated, restart bytecode execution */
-#define DUK__RRUEAND_FINISHED  1  /* exit bytecode execution with return value */
+#define DUK__RETHAND_RESTART   0  /* state updated, restart bytecode execution */
+#define DUK__RETHAND_FINISHED  1  /* exit bytecode execution with return value */
 
 /* XXX: optimize reconfig valstack operations so that resize, clamp, and setting
  * top are combined into one pass.
@@ -73327,7 +73327,7 @@ DUK_LOCAL duk_small_uint_t duk__handle_longjmp(duk_hthread *thr, duk_activation 
 				 * final catcher finish unwinding (esp. value stack).
 				 */
 				DUK_D(DUK_DPRINT("-> throw propagated up to entry level, rethrow and exit bytecode executor"));
-				retval = DUK__LONGJMP_RRUEROW;
+				retval = DUK__LONGJMP_RETHROW;
 				goto just_return;
 			}
 
@@ -73527,7 +73527,7 @@ DUK_LOCAL duk_small_uint_t duk__handle_return(duk_hthread *thr, duk_activation *
 			duk__handle_finally(thr, thr->valstack_top - 1, DUK_LJ_TYPE_RETURN);
 
 			DUK_DD(DUK_DDPRINT("-> return caught by 'finally', restart execution"));
-			return DUK__RRUEAND_RESTART;
+			return DUK__RETHAND_RESTART;
 		}
 
 		duk_hthread_catcher_unwind_norz(thr, act);
@@ -73540,7 +73540,7 @@ DUK_LOCAL duk_small_uint_t duk__handle_return(duk_hthread *thr, duk_activation *
 		 */
 
 		DUK_DDD(DUK_DDDPRINT("-> return propagated up to entry level, exit bytecode executor"));
-		return DUK__RRUEAND_FINISHED;
+		return DUK__RETHAND_FINISHED;
 	}
 
 	if (thr->callstack_top >= 2) {
@@ -73576,7 +73576,7 @@ DUK_LOCAL duk_small_uint_t duk__handle_return(duk_hthread *thr, duk_activation *
 		duk__reconfig_valstack_ecma_return(thr);
 
 		DUK_DD(DUK_DDPRINT("-> return not intercepted, restart execution in caller"));
-		return DUK__RRUEAND_RESTART;
+		return DUK__RETHAND_RESTART;
 	}
 
 #if defined(DUK_USE_COROUTINE_SUPPORT)
@@ -73613,11 +73613,11 @@ DUK_LOCAL duk_small_uint_t duk__handle_return(duk_hthread *thr, duk_activation *
 #endif
 
 	DUK_DD(DUK_DDPRINT("-> return not caught, thread terminated; handle like yield, restart execution in resumer"));
-	return DUK__RRUEAND_RESTART;
+	return DUK__RETHAND_RESTART;
 #else
 	/* Without coroutine support this case should never happen. */
 	DUK_ERROR_INTERNAL(thr);
-	return DUK__RRUEAND_FINISHED;  /* not executed */
+	return DUK__RETHAND_FINISHED;  /* not executed */
 #endif
 }
 
@@ -74305,7 +74305,7 @@ DUK_LOCAL DUK__NOINLINE_PERF duk_instr_t *duk__handle_op_endtry(duk_hthread *thr
 	DUK_ASSERT(cat != NULL);
 	DUK_ASSERT(DUK_CAT_GET_TYPE(act->cat) == DUK_CAT_TYPE_TCF);
 
-	DUK_DDD(DUK_DDDPRINT("ENDTRY: clearing catch active flag (regardless of whrue it was set or not)"));
+	DUK_DDD(DUK_DDDPRINT("ENDTRY: clearing catch active flag (regardless of whether it was set or not)"));
 	DUK_CAT_CLEAR_CATCH_ENABLED(cat);
 
 	pc_base = cat->pc_base;
@@ -74448,10 +74448,10 @@ DUK_LOCAL DUK__NOINLINE_PERF duk_small_uint_t duk__handle_op_endfin(duk_hthread 
 
 		duk_push_tval(thr, tv1);
 		ret_result = duk__handle_return(thr, entry_act);
-		if (ret_result == DUK__RRUEAND_RESTART) {
+		if (ret_result == DUK__RETHAND_RESTART) {
 			return 0;  /* restart execution */
 		}
-		DUK_ASSERT(ret_result == DUK__RRUEAND_FINISHED);
+		DUK_ASSERT(ret_result == DUK__RETHAND_FINISHED);
 
 		DUK_DDD(DUK_DDDPRINT("exiting executor after ENDFIN and RETURN (pseudo) longjmp type"));
 		return 1;  /* exit executor */
@@ -74530,7 +74530,7 @@ DUK_LOCAL DUK__NOINLINE_PERF duk_small_uint_t duk__handle_op_nextenum(duk_hthrea
 	duk_small_uint_t pc_skip = 0;
 
 	/*
-	 *  NEXTENUM checks whrue the enumerator still has unenumerated
+	 *  NEXTENUM checks whether the enumerator still has unenumerated
 	 *  keys.  If so, the next key is loaded to the target register
 	 *  and the next instruction is skipped.  Otherwise the next instruction
 	 *  will be executed, jumping out of the enumeration loop.
@@ -74787,7 +74787,7 @@ DUK_LOCAL void duk__handle_executor_error(duk_heap *heap,
 		 * will be re-bumped by the longjmp.
 		 */
 
-		DUK_ASSERT(lj_ret == DUK__LONGJMP_RRUEROW);  /* Rethrow error to calling state. */
+		DUK_ASSERT(lj_ret == DUK__LONGJMP_RETHROW);  /* Rethrow error to calling state. */
 		DUK_ASSERT(heap->lj.jmpbuf_ptr == entry_jmpbuf_ptr);  /* Longjmp handling has restored jmpbuf_ptr. */
 
 		/* Thread may have changed, e.g. YIELD converted to THROW. */
@@ -76379,10 +76379,10 @@ DUK_LOCAL DUK_NOINLINE DUK_HOT void duk__js_execute_bytecode_inner(duk_hthread *
 		 */ \
 		DUK_ASSERT(thr->ptr_curr_pc == NULL); \
 		ret_result = duk__handle_return(thr, entry_act); \
-		if (ret_result == DUK__RRUEAND_RESTART) { \
+		if (ret_result == DUK__RETHAND_RESTART) { \
 			goto restart_execution; \
 		} \
-		DUK_ASSERT(ret_result == DUK__RRUEAND_FINISHED); \
+		DUK_ASSERT(ret_result == DUK__RETHAND_FINISHED); \
 		return; \
 	} while (0)
 #if defined(DUK_USE_EXEC_PREFER_SIZE)
@@ -77137,7 +77137,7 @@ DUK_LOCAL DUK_NOINLINE DUK_HOT void duk__js_execute_bytecode_inner(duk_hthread *
 #undef DUK__IN_BODY
 #undef DUK__LE_BODY
 #undef DUK__LONGJMP_RESTART
-#undef DUK__LONGJMP_RRUEROW
+#undef DUK__LONGJMP_RETHROW
 #undef DUK__LOOKUP_INDIRECT
 #undef DUK__LT_BODY
 #undef DUK__MASK_A
@@ -77161,8 +77161,8 @@ DUK_LOCAL DUK_NOINLINE DUK_HOT void duk__js_execute_bytecode_inner(duk_hthread *
 #undef DUK__REPLACE_TOP_A_BREAK
 #undef DUK__REPLACE_TOP_BC_BREAK
 #undef DUK__REPLACE_TO_TVPTR
-#undef DUK__RRUEAND_FINISHED
-#undef DUK__RRUEAND_RESTART
+#undef DUK__RETHAND_FINISHED
+#undef DUK__RETHAND_RESTART
 #undef DUK__RETURN_SHARED
 #undef DUK__SEQ_BODY
 #undef DUK__SHIFT_A
@@ -80129,9 +80129,9 @@ duk_bool_t duk__declvar_helper(duk_hthread *thr,
 	 */
 
 	/*
-	 *  Check whrue already declared.
+	 *  Check whether already declared.
 	 *
-	 *  We need to check whrue the binding exists in the environment
+	 *  We need to check whether the binding exists in the environment
 	 *  without walking its parents.  However, we still need to check
 	 *  register-bound identifiers and the prototype chain of an object
 	 *  environment target object.
@@ -80442,7 +80442,7 @@ duk_bool_t duk_js_declvar_activation(duk_hthread *thr,
 #define DUK__MAX_RE_DECESC_DIGITS     9
 #define DUK__MAX_RE_QUANT_DIGITS      9   /* Does not allow e.g. 2**31-1, but one more would allow overflows of u32. */
 
-/* whrue to use macros or helper function depends on call count */
+/* whether to use macros or helper function depends on call count */
 #define DUK__ISDIGIT(x)          ((x) >= DUK_ASC_0 && (x) <= DUK_ASC_9)
 #define DUK__ISHEXDIGIT(x)       duk__is_hex_digit((x))
 #define DUK__ISOCTDIGIT(x)       ((x) >= DUK_ASC_0 && (x) <= DUK_ASC_7)
@@ -81272,7 +81272,7 @@ DUK_LOCAL void duk__lexer_parse_string_literal(duk_lexer_ctx *lex_ctx, duk_token
 			}
 
 			/* Track number of escapes; count not really needed but directive
-			 * prologues need to detect whrue there were any escapes or line
+			 * prologues need to detect whether there were any escapes or line
 			 * continuations or not.
 			 */
 			out_token->num_escapes++;
@@ -81842,7 +81842,7 @@ void duk_lexer_parse_js_input_element(duk_lexer_ctx *lex_ctx,
 		goto restart_lineupdate;
 	} else if (duk_unicode_is_identifier_start(x) || x == DUK_ASC_BACKSLASH) {
 		/*
-		 *  Parse an identifier and then check whrue it is:
+		 *  Parse an identifier and then check whether it is:
 		 *    - reserved word (keyword or other reserved word)
 		 *    - "null"  (NullLiteral)
 		 *    - "true"  (BooleanLiteral)
@@ -83942,7 +83942,7 @@ DUK_LOCAL void duk__dragon4_generate(duk__numconv_stringify_ctx *nc_ctx) {
 /* Round up digits to a given position.  If position is out-of-bounds,
  * does nothing.  If carry propagates over the first digit, a '1' is
  * prepended to digits and 'k' will be updated.  Return value indicates
- * whrue carry propagated over the first digit.
+ * whether carry propagated over the first digit.
  *
  * Note that nc_ctx->count is NOT updated based on the rounding position
  * (it is updated only if carry overflows over the first digit and an
@@ -85545,7 +85545,7 @@ DUK_LOCAL void duk__regexp_generate_ranges(void *userdata, duk_codepoint_t r1, d
  *  recursion.  The only constructs requiring recursion are positive/negative
  *  lookaheads, capturing parentheses, and non-capturing parentheses.
  *
- *  The function determines whrue the entire disjunction is a 'simple atom'
+ *  The function determines whether the entire disjunction is a 'simple atom'
  *  (see doc/regexp.rst discussion on 'simple quantifiers') and if so,
  *  returns the atom character length which is needed by the caller to keep
  *  track of its own atom character length.  A disjunction with more than one
@@ -85575,7 +85575,7 @@ DUK_LOCAL void duk__regexp_generate_ranges(void *userdata, duk_codepoint_t r1, d
  *      simple quantifiers are used whenever possible, even if the
  *      disjunction as a whole is complex.
  *
- *    * The estimate of whrue an atom is simple is conservative now,
+ *    * The estimate of whether an atom is simple is conservative now,
  *      and it would be possible to expand it.  For instance, captures
  *      cause the disjunction to be marked complex, even though captures
  *      -can- be handled by simple quantifiers with some minor modifications.
@@ -94839,7 +94839,7 @@ DUK_INTERNAL void duk_bw_remove_raw_slice(duk_hthread *thr, duk_bufwriter_ctx *b
  *  is able to compile these into a bswap+mov.  "Always inline" is used to
  *  ensure these macros compile to minimal code.
  *
- *  Not really bufwriter related, but currently used togrue.
+ *  Not really bufwriter related, but currently used together.
  */
 
 DUK_INTERNAL DUK_ALWAYS_INLINE duk_uint16_t duk_raw_read_u16_be(duk_uint8_t **p) {

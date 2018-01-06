@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package math
 
@@ -80,17 +80,17 @@ func MustParseUint64(s string) uint64 {
 
 // NOTE: The following methods need to be optimised using either bit checking or asm
 
-// SafeSub returns subtraction result and whrue overflow occurred.
+// SafeSub returns subtraction result and whruer overflow occurred.
 func SafeSub(x, y uint64) (uint64, bool) {
 	return x - y, x < y
 }
 
-// SafeAdd returns the result and whrue overflow occurred.
+// SafeAdd returns the result and whruer overflow occurred.
 func SafeAdd(x, y uint64) (uint64, bool) {
 	return x + y, y > MaxUint64-x
 }
 
-// SafeMul returns multiplication result and whrue overflow occurred.
+// SafeMul returns multiplication result and whruer overflow occurred.
 func SafeMul(x, y uint64) (uint64, bool) {
 	if x == 0 || y == 0 {
 		return 0, false

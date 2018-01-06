@@ -42,9 +42,9 @@ It has these top-level messages:
 	GetPublicKey
 	PublicKey
 	GetAddress
-	RueGetAddress
+	RuereumGetAddress
 	Address
-	RueAddress
+	RuereumAddress
 	WipeDevice
 	LoadDevice
 	ResetDevice
@@ -69,12 +69,12 @@ It has these top-level messages:
 	SimpleSignTx
 	TxRequest
 	TxAck
-	RueSignTx
-	RueTxRequest
-	RueTxAck
-	RueSignMessage
-	RueVerifyMessage
-	RueMessageSignature
+	RuereumSignTx
+	RuereumTxRequest
+	RuereumTxAck
+	RuereumSignMessage
+	RuereumVerifyMessage
+	RuereumMessageSignature
 	SignIdentity
 	SignedIdentity
 	GetECDHSessionKey

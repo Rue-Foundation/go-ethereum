@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -77,10 +77,10 @@ type ruestatsConfig struct {
 }
 
 type grueConfig struct {
-	Rue       rue.Config
+	Eth       rue.Config
 	Shh       whisper.Config
 	Node      node.Config
-	Ruestats  ruestatsConfig
+	Ethstats  ruestatsConfig
 	Dashboard dashboard.Config
 }
 
@@ -112,7 +112,7 @@ func defaultNodeConfig() node.Config {
 func makeConfigNode(ctx *cli.Context) (*node.Node, grueConfig) {
 	// Load defaults.
 	cfg := grueConfig{
-		Rue:       rue.DefaultConfig,
+		Eth:       rue.DefaultConfig,
 		Shh:       whisper.DefaultConfig,
 		Node:      defaultNodeConfig(),
 		Dashboard: dashboard.DefaultConfig,
@@ -131,9 +131,9 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, grueConfig) {
 	if err != nil {
 		utils.Fatalf("Failed to create the protocol stack: %v", err)
 	}
-	utils.SetRueConfig(ctx, stack, &cfg.Rue)
-	if ctx.GlobalIsSet(utils.RueStatsURLFlag.Name) {
-		cfg.Ruestats.URL = ctx.GlobalString(utils.RueStatsURLFlag.Name)
+	utils.SetEthConfig(ctx, stack, &cfg.Eth)
+	if ctx.GlobalIsSet(utils.EthStatsURLFlag.Name) {
+		cfg.Ethstats.URL = ctx.GlobalString(utils.EthStatsURLFlag.Name)
 	}
 
 	utils.SetShhConfig(ctx, stack, &cfg.Shh)
@@ -155,7 +155,7 @@ func enableWhisper(ctx *cli.Context) bool {
 func makeFullNode(ctx *cli.Context) *node.Node {
 	stack, cfg := makeConfigNode(ctx)
 
-	utils.RegisterRueService(stack, &cfg.Rue)
+	utils.RegisterEthService(stack, &cfg.Eth)
 
 	if ctx.GlobalBool(utils.DashboardEnabledFlag.Name) {
 		utils.RegisterDashboardService(stack, &cfg.Dashboard)
@@ -173,9 +173,9 @@ func makeFullNode(ctx *cli.Context) *node.Node {
 		utils.RegisterShhService(stack, &cfg.Shh)
 	}
 
-	// Add the Rue Stats daemon if requested.
-	if cfg.Ruestats.URL != "" {
-		utils.RegisterRueStatsService(stack, cfg.Ruestats.URL)
+	// Add the Ruereum Stats daemon if requested.
+	if cfg.Ethstats.URL != "" {
+		utils.RegisterEthStatsService(stack, cfg.Ethstats.URL)
 	}
 
 	// Add the release oracle service so it boots along with node.
@@ -190,7 +190,7 @@ func makeFullNode(ctx *cli.Context) *node.Node {
 		copy(config.Commit[:], commit)
 		return release.NewReleaseService(ctx, config)
 	}); err != nil {
-		utils.Fatalf("Failed to register the grue release oracle service: %v", err)
+		utils.Fatalf("Failed to register the Grue release oracle service: %v", err)
 	}
 	return stack
 }
@@ -200,8 +200,8 @@ func dumpConfig(ctx *cli.Context) error {
 	_, cfg := makeConfigNode(ctx)
 	comment := ""
 
-	if cfg.Rue.Genesis != nil {
-		cfg.Rue.Genesis = nil
+	if cfg.Eth.Genesis != nil {
+		cfg.Eth.Genesis = nil
 		comment += "# Note: this config doesn't contain the genesis block.\n\n"
 	}
 

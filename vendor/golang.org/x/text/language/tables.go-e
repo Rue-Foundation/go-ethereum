@@ -782,7 +782,7 @@ const (
 const script tag.Index = "" + // Size: 928 bytes
 	"----AdlmAfakAghbAhomArabAranArmiArmnAvstBaliBamuBassBatkBengBhksBlisBopo" +
 	"BrahBraiBugiBuhdCakmCansCariChamCherCirtCoptCprtCyrlCyrsDevaDsrtDuplEgyd" +
-	"EgyhEgypElbaRueiGeokGeorGlagGothGranGrekGujrGuruHanbHangHaniHanoHansHant" +
+	"EgyhEgypElbaEthiGeokGeorGlagGothGranGrekGujrGuruHanbHangHaniHanoHansHant" +
 	"HatrHebrHiraHluwHmngHrktHungIndsItalJamoJavaJpanJurcKaliKanaKharKhmrKhoj" +
 	"KitlKitsKndaKoreKpelKthiLanaLaooLatfLatgLatnLekeLepcLimbLinaLinbLisuLoma" +
 	"LyciLydiMahjMandManiMarcMayaMendMercMeroMlymModiMongMoonMrooMteiMultMymr" +
@@ -3279,7 +3279,7 @@ type scriptIntelligibility struct {
 
 // matchLang holds pairs of langIDs of base languages that are typically
 // mutually intelligible. Each pair is associated with a confidence and
-// whrue the intelligibility goes one or both ways.
+// whether the intelligibility goes one or both ways.
 // Size: 708 bytes, 118 elements
 var matchLang = [118]mutualIntelligibility{
 	0:   {want: 0x366, have: 0x33e, conf: 0x2, oneway: false},

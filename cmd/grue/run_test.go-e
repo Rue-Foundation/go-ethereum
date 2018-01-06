@@ -1,18 +1,18 @@
-// Copyright 2016 The go-rue Authors
-// This file is part of go-rue.
+// Copyright 2016 The go-ruereum Authors
+// This file is part of go-ruereum.
 //
-// go-rue is free software: you can redistribute it and/or modify
+// go-ruereum is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-rue is distributed in the hope that it will be useful,
+// go-ruereum is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-rue. If not, see <http://www.gnu.org/licenses/>.
+// along with go-ruereum. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -39,7 +39,7 @@ type testgrue struct {
 
 	// template variables for expect
 	Datadir   string
-	Ruebase string
+	Ruerbase string
 }
 
 func init() {
@@ -72,9 +72,9 @@ func runGrue(t *testing.T, args ...string) *testgrue {
 			if i < len(args)-1 {
 				tt.Datadir = args[i+1]
 			}
-		case arg == "-ruebase" || arg == "--ruebase":
+		case arg == "-ruerbase" || arg == "--ruerbase":
 			if i < len(args)-1 {
-				tt.Ruebase = args[i+1]
+				tt.Ruerbase = args[i+1]
 			}
 		}
 	}

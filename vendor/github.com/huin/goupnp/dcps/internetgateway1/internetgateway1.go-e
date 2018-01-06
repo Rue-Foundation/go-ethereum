@@ -32,7 +32,7 @@ const (
 	URN_WANCableLinkConfig_1       = "urn:schemas-upnp-org:service:WANCableLinkConfig:1"
 	URN_WANCommonInterfaceConfig_1 = "urn:schemas-upnp-org:service:WANCommonInterfaceConfig:1"
 	URN_WANDSLLinkConfig_1         = "urn:schemas-upnp-org:service:WANDSLLinkConfig:1"
-	URN_WANRuenetLinkConfig_1    = "urn:schemas-upnp-org:service:WANRuenetLinkConfig:1"
+	URN_WANEthernetLinkConfig_1    = "urn:schemas-upnp-org:service:WANEthernetLinkConfig:1"
 	URN_WANIPConnection_1          = "urn:schemas-upnp-org:service:WANIPConnection:1"
 	URN_WANPOTSLinkConfig_1        = "urn:schemas-upnp-org:service:WANPOTSLinkConfig:1"
 	URN_WANPPPConnection_1         = "urn:schemas-upnp-org:service:WANPPPConnection:1"
@@ -779,7 +779,7 @@ func newWANCableLinkConfig1ClientsFromGenericClients(genericClients []goupnp.Ser
 //
 // * NewCableLinkConfigState: allowed values: notReady, dsSyncComplete, usParamAcquired, rangingComplete, ipComplete, todEstablished, paramTransferComplete, registrationComplete, operational, accessDenied
 //
-// * NewLinkType: allowed values: Ruenet
+// * NewLinkType: allowed values: Ethernet
 func (client *WANCableLinkConfig1) GetCableLinkConfigInfo() (NewCableLinkConfigState string, NewLinkType string, err error) {
 	// Request structure.
 	request := interface{}(nil)
@@ -1168,7 +1168,7 @@ func (client *WANCommonInterfaceConfig1) GetEnabledForInternet() (NewEnabledForI
 //
 // Return values:
 //
-// * NewWANAccessType: allowed values: DSL, POTS, Cable, Ruenet
+// * NewWANAccessType: allowed values: DSL, POTS, Cable, Ethernet
 //
 // * NewPhysicalLinkStatus: allowed values: Up, Down
 func (client *WANCommonInterfaceConfig1) GetCommonLinkProperties() (NewWANAccessType string, NewLayer1UpstreamMaxBitRate uint32, NewLayer1DownstreamMaxBitRate uint32, NewPhysicalLinkStatus string, err error) {
@@ -1737,43 +1737,43 @@ func (client *WANDSLLinkConfig1) GetFCSPreserved() (NewFCSPreserved bool, err er
 	return
 }
 
-// WANRuenetLinkConfig1 is a client for UPnP SOAP service with URN "urn:schemas-upnp-org:service:WANRuenetLinkConfig:1". See
+// WANEthernetLinkConfig1 is a client for UPnP SOAP service with URN "urn:schemas-upnp-org:service:WANEthernetLinkConfig:1". See
 // goupnp.ServiceClient, which contains RootDevice and Service attributes which
 // are provided for informational value.
-type WANRuenetLinkConfig1 struct {
+type WANEthernetLinkConfig1 struct {
 	goupnp.ServiceClient
 }
 
-// NewWANRuenetLinkConfig1Clients discovers instances of the service on the network,
+// NewWANEthernetLinkConfig1Clients discovers instances of the service on the network,
 // and returns clients to any that are found. errors will contain an error for
 // any devices that replied but which could not be queried, and err will be set
 // if the discovery process failed outright.
 //
 // This is a typical entry calling point into this package.
-func NewWANRuenetLinkConfig1Clients() (clients []*WANRuenetLinkConfig1, errors []error, err error) {
+func NewWANEthernetLinkConfig1Clients() (clients []*WANEthernetLinkConfig1, errors []error, err error) {
 	var genericClients []goupnp.ServiceClient
-	if genericClients, errors, err = goupnp.NewServiceClients(URN_WANRuenetLinkConfig_1); err != nil {
+	if genericClients, errors, err = goupnp.NewServiceClients(URN_WANEthernetLinkConfig_1); err != nil {
 		return
 	}
-	clients = newWANRuenetLinkConfig1ClientsFromGenericClients(genericClients)
+	clients = newWANEthernetLinkConfig1ClientsFromGenericClients(genericClients)
 	return
 }
 
-// NewWANRuenetLinkConfig1ClientsByURL discovers instances of the service at the given
+// NewWANEthernetLinkConfig1ClientsByURL discovers instances of the service at the given
 // URL, and returns clients to any that are found. An error is returned if
 // there was an error probing the service.
 //
 // This is a typical entry calling point into this package when reusing an
 // previously discovered service URL.
-func NewWANRuenetLinkConfig1ClientsByURL(loc *url.URL) ([]*WANRuenetLinkConfig1, error) {
-	genericClients, err := goupnp.NewServiceClientsByURL(loc, URN_WANRuenetLinkConfig_1)
+func NewWANEthernetLinkConfig1ClientsByURL(loc *url.URL) ([]*WANEthernetLinkConfig1, error) {
+	genericClients, err := goupnp.NewServiceClientsByURL(loc, URN_WANEthernetLinkConfig_1)
 	if err != nil {
 		return nil, err
 	}
-	return newWANRuenetLinkConfig1ClientsFromGenericClients(genericClients), nil
+	return newWANEthernetLinkConfig1ClientsFromGenericClients(genericClients), nil
 }
 
-// NewWANRuenetLinkConfig1ClientsFromRootDevice discovers instances of the service in
+// NewWANEthernetLinkConfig1ClientsFromRootDevice discovers instances of the service in
 // a given root device, and returns clients to any that are found. An error is
 // returned if there was not at least one instance of the service within the
 // device. The location parameter is simply assigned to the Location attribute
@@ -1781,18 +1781,18 @@ func NewWANRuenetLinkConfig1ClientsByURL(loc *url.URL) ([]*WANRuenetLinkConfig1,
 //
 // This is a typical entry calling point into this package when reusing an
 // previously discovered root device.
-func NewWANRuenetLinkConfig1ClientsFromRootDevice(rootDevice *goupnp.RootDevice, loc *url.URL) ([]*WANRuenetLinkConfig1, error) {
-	genericClients, err := goupnp.NewServiceClientsFromRootDevice(rootDevice, loc, URN_WANRuenetLinkConfig_1)
+func NewWANEthernetLinkConfig1ClientsFromRootDevice(rootDevice *goupnp.RootDevice, loc *url.URL) ([]*WANEthernetLinkConfig1, error) {
+	genericClients, err := goupnp.NewServiceClientsFromRootDevice(rootDevice, loc, URN_WANEthernetLinkConfig_1)
 	if err != nil {
 		return nil, err
 	}
-	return newWANRuenetLinkConfig1ClientsFromGenericClients(genericClients), nil
+	return newWANEthernetLinkConfig1ClientsFromGenericClients(genericClients), nil
 }
 
-func newWANRuenetLinkConfig1ClientsFromGenericClients(genericClients []goupnp.ServiceClient) []*WANRuenetLinkConfig1 {
-	clients := make([]*WANRuenetLinkConfig1, len(genericClients))
+func newWANEthernetLinkConfig1ClientsFromGenericClients(genericClients []goupnp.ServiceClient) []*WANEthernetLinkConfig1 {
+	clients := make([]*WANEthernetLinkConfig1, len(genericClients))
 	for i := range genericClients {
-		clients[i] = &WANRuenetLinkConfig1{genericClients[i]}
+		clients[i] = &WANEthernetLinkConfig1{genericClients[i]}
 	}
 	return clients
 }
@@ -1800,8 +1800,8 @@ func newWANRuenetLinkConfig1ClientsFromGenericClients(genericClients []goupnp.Se
 //
 // Return values:
 //
-// * NewRuenetLinkStatus: allowed values: Up, Down
-func (client *WANRuenetLinkConfig1) GetRuenetLinkStatus() (NewRuenetLinkStatus string, err error) {
+// * NewEthernetLinkStatus: allowed values: Up, Down
+func (client *WANEthernetLinkConfig1) GetEthernetLinkStatus() (NewEthernetLinkStatus string, err error) {
 	// Request structure.
 	request := interface{}(nil)
 	// BEGIN Marshal arguments into request.
@@ -1810,17 +1810,17 @@ func (client *WANRuenetLinkConfig1) GetRuenetLinkStatus() (NewRuenetLinkStatus s
 
 	// Response structure.
 	response := &struct {
-		NewRuenetLinkStatus string
+		NewEthernetLinkStatus string
 	}{}
 
 	// Perform the SOAP call.
-	if err = client.SOAPClient.PerformAction(URN_WANRuenetLinkConfig_1, "GetRuenetLinkStatus", request, response); err != nil {
+	if err = client.SOAPClient.PerformAction(URN_WANEthernetLinkConfig_1, "GetEthernetLinkStatus", request, response); err != nil {
 		return
 	}
 
 	// BEGIN Unmarshal arguments from response.
 
-	if NewRuenetLinkStatus, err = soap.UnmarshalString(response.NewRuenetLinkStatus); err != nil {
+	if NewEthernetLinkStatus, err = soap.UnmarshalString(response.NewEthernetLinkStatus); err != nil {
 		return
 	}
 	// END Unmarshal arguments from response.

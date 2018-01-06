@@ -23,7 +23,7 @@ const readBufferSize = 4096
 
 // Since all operations which go through the Windows completion routine are done
 // asynchronously, filter may set one of the constants belor. They were defined
-// in order to distinguish whrue current folder should be re-registered in
+// in order to distinguish whether current folder should be re-registered in
 // ReadDirectoryChangesW function or some control operations need to be executed.
 const (
 	stateRewatch uint32 = 1 << (28 + iota)
@@ -145,7 +145,7 @@ func encode(filter uint32) uint32 {
 	return uint32(e)
 }
 
-// watched is made in order to check whrue an action comes from a directory or
+// watched is made in order to check whether an action comes from a directory or
 // file. This approach requires two file handlers per single monitored folder. The
 // second grip handles actions which include creating or deleting a directory. If
 // these processes are not monitored, only the first grip is created.
@@ -284,16 +284,18 @@ func (r *readdcw) watch(path string, event Event, recursive bool) (err error) {
 			return
 		}
 		r.Lock()
+		defer r.Unlock()
 		if wd, ok = r.m[path]; ok {
-			r.Unlock()
+			dbgprint("watch: exists already")
 			return
 		}
 		if wd, err = newWatched(r.cph, uint32(event), recursive, path); err != nil {
-			r.Unlock()
 			return
 		}
 		r.m[path] = wd
-		r.Unlock()
+		dbgprint("watch: new watch added")
+	} else {
+		dbgprint("watch: exists already")
 	}
 	return nil
 }
@@ -337,33 +339,32 @@ func (r *readdcw) loop() {
 			continue
 		}
 		overEx := (*overlappedEx)(unsafe.Pointer(overlapped))
-		if n == 0 {
-			r.loopstate(overEx)
-		} else {
+		if n != 0 {
 			r.loopevent(n, overEx)
 			if err = overEx.parent.readDirChanges(); err != nil {
 				// TODO: error handling
 			}
 		}
+		r.loopstate(overEx)
 	}
 }
 
 // TODO(pknap) : doc
 func (r *readdcw) loopstate(overEx *overlappedEx) {
-	filter := atomic.LoadUint32(&overEx.parent.parent.filter)
+	r.Lock()
+	defer r.Unlock()
+	filter := overEx.parent.parent.filter
 	if filter&onlyMachineStates == 0 {
 		return
 	}
 	if overEx.parent.parent.count--; overEx.parent.parent.count == 0 {
 		switch filter & onlyMachineStates {
 		case stateRewatch:
-			r.Lock()
+			dbgprint("loopstate rewatch")
 			overEx.parent.parent.recreate(r.cph)
-			r.Unlock()
 		case stateUnwatch:
-			r.Lock()
+			dbgprint("loopstate unwatch")
 			delete(r.m, syscall.UTF16ToString(overEx.parent.pathw))
-			r.Unlock()
 		case stateCPClose:
 		default:
 			panic(`notify: windows loopstate logic error`)
@@ -450,8 +451,8 @@ func (r *readdcw) rewatch(path string, oldevent, newevent uint32, recursive bool
 	}
 	var wd *watched
 	r.Lock()
-	if wd, err = r.nonStateWatched(path); err != nil {
-		r.Unlock()
+	defer r.Unlock()
+	if wd, err = r.nonStateWatchedLocked(path); err != nil {
 		return
 	}
 	if wd.filter&(onlyNotifyChanges|onlyNGlobalEvents) != oldevent {
@@ -462,21 +463,19 @@ func (r *readdcw) rewatch(path string, oldevent, newevent uint32, recursive bool
 	if err = wd.closeHandle(); err != nil {
 		wd.filter = oldevent
 		wd.recursive = recursive
-		r.Unlock()
 		return
 	}
-	r.Unlock()
 	return
 }
 
 // TODO : pknap
-func (r *readdcw) nonStateWatched(path string) (wd *watched, err error) {
+func (r *readdcw) nonStateWatchedLocked(path string) (wd *watched, err error) {
 	wd, ok := r.m[path]
 	if !ok || wd == nil {
 		err = errors.New(`notify: ` + path + ` path is unwatched`)
 		return
 	}
-	if filter := atomic.LoadUint32(&wd.filter); filter&onlyMachineStates != 0 {
+	if wd.filter&onlyMachineStates != 0 {
 		err = errors.New(`notify: another re/unwatching operation in progress`)
 		return
 	}
@@ -497,17 +496,26 @@ func (r *readdcw) RecursiveUnwatch(path string) error {
 func (r *readdcw) unwatch(path string) (err error) {
 	var wd *watched
 	r.Lock()
-	if wd, err = r.nonStateWatched(path); err != nil {
-		r.Unlock()
+	defer r.Unlock()
+	if wd, err = r.nonStateWatchedLocked(path); err != nil {
 		return
 	}
 	wd.filter |= stateUnwatch
 	if err = wd.closeHandle(); err != nil {
 		wd.filter &^= stateUnwatch
-		r.Unlock()
 		return
 	}
-	r.Unlock()
+	if _, attrErr := syscall.GetFileAttributes(&wd.pathw[0]); attrErr != nil {
+		for _, g := range wd.digrip {
+			if g != nil {
+				dbgprint("unwatch: posting")
+				if err = syscall.PostQueuedCompletionStatus(r.cph, 0, 0, (*syscall.Overlapped)(unsafe.Pointer(g.ovlapped))); err != nil {
+					wd.filter &^= stateUnwatch
+					return
+				}
+			}
+		}
+	}
 	return
 }
 
@@ -556,7 +564,7 @@ func decode(filter, action uint32) (Event, Event) {
 	panic(`notify: cannot decode internal mask`)
 }
 
-// gensys decides whrue the Windows action, system-independent event or both
+// gensys decides whether the Windows action, system-independent event or both
 // of them should be returned. Since the grip's filter may be atomically changed
 // during watcher lifetime, it is possible that neither Windows nor notify masks
 // are watched by the user when this function is called.

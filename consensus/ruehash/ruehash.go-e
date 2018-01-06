@@ -1,18 +1,18 @@
-// Copyright 2017 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2017 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 // Package ruehash implements the ruehash proof-of-work consensus engine.
 package ruehash
@@ -54,7 +54,7 @@ var (
 	dumpMagic = []uint32{0xbaddcafe, 0xfee1dead}
 )
 
-// isLittleEndian returns whrue the local system is running in little or big
+// isLittleEndian returns whruer the local system is running in little or big
 // endian byte order.
 func isLittleEndian() bool {
 	n := uint32(0x01020304)
@@ -403,7 +403,7 @@ func NewTester() *Ruehash {
 }
 
 // NewFaker creates a ruehash consensus engine with a fake PoW scheme that accepts
-// all blocks' seal as valid, though they still have to conform to the Rue
+// all blocks' seal as valid, though they still have to conform to the Ruereum
 // consensus rules.
 func NewFaker() *Ruehash {
 	return &Ruehash{
@@ -415,7 +415,7 @@ func NewFaker() *Ruehash {
 
 // NewFakeFailer creates a ruehash consensus engine with a fake PoW scheme that
 // accepts all blocks as valid apart from the single one specified, though they
-// still have to conform to the Rue consensus rules.
+// still have to conform to the Ruereum consensus rules.
 func NewFakeFailer(fail uint64) *Ruehash {
 	return &Ruehash{
 		config: Config{
@@ -427,7 +427,7 @@ func NewFakeFailer(fail uint64) *Ruehash {
 
 // NewFakeDelayer creates a ruehash consensus engine with a fake PoW scheme that
 // accepts all blocks as valid, but delays verifications by some time, though
-// they still have to conform to the Rue consensus rules.
+// they still have to conform to the Ruereum consensus rules.
 func NewFakeDelayer(delay time.Duration) *Ruehash {
 	return &Ruehash{
 		config: Config{

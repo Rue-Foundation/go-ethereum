@@ -1,18 +1,18 @@
-// Copyright 2015 The go-rue Authors
-// This file is part of the go-rue library.
+// Copyright 2015 The go-ruereum Authors
+// This file is part of the go-ruereum library.
 //
-// The go-rue library is free software: you can redistribute it and/or modify
+// The go-ruereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-rue library is distributed in the hope that it will be useful,
+// The go-ruereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-rue library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-ruereum library. If not, see <http://www.gnu.org/licenses/>.
 
 package tests
 
@@ -30,7 +30,7 @@ import (
 // RLPTest is the JSON structure of a single RLP test.
 type RLPTest struct {
 	// If the value of In is "INVALID" or "VALID", the test
-	// checks whrue Out can be decoded into a value of
+	// checks whruer Out can be decoded into a value of
 	// type interface{}.
 	//
 	// For other JSON values, In is treated as a driver for
@@ -54,7 +54,7 @@ func (t *RLPTest) Run() error {
 		return checkDecodeInterface(outb, t.In == "VALID")
 	}
 
-	// Check whrue encoding the value produces the same bytes.
+	// Check whruer encoding the value produces the same bytes.
 	in := translateJSON(t.In)
 	b, err := rlp.EncodeToBytes(in)
 	if err != nil {
